@@ -1,0 +1,24 @@
+{
+  "markers": [
+    {
+      "id": 1,
+      "latitude": 37.3595704,
+      "longitude": 127.105399
+    },
+    {
+      "id": 2,
+      "latitude": 37.4595704,
+      "longitude": 127.105399
+    },
+    {
+      "id": 3,
+      "latitude": 37.5595704,
+      "longitude": 127.105399
+    },
+    {
+      "id": 4,
+      "latitude": 37.6595704,
+      "longitude": 127.105399
+    }
+  ]
+}
