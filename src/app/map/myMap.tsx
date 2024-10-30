@@ -10,7 +10,7 @@ interface Marker {
   longitude: number;
 }
 
-function MarkerCluster():any {
+function MarkerCluster(): any {
 
   const navermaps = useNavermaps()
   const map = useMap()
@@ -86,15 +86,76 @@ function MarkerCluster():any {
     },
   });
 
+  //현재 위치로 이동하는 버튼, evnet
+  naver.maps.Event.once(map, 'init', function () {
+
+    const locationBtnHtml = `
+    <button
+    style="
+        z-index: 100;
+        overflow: hidden;
+        display: inline-block;
+        position: absolute;
+        top: -30px;
+        left: 9px;
+        width: 31px;
+        height: 30px;
+        border: 1px solid rgba(58,70,88,.45);
+        border-radius: 2px;
+        background: #fcfcfd;
+          background-clip: border-box;
+        text-align: center;
+        -webkit-background-clip: padding;
+        background-clip: padding-box;
+      "
+    >
+      <span style="
+        overflow: hidden;
+        display: inline-block;
+        color: transparent !important;
+        vertical-align: top;
+        background: url(https://ssl.pstatic.net/static/maps/m/spr_trff_v6.png) 0 0;
+        -webkit-background-size: 200px 190px;
+        width: 20px;
+        height: 20px;
+        margin: 7px 0 0 0;
+        background-position: -153px -31px;
+      ">NAVER 그린팩토리</span>
+      </button>
+  `
+    const customControl = new navermaps.CustomControl(locationBtnHtml, {
+      position: navermaps.Position.RIGHT_CENTER,
+    })
+
+    customControl.setMap(map);
+    const domElement = customControl.getElement()
+    domElement.addEventListener('click', domListener)
+
+    function domListener(e: any) {
+      e.pr
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        map?.setCenter(new navermaps.LatLng(pos.coords.latitude, pos.coords.longitude))
+      }
+        , function (err) {
+          alert("위치 접근을 허용해 주시길 바랍니다.")
+        }
+      )
+    }
+
+  });
+
 }
+
+
 
 export default function MyMap() {
 
   const navermaps = useNavermaps();
   const [latitude, setLatitude] = useState<number>(37.3595704);
   const [longitude, setLongitude] = useState<number>(127.105399);
+
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(pos){
+    navigator.geolocation.getCurrentPosition(function (pos) {
       setLatitude(pos.coords.latitude);
       setLongitude(pos.coords.longitude);
     });
@@ -111,6 +172,10 @@ export default function MyMap() {
       <NaverMap
         center={new navermaps.LatLng(latitude, longitude)}
         defaultZoom={15}
+        zoomControl={true}
+        zoomControlOptions={{
+          position: navermaps.Position.RIGHT_CENTER
+        }}
       >
         <MarkerCluster />
       </NaverMap>
