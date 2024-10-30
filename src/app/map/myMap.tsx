@@ -1,6 +1,6 @@
 'use client'
 
-import { Container as MapDiv, NaverMap, Marker, useNavermaps, Overlay, useMap } from 'react-naver-maps'
+import { Container as MapDiv, NaverMap, Marker, useNavermaps, useMap } from 'react-naver-maps'
 import axios from "axios";
 import { useState, useEffect } from 'react';
 import { makeMarkerClustering } from '../../../common/utils/marker-cluster'
@@ -62,7 +62,7 @@ function MarkerCluster():any {
 
   const cluster = new MarkerClustering({
     minClusterSize: 2,
-    maxZoom: 15,
+    maxZoom: 16,
     map: map,
     markers: markers.map((spot) => {
       const marker = new naver.maps.Marker({
@@ -97,16 +97,13 @@ export default function MyMap() {
     <MapDiv
       style={{
         width: '100%',
-        height: '1000px',
+        height: window.innerHeight,
       }}
     >
       <NaverMap
         defaultCenter={new navermaps.LatLng(37.3595704, 127.105399)}
         defaultZoom={15}
       >
-        {/* {markers.map((marker: Marker, i: number) => (
-          <Marker key={i} position={new navermaps.LatLng(marker.latitude, marker.longitude)} onClick={(e) => {alert(1)}} />
-        ))} */}
         <MarkerCluster />
       </NaverMap>
     </MapDiv>
