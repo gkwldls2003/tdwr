@@ -91,6 +91,14 @@ function MarkerCluster():any {
 export default function MyMap() {
 
   const navermaps = useNavermaps();
+  const [latitude, setLatitude] = useState<number>(37.3595704);
+  const [longitude, setLongitude] = useState<number>(127.105399);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function(pos){
+      setLatitude(pos.coords.latitude);
+      setLongitude(pos.coords.longitude);
+    });
+  }, []);
 
   return (
 
@@ -101,7 +109,7 @@ export default function MyMap() {
       }}
     >
       <NaverMap
-        defaultCenter={new navermaps.LatLng(37.3595704, 127.105399)}
+        center={new navermaps.LatLng(latitude, longitude)}
         defaultZoom={15}
       >
         <MarkerCluster />
