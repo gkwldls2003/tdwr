@@ -5,6 +5,7 @@ import { makeMarkerClustering } from '../../../common/utils/marker-cluster'
 
 
 interface Marker {
+  id: number;
   latitude: number;
   longitude: number;
 }
@@ -67,11 +68,12 @@ export default function MarkerCluster():any {
       const marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(spot.latitude, spot.longitude),
         draggable: false,
+        id: spot.id
       });
 
       // 클릭 이벤트 추가
       naver.maps.Event.addListener(marker, 'click', () => {
-        alert(`위도: ${spot.latitude}, 경도: ${spot.longitude}`);
+        getMarkerList(spot.latitude, spot.longitude);
       });
 
       return marker;
@@ -82,9 +84,18 @@ export default function MarkerCluster():any {
     indexGenerator: [10, 100, 200, 500, 1000],
     stylingFunction: function (clusterMarker: any, count: number) {
       clusterMarker.getElement().querySelector('div:first-child').innerText = count;
+      naver.maps.Event.addListener(clusterMarker, 'click', (e) => {
+        getMarkerList(e.coord._lat, e.coord._lng);
+      });
     },
   });
 
+  //클러스터에 포함한 marker 가져오기
+  function getMarkerList(latitude: number, longitude: number) {
+    const markerList = cluster._getClosestCluster(new naver.maps.LatLng(latitude, longitude));
+    console.log(markerList._clusterMember);
+  }
+  
   //현재 위치로 이동하는 버튼, evnet
   naver.maps.Event.once(map, 'init', function () {
 
