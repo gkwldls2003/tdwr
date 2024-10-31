@@ -96,7 +96,7 @@ export default function MarkerCluster():any {
         display: inline-block;
         position: absolute;
         top: -30px;
-        left: -41px;
+        left: 9px;
         width: 31px;
         height: 30px;
         border: 1px solid rgba(58,70,88,.45);
@@ -117,8 +117,8 @@ export default function MarkerCluster():any {
         -webkit-background-size: 200px 190px;
         width: 20px;
         height: 20px;
-        margin: 7px 0 0 0;
-        background-position: -153px -31px;
+        margin: 3px 0 0 0;
+        background-position: -153px -29px;
       ">NAVER 그린팩토리</span>
       </button>
   `
