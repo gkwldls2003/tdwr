@@ -60,7 +60,7 @@ export default function MarkerCluster():any {
     },
   ];
 
-  const cluster = new MarkerClustering({
+  const cluster:any = new MarkerClustering({
     minClusterSize: 2,
     maxZoom: 16,
     map: map,
