@@ -3,8 +3,8 @@ import { executeQueryAll, executeQuery } from "../utils/databases/mariadb";
 
 export const selectAllData = async () => {
   try {
-    const query = 'SELECT * FROM board';
-    const result = await executeQueryAll('board', query, []);
+    const query = 'SELECT * FROM tb_tdwr_work_info';
+    const result = await executeQueryAll('tdwr', query, []);
     
     if (!result) {
       throw new Error('No data returned');
@@ -21,8 +21,8 @@ export const selectAllData = async () => {
 
 export const selectOneData = async () => {
   try {
-    const query = 'SELECT * FROM board where uid = ?';
-    const result = await executeQuery('board', query, ['160']);
+    const query = 'SELECT * FROM tb_tdwr_work_info where id = ?';
+    const result = await executeQuery('tdwr', query, ['1']);
     
     if (!result) {
       throw new Error('No data returned');
@@ -39,8 +39,8 @@ export const selectOneData = async () => {
 
 export const insertData = async () => {
   try {
-    const query = 'insert into board ( title, content, writer ) values ( ?,?,?)';
-    const result = await executeQuery('board', query, ['테스트','내용','작성자']);
+    const query = 'insert into tb_tdwr_work_info ( latitude, longitude ) values ( ?,?)';
+    const result = await executeQuery('tdwr', query, [37.36585704,127.165399]);
     
     if (!result) {
       throw new Error('No data returned');

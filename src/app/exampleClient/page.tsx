@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { selectAllData, selectOneData, insertData } from "../../../common/exampleQuery/page"
 export default function Test2() {
 
-  interface Board {
-    uid: number
+  interface WorkInfo {
+    id: number
   }
 
   const [select, setSelect] = useState([]);
-  const [selectOne, setSelectOne] = useState<Board>();
+  const [selectOne, setSelectOne] = useState<WorkInfo>();
 
   const selectAll = async () => {
     const selectDataResult = await selectAllData();
@@ -36,14 +36,14 @@ export default function Test2() {
       <div>
         <h2>Select</h2>
         {
-          select.map((vo: Board, i: number) => (
-            <div key={i}>{vo.uid}</div>
+          select.map((vo: WorkInfo, i: number) => (
+            <div key={i}>{vo.id}</div>
           ))
         }
       </div>
       <div>
         <h2>Vo</h2>
-        {selectOne?.uid}
+        {selectOne?.id}
       </div>
     </>
   )
