@@ -1,7 +1,7 @@
 import { Marker, useNavermaps, useMap } from 'react-naver-maps'
 import axios from "axios";
 import { useState, useEffect } from 'react';
-import { makeMarkerClustering } from '../../../common/utils/marker-cluster'
+import { makeMarkerClustering } from '../../../common/utils/navermap/marker-cluster'
 
 
 interface Marker {
