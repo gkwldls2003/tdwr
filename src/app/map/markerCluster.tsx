@@ -129,7 +129,7 @@ export default function MarkerCluster():any {
   }
 
   //현재 위치에서 보이는 marker 가져오기
-  function getvisibleMarkerList( latitude: number|undefined, longitude: number|undefined) {
+  function getvisibleMarkerList( latitude: number, longitude: number) {
     const map = cluster.getMap();
     const bounds = map.getBounds(); // 현재 맵의 경계 가져오기
 
