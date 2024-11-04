@@ -21,8 +21,10 @@ export default function MyMap() {
 
     <MapDiv
       style={{
-        width: '100%',
+        width: '70%',
         height: window.innerHeight,
+        display: 'inline-block',
+        left: '30%'
       }}
     >
       <NaverMap
