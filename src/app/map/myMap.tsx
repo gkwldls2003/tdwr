@@ -20,12 +20,10 @@ export default function MyMap() {
   return (
 
     <MapDiv
-      style={{
-        width: '70%',
-        height: window.innerHeight,
-        display: 'inline-block',
-        left: '30%'
-      }}
+    style={{
+      width: '100%',
+      height: '100%',
+    }}
     >
       <NaverMap
         center={new navermaps.LatLng(latitude, longitude)}

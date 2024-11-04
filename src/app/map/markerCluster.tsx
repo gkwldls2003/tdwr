@@ -2,31 +2,33 @@ import { Marker, useNavermaps, useMap } from 'react-naver-maps'
 import { useState, useEffect } from 'react';
 import { makeMarkerClustering } from '../../../common/utils/navermap/marker-cluster'
 import { selectMapInfoQuery } from '../../../common/querys/map/page';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setAllMarkers, setError, setLoading, setVisibleMarkers } from '../../../store/markerSlice';
+import { Markers } from '../../../store/types/marker';
 
-
-interface Marker {
-  id: number;
-  latitude: number;
-  longitude: number;
-}
 
 export default function MarkerCluster():any {
-
   const navermaps = useNavermaps()
   const map = useMap()
   const MarkerClustering = makeMarkerClustering(window.naver)
-  const [markers, setMarkers] = useState<Marker[]>([]);
+  const [markers, setMarkers] = useState<Markers[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useAppDispatch();
 
   const fetchMarkers = async () => {
     try {
       setIsLoading(true);
+      dispatch(setLoading(true));
       const selectMapInfo = await selectMapInfoQuery();
-      setMarkers(selectMapInfo.data);
+      const markerData = selectMapInfo.data;
+      setMarkers(markerData);
+      dispatch(setAllMarkers(markerData));
     } catch (error) {
       console.error("마커를 가져오는 중 오류 발생:", error);
+      dispatch(setError(error instanceof Error ? error.message : 'An error occurred'));
     } finally {
       setIsLoading(false);
+      dispatch(setLoading(false));
     }
   };
 
@@ -137,10 +139,18 @@ export default function MarkerCluster():any {
 
     const visibleMarkers = markers.filter(spot => {
       const markerPosition = new naver.maps.LatLng(spot.latitude, spot.longitude);
-      return bounds.hasLatLng(markerPosition); // 현재 뷰포트 내에 있는지 체크
-    });
+      return bounds.hasLatLng(markerPosition);
+    }).map(marker => ({
+      id: marker.id,
+      name: marker.name,
+      price: marker.price,
+      latitude: marker.latitude,
+      longitude: marker.longitude,
+      description: marker.description
+    }));
 
-    console.log("현재 보이는 마커:", visibleMarkers); 
+  // 전체 마커 정보를 Redux store에 저장
+  dispatch(setVisibleMarkers(visibleMarkers));
   }
 
   
