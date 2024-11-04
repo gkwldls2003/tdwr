@@ -1,5 +1,5 @@
 'use server'
-import { executeQueryAll, executeQuery } from "../utils/databases/mariadb";
+import { executeQueryAll, executeQuery } from "../../utils/databases/mariadb";
 
 export const selectAllData = async () => {
   try {
