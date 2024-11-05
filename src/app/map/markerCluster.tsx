@@ -7,7 +7,7 @@ import { setAllMarkers, setError, setLoading, setVisibleMarkers } from '../../..
 import { Markers } from '../../../store/types/marker';
 
 
-export default function MarkerCluster():any {
+export default function MarkerCluster(): any {
   const navermaps = useNavermaps()
   const map = useMap()
   const MarkerClustering = makeMarkerClustering(window.naver)
@@ -45,15 +45,15 @@ export default function MarkerCluster():any {
 
       //드래그 시 마커 확인
       const dragEndListener = naver.maps.Event.addListener(map, 'dragend', (e) => {
-      const latitude = center.y;
-      const longitude = center.x;
+        const latitude = center.y;
+        const longitude = center.x;
         getvisibleMarkerList(latitude, longitude);
       });
 
       //줌인, 줌아웃 시 마커 확인
       const zoomChangedListener = naver.maps.Event.addListener(map, 'zoom_changed', () => {
-      const latitude = center.y;
-      const longitude = center.x;
+        const latitude = center.y;
+        const longitude = center.x;
         getvisibleMarkerList(latitude, longitude);
       });
 
@@ -94,7 +94,7 @@ export default function MarkerCluster():any {
     },
   ];
 
-  const cluster:any = new MarkerClustering({
+  const cluster: any = new MarkerClustering({
     minClusterSize: 2,
     maxZoom: 16,
     map: map,
@@ -102,7 +102,14 @@ export default function MarkerCluster():any {
       const marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(spot.latitude, spot.longitude),
         draggable: false,
-        id: spot.id
+        markerInfo: {
+          id: spot.id
+          , latitude: spot.latitude
+          , longitude: spot.longitude
+          , name: spot.name
+          , price: spot.price
+          , description: spot.description
+        }
       });
 
       // 클릭 이벤트 추가
@@ -131,7 +138,7 @@ export default function MarkerCluster():any {
   }
 
   //현재 위치에서 보이는 marker 가져오기
-  function getvisibleMarkerList( latitude: number, longitude: number) {
+  function getvisibleMarkerList(latitude: number, longitude: number) {
     const map = cluster.getMap();
     const bounds = map.getBounds(); // 현재 맵의 경계 가져오기
 
@@ -149,11 +156,11 @@ export default function MarkerCluster():any {
       description: marker.description
     }));
 
-  // 전체 마커 정보를 Redux store에 저장
-  dispatch(setVisibleMarkers(visibleMarkers));
+    // 전체 마커 정보를 Redux store에 저장
+    dispatch(setVisibleMarkers(visibleMarkers));
   }
 
-  
+
   //현재 위치로 이동하는 버튼, evnet
   naver.maps.Event.once(map, 'init', function () {
 
