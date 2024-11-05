@@ -1,8 +1,8 @@
-import { Marker, useNavermaps, useMap } from 'react-naver-maps'
+import { useNavermaps, useMap } from 'react-naver-maps'
 import { useState, useEffect } from 'react';
 import { makeMarkerClustering } from '../../../common/utils/navermap/marker-cluster'
 import { selectMapInfoQuery } from '../../../common/querys/map/page';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppDispatch } from '../../../store/hooks';
 import { setAllMarkers, setError, setLoading, setVisibleMarkers } from '../../../store/markerSlice';
 import { Markers } from '../../../store/types/marker';
 

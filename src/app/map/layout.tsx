@@ -1,10 +1,10 @@
 'use client'
+
 import React from 'react';
 import Header from '@/layout/header/page';
 import Footer from '@/layout/footer/page';
 import LeftSider from '@/layout/sider/page';
 import { Provider } from 'react-redux';
-
 import { store } from "../../../store/store";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
