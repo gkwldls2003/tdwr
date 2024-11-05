@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react';
 import { useAppSelector } from '../../../store/hooks';
 import { selectVisibleMarkers } from '../../../store/markerSlice';
