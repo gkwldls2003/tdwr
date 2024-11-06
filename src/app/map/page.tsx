@@ -2,8 +2,6 @@
 
 import { NavermapsProvider  } from 'react-naver-maps'
 import dynamic from 'next/dynamic';
-import { Provider } from "react-redux";
-import { store } from "../../../store/store";
 
 //react-naver-maps/dist/chunk-SENI7KNJ.mjs SSR 환경에서 임포트하면 오류나서 false 처리
 const MyMap = dynamic(() => import('./myMap'), { ssr: false });
@@ -14,15 +12,12 @@ export default function Map() {
 
     return (
     <>
-    <Provider store={store}>
       <NavermapsProvider 
         ncpClientId={client_id}
         // or finClientId, govClientId  
       >
         <MyMap></MyMap>
       </NavermapsProvider>
-    </Provider>
-     
     </>
   )
 }
