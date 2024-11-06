@@ -3,7 +3,7 @@ import React from 'react';
 export default function Header() {
 
   return (
-        <div>
+        <div className='bg-white'>
       {/* 헤더 */}
       <header className="h-14 border-b flex items-center justify-between px-4 shrink-0">
         {/* 왼쪽: 로고 및 메뉴 */}
