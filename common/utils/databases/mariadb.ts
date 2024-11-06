@@ -1,7 +1,5 @@
-import { error } from 'console';
 import mariadb from 'mariadb';
 import { NextResponse } from 'next/server';
-import { insertData } from './../../querys/exampleQuery/page';
 
 const pools:any = {
   tdwr: mariadb.createPool({
