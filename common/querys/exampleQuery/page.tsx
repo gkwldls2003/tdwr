@@ -50,8 +50,9 @@ export const insertData = async () => {
 
     if (data.rows > 0) {
       console.log('성공')
+      //data.id 는 insert한 id 반환
     }
-    return data.rows
+    return data
   } catch (error) {
     console.error('Error:', error);
     return null; 

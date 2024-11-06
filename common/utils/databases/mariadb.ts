@@ -1,6 +1,7 @@
 import { error } from 'console';
 import mariadb from 'mariadb';
 import { NextResponse } from 'next/server';
+import { insertData } from './../../querys/exampleQuery/page';
 
 const pools:any = {
   tdwr: mariadb.createPool({
@@ -51,7 +52,7 @@ export async function executeQuery(database: string, query: string, params: any[
 
       if (data && data.affectedRows !== undefined) {
         // INSERT UPDATE, DELETE가 성공적으로 수행된 경우
-        return NextResponse.json({ rows: data.affectedRows });
+        return NextResponse.json({ rows: data.affectedRows, id: Number(data.insertId) });
       } else {
         if(data.length > 1) {
           console.log('데이터 2개이상 조회')
