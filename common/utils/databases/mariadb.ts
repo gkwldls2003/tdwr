@@ -19,7 +19,6 @@ const globalObject =
 
 const registerService = (name: string, initFn: any) => {
   if (process.env.NODE_ENV === 'development') {
-    console.log(11)
     if (!(name in globalObject)) {
       globalObject[name] = initFn();
     }
