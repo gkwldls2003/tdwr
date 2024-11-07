@@ -13,6 +13,7 @@ export default function MarkerCluster(): any {
   const MarkerClustering = makeMarkerClustering(window.naver)
   const [markers, setMarkers] = useState<Markers[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [zoomLvl, setZoomLvl] = useState(map?.getZoom());
   const dispatch = useAppDispatch();
 
   const fetchMarkers = async () => {
@@ -36,25 +37,33 @@ export default function MarkerCluster(): any {
     fetchMarkers();
   }, []);
 
+  //줌 인 아웃 시 zoomLvl 가져옴
+  useEffect(() => {
+    if (map) {
+        naver.maps.Event.addListener(map, 'zoom_changed', () => {
+        const currentZoom = map.getZoom();
+
+        setZoomLvl(currentZoom);
+        
+      });
+      
+    }
+  }, [map]);
+
   //주위에 있는 marker 불러오기
   useEffect(() => {
     if (!isLoading && markers.length > 0 && map) {
 
-      const center = map.getCenter();
-      getvisibleMarkerList(center.x, center.y);
+      getvisibleMarkerList();
 
       //드래그 시 마커 확인
       const dragEndListener = naver.maps.Event.addListener(map, 'dragend', (e) => {
-        const latitude = center.y;
-        const longitude = center.x;
-        getvisibleMarkerList(latitude, longitude);
+        getvisibleMarkerList();
       });
 
       //줌인, 줌아웃 시 마커 확인
       const zoomChangedListener = naver.maps.Event.addListener(map, 'zoom_changed', () => {
-        const latitude = center.y;
-        const longitude = center.x;
-        getvisibleMarkerList(latitude, longitude);
+        getvisibleMarkerList();
       });
 
       return () => {
@@ -119,14 +128,17 @@ export default function MarkerCluster(): any {
 
       return marker;
     }),
-    disableClickZoom: false,
+    //줌이 15이상이면 zoonChange 안함
+    disableClickZoom: zoomLvl && zoomLvl >= 15 ? true : false,
     gridSize: 120,
     icons: htmlMarkers,
     indexGenerator: [10, 100, 200, 500, 1000],
     stylingFunction: function (clusterMarker: any, count: number) {
       clusterMarker.getElement().querySelector('div:first-child').innerText = count;
       naver.maps.Event.addListener(clusterMarker, 'click', (e) => {
-        getMarkerList(e.coord._lat, e.coord._lng);
+        if(zoomLvl && zoomLvl >= 15) {
+          getMarkerList(e.coord._lat, e.coord._lng);
+        }
       });
     },
   });
@@ -134,11 +146,17 @@ export default function MarkerCluster(): any {
   //클러스터에 포함한 marker 가져오기
   function getMarkerList(latitude: number, longitude: number) {
     const markerList = cluster._getClosestCluster(new naver.maps.LatLng(latitude, longitude));
-    console.log(markerList._clusterMember);
+
+    const markerInfoArr:Markers[] = [];
+    markerList._clusterMember.map((marker:any) => {
+        markerInfoArr.push(marker.markerInfo)
+    })
+    // 클릭한 마커 정보를 Redux store에 저장
+    dispatch(setVisibleMarkers(markerInfoArr));
   }
 
   //현재 위치에서 보이는 marker 가져오기
-  function getvisibleMarkerList(latitude: number, longitude: number) {
+  function getvisibleMarkerList() {
     const map = cluster.getMap();
     const bounds = map.getBounds(); // 현재 맵의 경계 가져오기
 
