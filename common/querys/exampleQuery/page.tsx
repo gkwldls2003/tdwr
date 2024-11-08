@@ -91,8 +91,6 @@ export const multiInsertData = async () => {
       console.log('multiInsert 실패')
     }
 
-    console.log(data)
-
     return data
   } catch (error) {
     console.error('Error:', error);
