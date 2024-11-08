@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import { selectAllData, selectOneData, insertData } from "../../../common/querys/exampleQuery/page"
+import { selectAllData, selectOneData, insertData, multiInsertData } from "../../../common/querys/exampleQuery/page"
 export default function Test2() {
 
   interface WorkInfo {
@@ -29,6 +29,7 @@ export default function Test2() {
     selectAll();
     selectVo();
     //insert();
+    //multiInsertData();
 
   }, [])
   return (

@@ -89,7 +89,63 @@ export async function executeQuery(database: string, query: string, params: any[
         return NextResponse.json(data[0])
       }
     }
+    
   } catch (err: any) {
+    throw err
+  } finally {
+    if (conn) conn.release();
+  }
+}
+
+export async function executeMultiQuery(database: string, queries: string[], params: any[], useIdYn: String) {
+  let conn: any;
+  try {
+    conn = await getConnection(database);
+    let datRowSum = 0;
+    let insertId = 0;
+
+    //transaction start
+    conn.beginTransaction();
+
+    for (let idx = 0; idx < queries.length; idx++) {
+
+      if(idx === 0) {
+        const data = await conn.query(queries[idx], params[idx]);
+        datRowSum += data.affectedRows;
+        insertId = Number(data.insertId);
+      } else {
+          //useIdYn 이 Y 면 새로 생성된 id 추가
+        if (useIdYn === 'Y' && idx !== 0) {
+          params[idx].unshift(insertId);
+        }
+        const data = await conn.query(queries[idx], params[idx]);
+        datRowSum += data.affectedRows;
+      }
+
+    }
+
+    if (datRowSum > 0) {
+      //transaction commit
+      await conn.commit();
+      console.log('multiInsert transaction commit');
+    } else {
+      //transaction rollback
+      console.log('multiInsert transaction rollback');
+      await conn.rollback();
+    }
+
+    // INSERT UPDATE, DELETE가 성공적으로 수행된 경우
+    if(useIdYn === 'Y') {
+      //data.id 는 insert한 id 반환
+      return NextResponse.json({ rows: datRowSum, id: insertId });
+    } else {
+      return NextResponse.json({ rows: datRowSum });
+    }
+
+  } catch (err: any) {
+    //transaction rollback
+    console.log('multiInsert transaction rollback2');
+    await conn.rollback();
     throw err
   } finally {
     if (conn) conn.release();
