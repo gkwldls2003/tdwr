@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '../../../store/hooks';
 import { selectVisibleMarkers } from '../../../store/markerSlice';
+import Link from 'next/link';
 
 export default function LeftSider() {
   const visibleMarkers = useAppSelector(selectVisibleMarkers);
@@ -36,7 +37,7 @@ export default function LeftSider() {
             <div className="divide-y">
               {visibleMarkers.map((item) => (
                 <div key={item.id} className="p-4 hover:bg-gray-50 cursor-pointer">
-                  {/* <div className="aspect-video bg-gray-200 rounded-lg mb-3"></div> */}
+                  <Link href={`/map/${item.id}`}>
                   <div className="space-y-2">
                     <div className="font-bold">일당 : {item.price}</div>
                     <div className="text-sm text-gray-600">
@@ -46,6 +47,7 @@ export default function LeftSider() {
                       {item.description}
                     </div>
                   </div>
+                  </Link>
                 </div>
               ))}
             </div>
