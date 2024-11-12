@@ -40,7 +40,7 @@ export const selectMarkerInfoQuery = async (id: string) => {
     }
 
     // result가 이미 JSON 데이터일 수 있음
-    return result;
+    return result.json();
   } catch (error) {
     console.error('Error:', error);
     return null; 
