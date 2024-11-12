@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import { Markers } from "../../../../store/types/marker";
 import { selectMarkerInfoQuery } from "../../../../common/querys/map/page";
+import Map from "../page";
+import MyMap from "../myMap";
+import { NavermapsProvider } from "react-naver-maps";
+import DetailMap from "./detailMap";
 
 type Props = {
     params: {
@@ -17,7 +21,7 @@ export default function DetailPage({ params }: Props) {
         try {
           const selectMarkerInfo = await selectMarkerInfoQuery(id);
           if (selectMarkerInfo) {
-            setMarker(selectMarkerInfo.data);
+            setMarker(selectMarkerInfo);
           } else {
             console.error('No data returned from API');
           }
@@ -32,14 +36,25 @@ export default function DetailPage({ params }: Props) {
   console.log(marker);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4"></h1>
-      <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="">
+      <h1 className="text-2xl font-bold"></h1>
+      <div className="w-full h-96 mb-4">
+  <NavermapsProvider ncpClientId={process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}>
+    <DetailMap marker={marker} />
+  </NavermapsProvider>
+</div>
+      
+      <div className="bg-white shadow-md">
         <div className="mb-4">
-          <span className="font-bold">가격:</span> 
+        
+          <span className="font-bold">가격:{marker.price}</span> 
+        </div>
+        <div className="">
+          <span className="font-bold">하는일:{marker.name}</span>
+          <p className="mt-2 text-gray-600"></p>
         </div>
         <div className="mb-4">
-          <span className="font-bold">설명:</span>
+          <span className="font-bold">설명:{marker.description}</span>
           <p className="mt-2 text-gray-600"></p>
         </div>
       </div>
