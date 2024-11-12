@@ -9,12 +9,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const reqData = JSON.parse(req.body);
 
   logger.info({
-    info: reqData.info,
+    info: reqData.remoteUrl,
     message: "============= RequestURL INFO =============" 
   });
 
   logger.info({
-    info: req.headers['x-forwarded-for'],
+    info: reqData.remoteIp,
     message: "============= RequestIp INFO =============" 
   });
 
