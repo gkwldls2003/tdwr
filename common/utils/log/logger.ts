@@ -16,16 +16,14 @@ if (process.env.NODE_ENV === 'development') {
     new DailyRotateFile({
       filename: `${logDir}/application-%DATE%.log`,
       datePattern: 'YYYY-MM-DD',
-      maxSize: '20m',
-      maxFiles: '14d'
+      maxFiles: '30d'
     }),
     
     // 에러 로그 - 별도 파일로 저장
     new DailyRotateFile({
       filename: `${logDir}/error-%DATE%.log`,
       datePattern: 'YYYY-MM-DD',
-      maxSize: '20m',
-      maxFiles: '14d',
+      maxFiles: '30d',
       level: 'error'
     })
   ]
