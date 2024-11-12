@@ -10,7 +10,7 @@ export default async function middleware(request: NextRequest) {
     })
   }).catch(console.error);
  
-  return NextResponse.next();;
+  return NextResponse.next();
 }
 
 
