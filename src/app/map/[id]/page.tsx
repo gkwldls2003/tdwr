@@ -33,8 +33,6 @@ export default function DetailPage({ params }: Props) {
     fetchMarker();
   }, []);  // 빈 배열로 fetchMarker를 한 번만 실행
 
-  console.log(marker);
-
   return (
     <div className="">
       <h1 className="text-2xl font-bold"></h1>
