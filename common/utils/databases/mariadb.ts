@@ -1,5 +1,6 @@
 import mariadb from 'mariadb';
 import { NextResponse } from 'next/server';
+import logger from '../log/logger';
 
 /**
  * check, globalObject, registerService
@@ -19,6 +20,7 @@ const globalObject =
 
 const registerService = (name: string, initFn: any) => {
   if (process.env.NODE_ENV === 'development') {
+    
     if (!(name in globalObject)) {
       globalObject[name] = initFn();
     }
@@ -51,10 +53,16 @@ const pools: any = {
 const getConnection = async (database: string) => {
   try {
     const conn = await pools[database].getConnection();
-    console.log('Connected to db...!');
+    logger.info({
+      info: 'Connected to db...!',
+      message: ' '
+    });
     return conn;
   } catch (err) {
-    console.log('Error connecting to db...', err);
+    logger.info({
+      info: 'Error connecting to db...',
+      message: ' '
+    });
     throw err;
   }
 }
@@ -63,9 +71,25 @@ export async function executeQueryAll(database: string, query: string, params: a
   let conn;
   try {
     conn = await getConnection(database);
+
+    logger.info({
+      info: query,
+      message: '============= QUERY INFO =============   \r\n'
+    });
+
+    logger.info({
+      info: params,
+      message: '============= PARAMS INFO =============   '
+    });
+
     const data = await conn.query(query, params);
+
     return NextResponse.json({ data })
   } catch (err: any) {
+    logger.info({
+      info: err,
+      message: ' '
+    });
     throw err
   } finally {
     if (conn) conn.release();
@@ -76,6 +100,17 @@ export async function executeQuery(database: string, query: string, params: any[
   let conn;
   try {
     conn = await getConnection(database);
+
+    logger.info({
+      info: query,
+      message: '============= QUERY INFO =============   \r\n'
+    });
+
+    logger.info({
+      info: params,
+      message: '============= PARAMS INFO =============   '
+    });
+
     const data = await conn.query(query, params);
 
     if (data && data.affectedRows !== undefined) {
@@ -83,7 +118,10 @@ export async function executeQuery(database: string, query: string, params: any[
       return NextResponse.json({ rows: data.affectedRows, id: Number(data.insertId) });
     } else {
       if (data.length > 1) {
-        console.log('데이터 2개이상 조회')
+        logger.info({
+          info: '데이터 2개이상 조회',
+          message: ' '
+        });
         return NextResponse.json([])
       } else {
         return NextResponse.json(data[0])
@@ -91,6 +129,10 @@ export async function executeQuery(database: string, query: string, params: any[
     }
     
   } catch (err: any) {
+    logger.info({
+      info: err,
+      message: ' '
+    });
     throw err
   } finally {
     if (conn) conn.release();
@@ -110,7 +152,18 @@ export async function executeMultiQuery(database: string, queries: string[], par
     for (let idx = 0; idx < queries.length; idx++) {
 
       if(idx === 0) {
+        logger.info({
+          info: queries[idx],
+          message: '============= QUERY INFO =============   \r\n'
+        });
+    
+        logger.info({
+          info: params[idx],
+          message: '============= PARAMS INFO =============   '
+        });
+
         const data = await conn.query(queries[idx], params[idx]);
+
         datRowSum += data.affectedRows;
         insertId = Number(data.insertId);
       } else {
@@ -118,7 +171,19 @@ export async function executeMultiQuery(database: string, queries: string[], par
         if (useIdYn === 'Y' && idx !== 0) {
           params[idx].unshift(insertId);
         }
+
+        logger.info({
+          info: queries[idx],
+          message: '============= QUERY INFO =============   \r\n'
+        });
+
+        logger.info({
+          info: params[idx],
+          message: '============= PARAMS INFO =============   '
+        });
+
         const data = await conn.query(queries[idx], params[idx]);
+
         datRowSum += data.affectedRows;
       }
 
@@ -127,10 +192,16 @@ export async function executeMultiQuery(database: string, queries: string[], par
     if (datRowSum > 0) {
       //transaction commit
       await conn.commit();
-      console.log('multiInsert transaction commit');
+      logger.info({
+        info: 'multiInsert transaction commit',
+        message: ' '
+      });
     } else {
       //transaction rollback
-      console.log('multiInsert transaction rollback');
+      logger.info({
+        info: 'multiInsert transaction rollback',
+        message: ' '
+      });
       await conn.rollback();
     }
 
@@ -144,7 +215,11 @@ export async function executeMultiQuery(database: string, queries: string[], par
 
   } catch (err: any) {
     //transaction rollback
-    console.log('multiInsert transaction rollback2');
+    logger.info({
+      info: 'multiInsert transaction rollback2',
+      message: ' '
+    });
+    
     await conn.rollback();
     throw err
   } finally {

@@ -3,7 +3,12 @@ import { executeQueryAll } from "../../utils/databases/mariadb";
 
 export const selectMapInfoQuery = async () => {
   try {
-    const query = 'SELECT * FROM tb_tdwr_work_info';
+    const query = 
+    `/* map-selectMapInfoQuery 일거리 정보*/
+    SELECT 
+    *
+    FROM tb_tdwr_work_info
+    `;
     const result = await executeQueryAll('tdwr', query, []);
     
     if (!result) {

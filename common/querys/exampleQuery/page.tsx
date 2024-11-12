@@ -3,7 +3,13 @@ import { executeQueryAll, executeQuery, executeMultiQuery } from "../../utils/da
 
 export const selectAllData = async () => {
   try {
-    const query = 'SELECT * FROM tb_tdwr_work_info';
+    const query = 
+    `
+    /* exampleQuery-selectAllData 예시 selectOne */
+    SELECT 
+    * 
+    FROM tb_tdwr_work_info
+    `;
     const result = await executeQueryAll('tdwr', query, []);
     
     if (!result) {
@@ -21,7 +27,14 @@ export const selectAllData = async () => {
 
 export const selectOneData = async () => {
   try {
-    const query = 'SELECT * FROM tb_tdwr_work_info where id = ?';
+    const query =
+     `
+     /* exampleQuery-selectOneData 예시 selectOne */
+    SELECT 
+    * 
+    FROM tb_tdwr_work_info
+    where id = ?
+    `;
     const result = await executeQuery('tdwr', query, ['1']);
     
     if (!result) {
@@ -39,7 +52,14 @@ export const selectOneData = async () => {
 
 export const insertData = async () => {
   try {
-    const query = 'insert into tb_tdwr_work_info ( latitude, longitude ) values ( ?,?)';
+    const query = 
+    `
+    /* exampleQuery-insertData 예시 insert*/
+    insert into tb_tdwr_work_info 
+    ( latitude, longitude )
+    values 
+    ( ?,? )
+    `;
     const result = await executeQuery('tdwr', query, [37.36585704,127.165399]);
     
     if (!result) {
@@ -63,8 +83,19 @@ export const multiInsertData = async () => {
 
   try {
     const queries = [
-      'INSERT INTO tb_tdwr_work_info (latitude, longitude) VALUES ( ?, ? )',
-      'INSERT INTO tb_example (id, Column1) VALUES ( ?, ? )'
+      `
+      /* exampleQuery-multiInsertData 예시 multiInsertData*/ 
+      INSERT INTO tb_tdwr_work_info 
+      (latitude, longitude) 
+      VALUES 
+      ( ?, ? )
+      `,
+      `
+      INSERT INTO tb_example 
+      (id, Column1) 
+      VALUES 
+      ( ?, ? )
+      `
     ];
     // const queries = [
     //   'update tb_tdwr_work_info set latitude = ?, longitude = ? where id = ?',
