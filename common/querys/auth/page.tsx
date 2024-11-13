@@ -1,0 +1,34 @@
+'use server'
+import { executeQuery } from "../../utils/databases/mariadb";
+
+export const selectUserInfoQuery = async (params:any[]) => {
+  try {
+    const query =
+     `
+     /* auth-selectUserInfoQuery 사용자 정보 조회 */
+    SELECT 
+        a.id
+        ,a.login_id
+        ,a.user_nm
+        ,a.passwd
+        ,b.author_id
+    FROM tb_cmm_user a
+    left join tb_cmm_auth b on b.id = a.id
+    where a.login_id = ?
+    and a.use_yn = 'Y'
+    `;
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    result.status
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
