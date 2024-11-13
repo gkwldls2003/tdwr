@@ -2,14 +2,18 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export default async function middleware(request: NextRequest) {
 
-  await fetch(`${request.nextUrl.origin}/api/sys/reqUrl`, {
-    method: 'POST',
-    body: JSON.stringify({
-      remoteUrl: request.headers.get('referer')
-      ,remoteIp: request.headers.get('x-forwarded-for')
-    })
-  }).catch(console.error);
- 
+  const referer = request.headers.get('referer');;
+  const remoteIp = request.headers.get('x-forwarded-for');
+
+  if(referer) {
+    await fetch(`${request.nextUrl.origin}/api/sys/reqUrl`, {
+      method: 'POST',
+      body: JSON.stringify({
+        remoteUrl: referer,
+        remoteIp: remoteIp
+      })
+    }).catch(console.error);
+  }
   return NextResponse.next();
 }
 
@@ -17,6 +21,6 @@ export default async function middleware(request: NextRequest) {
 // Configuration for middleware paths
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico).*)', // Apply middleware to all paths except for static files and favicon
+    '/((?!_next/static|_next/image|favicon.ico|api/auth).*)', // Apply middleware to all paths except for static files and favicon
   ],
 };
