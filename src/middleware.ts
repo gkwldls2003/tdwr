@@ -1,18 +1,28 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import { Prgm } from "../store/types/prgm"
 export default async function middleware(request: NextRequest) {
-
-  const token:any = await getToken({
-    req: request,
-    secret: process.env.JWT_SECRET,
-  })
-
-    console.log(token?.info.author_id)
 
   const referer = request.headers.get('referer');
   const remoteIp = request.headers.get('x-forwarded-for');
+  const pathName = request.nextUrl.pathname;
+  let author_id;
+  let flag: Boolean = false;
 
-  if(referer) {
+  //공통 접근 허용 url
+  const PrgmAccessUrl = [
+    '/',
+    '/error',
+    '/api/sys/reqUrl'
+  ];
+
+  if (PrgmAccessUrl.includes(pathName)) {
+    flag = true;
+  }
+
+
+  //============접속 ip, url start==============
+  if (referer) {
     await fetch(`${request.nextUrl.origin}/api/sys/reqUrl`, {
       method: 'POST',
       body: JSON.stringify({
@@ -20,8 +30,54 @@ export default async function middleware(request: NextRequest) {
         remoteIp: remoteIp
       })
     }).catch(console.error);
+  } else {
+    author_id = 'ROLE_ANONYMOUS'
   }
-  return NextResponse.next();
+
+  //============접속 ip, url end==============
+
+
+  //사용자 정보 session 조회
+  const token: any = await getToken({
+    req: request,
+    secret: process.env.JWT_SECRET,
+  })
+  author_id = token?.info.author_id ? token.info.author_id : 'ROLE_ANONYMOUS'
+
+  //==============권한별 허용 url start==============
+  const prgmRes = await fetch(`${request.nextUrl.origin}/api/sys/prgmAuth`, {
+    method: 'POST',
+    body: JSON.stringify({ author_id })
+  }).catch(console.error);
+
+  if (prgmRes && !flag) {
+
+    const prgmList = await prgmRes.json();
+
+    prgmList.filter((prgm: Prgm) => {
+      if (prgm.prgm_cd === "01") {
+        if (pathName === prgm.prgm_url) {
+          flag = true;
+        }
+      } else if (prgm.prgm_cd === "02") {
+        const regExp = new RegExp(prgm.prgm_url.toString())
+        const match = pathName.match(regExp)
+        if (match?.length) {
+          flag = true;
+        }
+      }
+    })
+  }
+
+  //==============권한별 허용 url end==============
+
+  //flag = true 허용, false 권한 없음
+  if (flag) {
+    return NextResponse.next();
+  } else {
+    return NextResponse.redirect(`${request.nextUrl.origin}/error`)
+  }
+
 }
 
 

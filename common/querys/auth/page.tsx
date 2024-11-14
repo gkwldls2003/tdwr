@@ -1,5 +1,5 @@
 'use server'
-import { executeQuery } from "../../utils/databases/mariadb";
+import { executeQuery, executeQueryAll } from "../../utils/databases/mariadb";
 
 export const selectUserInfoQuery = async (params:any[]) => {
   try {
@@ -72,6 +72,37 @@ export const insertLogoutHistQuery = async (params:any[]) => {
       throw new Error('No data returned');
     }
     
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const selectUserAuthPrgmQuery = async (params:any[]) => {
+  try {
+    const query =
+     `
+     /* auth-selectUserAuthPrgmQuery 사용자 권한 프로그램 조회 */
+    select 
+        a.prgm_id
+        ,a.prgm_nm_kr
+        ,a.prgm_nm_en
+        ,a.prgm_cd
+        ,a.prgm_dc
+        ,a.prgm_url
+    from tb_cmm_prgm a
+    left join tb_cmm_auth_prgm b on b.prgm_id = a.prgm_id
+    where b.author_id = ?
+    `;
+    const result = await executeQueryAll('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    result.status
+    const data = await result.json();
+
+    return data;
   } catch (error) {
     console.error('Error:', error);
     return null; 
