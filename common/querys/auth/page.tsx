@@ -13,7 +13,7 @@ export const selectUserInfoQuery = async (params:any[]) => {
         ,a.passwd
         ,b.author_id
     FROM tb_cmm_user a
-    left join tb_cmm_user_auth b on b.id = a.id
+    left join tb_cmm_user_auth b on b.user_id = a.id
     where a.login_id = ?
     and a.use_yn = 'Y'
     `;
