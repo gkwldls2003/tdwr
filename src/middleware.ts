@@ -12,7 +12,7 @@ export default async function middleware(request: NextRequest) {
   //공통 접근 허용 url
   const PrgmAccessUrl = [
     '/',
-    '/error',
+    '/not-found',
     '/api/sys/reqUrl'
   ];
 
@@ -75,7 +75,7 @@ export default async function middleware(request: NextRequest) {
   if (flag) {
     return NextResponse.next();
   } else {
-    return NextResponse.redirect(`${request.nextUrl.origin}/error`)
+    return NextResponse.redirect(`${request.nextUrl.origin}/not-found`)
   }
 
 }
