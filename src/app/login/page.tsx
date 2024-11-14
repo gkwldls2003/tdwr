@@ -16,8 +16,6 @@ export default function LoginPage() {
     const login_id = formData.get('login_id') as string;
     const passwd = formData.get('passwd') as string;
 
-    console.log(login_id)
-
     if(!login_id) {
       alert("아이디를 입력해주세요.")
       return;

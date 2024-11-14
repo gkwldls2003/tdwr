@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { selectUserInfoQuery } from "../../../../../common/querys/auth/page";
+import { insertLoginHistQuery, selectUserInfoQuery } from "../../../../../common/querys/auth/page";
 import bcrypt from 'bcrypt';
 
 
@@ -12,15 +12,26 @@ export const authOptions: NextAuthOptions = {
         login_id: { label: "login_id", type: "text" },
         passwd: { label: "passwd", type: "password" }
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.login_id || !credentials.passwd) {
           return null;
         }
 
-        const params = [credentials.login_id];
-        const user = await selectUserInfoQuery(params);
+        let params = [credentials.login_id];
+        let user = await selectUserInfoQuery(params);
 
         if (user && await bcrypt.compare(credentials.passwd, user.passwd)) {
+
+          params = [user.login_id, req.headers?.['x-forwarded-for'], '01']
+
+          //로그인 내역
+          await insertLoginHistQuery(params);
+
+          user = {
+            id: user.id,
+            user_nm: user.user_nm,
+            author_id: user.author_id
+          }
           return user;
         }
       },
