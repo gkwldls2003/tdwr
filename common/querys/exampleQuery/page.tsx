@@ -61,6 +61,23 @@ export const insertData = async () => {
     ( ?,? )
     `;
     const result = await executeQuery('tdwr', query, [37.36585704,127.165399]);
+
+
+    // insert 여러개 실행 예시
+    // const params = [[37.36585704, 127.165399], [1, 2]];
+    // let values = params
+    //   .map(() => "(?, ?)")
+    //   .join(", ");
+    // const query =
+    //   `
+    // /* exampleQuery-insertData 예시 insert*/
+    // insert into tb_tdwr_work_info 
+    // ( latitude, longitude )
+    // values 
+    // ${values}
+    // `;
+    // const result = await executeQuery('tdwr', query, params.flat());
+
     
     if (!result) {
       throw new Error('No data returned');
