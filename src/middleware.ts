@@ -9,7 +9,7 @@ export default async function middleware(request: NextRequest) {
 
     console.log(token?.info.author_id)
 
-  const referer = request.headers.get('referer');;
+  const referer = request.headers.get('referer');
   const remoteIp = request.headers.get('x-forwarded-for');
 
   if(referer) {

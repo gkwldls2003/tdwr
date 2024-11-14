@@ -38,7 +38,30 @@ export const insertLoginHistQuery = async (params:any[]) => {
      `
      /* auth-insertLoginHistQuery 사용자 로그인 내역 */
     insert into tb_cmm_login_hist
-    (login_id, login_ip, login_mthd, crte_dttm) 
+    (user_id, login_ip, login_mthd, crte_dttm) 
+    values 
+    ( ?, ?, ?, SYSDATE())
+     ;
+    `;
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const insertLogoutHistQuery = async (params:any[]) => {
+  try {
+    const query =
+     `
+     /* auth-insertLogoutHistQuery 사용자 로그아웃 내역 */
+    insert into tb_cmm_login_hist
+    (user_id, login_ip, login_mthd, crte_dttm) 
     values 
     ( ?, ?, ?, SYSDATE())
      ;

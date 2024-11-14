@@ -2,16 +2,30 @@ import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
-
+import { insertLogoutHistQuery } from '../../../common/querys/auth/page';
 
 export default function Header() {
 
   const router = useRouter();
+  const { data: session, status } = useSession();
+  const userInfo = session?.user.info;
+
+  let user;
 
   const handleLogout = async () => {
     try {
       await signOut({ redirect: false })
+
+      if(userInfo) {
+        const ipRes = await fetch(`/api/sys/reqUrl`);
+        const data = await ipRes.json();
+
+        //로그아웃 이력 저장
+        const params = [userInfo.id, data.ip, '02']
+  
+        await insertLogoutHistQuery(params);
+      }
+     
       router.push('/')
       router.refresh()
     } catch (error) {
@@ -19,12 +33,7 @@ export default function Header() {
     }
   }
 
-
-  const { data: session, status } = useSession();
-  const userInfo = session?.user.info;
-
-  let user;
-
+ 
   if (status === 'loading') {
     user = '로딩 중입니다...';
   } else if (session) {
