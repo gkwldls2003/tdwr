@@ -21,7 +21,7 @@ export default function Header() {
         const data = await ipRes.json();
 
         //로그아웃 이력 저장
-        const params = [userInfo.id, data.ip, '02']
+        const params = [userInfo.user_id, data.ip, '02']
   
         await insertLogoutHistQuery(params);
       }

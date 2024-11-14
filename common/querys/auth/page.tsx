@@ -7,13 +7,13 @@ export const selectUserInfoQuery = async (params:any[]) => {
      `
      /* auth-selectUserInfoQuery 사용자 정보 조회 */
     SELECT 
-        a.id
+        a.user_id
         ,a.login_id
         ,a.user_nm
         ,a.passwd
         ,b.author_id
     FROM tb_cmm_user a
-    left join tb_cmm_user_auth b on b.user_id = a.id
+    left join tb_cmm_user_auth b on b.user_id = a.user_id
     where a.login_id = ?
     and a.use_yn = 'Y'
     `;
@@ -77,4 +77,5 @@ export const insertLogoutHistQuery = async (params:any[]) => {
     return null; 
   }
 }
+
 

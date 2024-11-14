@@ -22,13 +22,13 @@ export const authOptions: NextAuthOptions = {
 
         if (user && await bcrypt.compare(credentials.passwd, user.passwd)) {
 
-          params = [user.id, req.headers?.['x-forwarded-for'], '01']
+          params = [user.user_id, req.headers?.['x-forwarded-for'], '01']
 
           //로그인 내역
           await insertLoginHistQuery(params);
 
           user = {
-            id: user.id,
+            user_id: user.user_id,
             user_nm: user.user_nm,
             author_id: user.author_id
           }
