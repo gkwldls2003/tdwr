@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 import { selectAllData, selectOneData, insertData, multiInsertData } from "../../../common/querys/exampleQuery/page"
-import CommCode from "../components/commCode/page";
+import CommCode from "../components/commCode/commCode";
 export default function Test2() {
 
   interface WorkInfo {

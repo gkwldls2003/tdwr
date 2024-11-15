@@ -3,22 +3,22 @@ import { selectCommCodeQuery } from '../../../../common/querys/auth/page';
 import { Fragment } from 'react';
 
 interface CommCode {
-  code_id: string //코드 id
-  , name: string // 요소 name
-  , code_detail?: string //상세 코드
-  , code_nm?: string //상세 코드 이름
-  , id?: string // 요소 id
-  , type?: string // type : select, checkbox, radio 중 선택
-  , value?: string // value 값
-  , showSelect?: boolean //select option 선택 추가
-  , showAll?: boolean //select option 전체 추가
-  , defaultCode?: string //최초에 선택되는 기본 코드 값
-  , className?: string // className 설정
-  , onChange?: any // onChange 함수
-  , onClick?: any // onClick 함수
+  code_id: string; //코드 id
+  name: string; // 요소 name
+  code_detail?: string; //상세 코드
+  code_nm?: string; //상세 코드 이름
+  id?: string; // 요소 id
+  type?: string; // type : select, checkbox, radio 중 선택
+  value?: string; // value 값
+  showSelect?: boolean; //select option 선택 추가
+  showAll?: boolean; //select option 전체 추가
+  defaultCode?: string; //최초에 선택되는 기본 코드 값
+  className?: string; // className 설정
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => void; // onChange 함수
+  onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;// onClick 함수
 }
 
-export default function CommCode(props: CommCode): any {
+export default function CommCode(props: CommCode) {
   const { data } = useQuery({
     queryKey: ['code', props.code_id],
     queryFn: () => selectCommCodeQuery([props.code_id]),
