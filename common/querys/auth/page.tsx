@@ -109,4 +109,34 @@ export const selectUserAuthPrgmQuery = async (params:any[]) => {
   }
 }
 
+export const selectCommCodeQuery = async (params:any[]) => {
+  try {
+    const query =
+     `
+     /* auth-selectCommCodeQuery 공통코드 조회 */
+    select 
+        code_id
+        ,code_detail
+        ,code_nm
+        ,code_dc
+    from tb_cmm_code_detail
+    where code_id = ?
+    and use_yn = 'Y'
+    order by sn
+    `;
+    const result = await executeQueryAll('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    result.status
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
 
