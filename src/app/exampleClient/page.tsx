@@ -42,7 +42,7 @@ export default function Test2() {
       <CommCode code_id='TD_001' type='checkbox' name='login_method'/>
     </div>
     <div>
-      <CommCode code_id='TD_001' type='radio' name='login_method' defaultCode="02"/>
+      <CommCode code_id='TD_001' type='radio' name='login_method' defaultCode="03"/>
     </div>
       <div>
         <h2>Select</h2>

@@ -115,14 +115,16 @@ export const selectCommCodeQuery = async (params:any[]) => {
      `
      /* auth-selectCommCodeQuery 공통코드 조회 */
     select 
-        code_id
-        ,code_detail
-        ,code_nm
-        ,code_dc
-    from tb_cmm_code_detail
-    where code_id = ?
-    and use_yn = 'Y'
-    order by sn
+        b.code_id
+        ,b.code_detail
+        ,b.code_nm
+        ,b.code_dc
+    from tb_cmm_code a
+    left join tb_cmm_code_detail b on a.code_id = b.code_id      
+    where a.code_id = ?
+    and a.use_yn = 'Y'
+    and b.use_yn = 'Y'
+    order by a.code_id, b.sn
     `;
     const result = await executeQueryAll('tdwr', query, params);
     

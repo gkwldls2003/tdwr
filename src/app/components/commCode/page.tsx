@@ -20,14 +20,14 @@ interface CommCode {
 
 export default function CommCode(props: CommCode): any {
   const { data } = useQuery({
-    queryKey: ['code'],
+    queryKey: ['code', props.code_id],
     queryFn: () => selectCommCodeQuery([props.code_id]),
     staleTime: 30 * 60 * 1000,
     gcTime: 30 * 60 * 1000
   });
 
   let element;
-  let value = '';
+  let value:string = '';
   
   if (data) {
     if (props.type === 'select') {
@@ -90,16 +90,16 @@ export default function CommCode(props: CommCode): any {
       }
       
       element = (
-        data.data.map((code: CommCode, idx: string) => (
+        data.data.map((code: CommCode) => (
           <Fragment key={`${props.code_id}-${code.code_detail}`}>
             <input 
               type='radio'
               key={code.code_detail}
               name={props.name}
-              id={props.name + idx}
+              id={props.code_id + code.code_detail}
               value={code.code_detail}
               onClick={props.onClick}
-              checked={code.code_detail === value}
+              defaultChecked={code.code_detail === value}
               />
               <label htmlFor={code.code_detail}>{code.code_nm}</label>          
           </Fragment>
