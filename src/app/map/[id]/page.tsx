@@ -7,6 +7,8 @@ import Map from "../page";
 import MyMap from "../myMap";
 import { NavermapsProvider } from "react-naver-maps";
 import DetailMap from "./detailMap";
+import { useDispatch } from "react-redux";
+import { setShowLeftSider } from "../../../../store/layoutSlice";
 
 type Props = {
     params: {
@@ -15,6 +17,7 @@ type Props = {
   };
 
 export default function DetailPage({ params }: Props) {
+  const dispatch = useDispatch();
   const [marker,setMarker]=useState<Markers[]>([]);
     const { id } = params;
     const fetchMarker = async () => {
@@ -29,6 +32,18 @@ export default function DetailPage({ params }: Props) {
           console.error('Error fetching marker data:', error);
         }
       };
+
+      useEffect(() => {
+        // DetailPage가 마운트될 때 LeftSider 숨기기
+        dispatch(setShowLeftSider(false));
+    
+        // 컴포넌트가 언마운트될 때 LeftSider 다시 보이기
+        return () => {
+          dispatch(setShowLeftSider(true));
+        };
+      }, [dispatch]);
+
+
   useEffect(() => {
     fetchMarker();
   }, []);  // 빈 배열로 fetchMarker를 한 번만 실행
