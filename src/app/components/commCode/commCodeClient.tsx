@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { selectCommCodeQuery } from '../../../../common/querys/auth/page';
 import { Fragment } from 'react';
 
+//이벤트 핸들러가 필요하거나 useClient 사용할때
+
 interface CommCode {
   code_id: string; //코드 id
   name: string; // 요소 name
