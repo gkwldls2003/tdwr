@@ -5,10 +5,10 @@ import { Fragment } from 'react';
 interface CommCode {
   code_id: string; //코드 id
   name: string; // 요소 name
+  type: string; // type : select, checkbox, radio 중 선택
   code_detail?: string; //상세 코드
   code_nm?: string; //상세 코드 이름
   id?: string; // 요소 id
-  type?: string; // type : select, checkbox, radio 중 선택
   value?: string; // value 값
   showSelect?: boolean; //select option 선택 추가
   showAll?: boolean; //select option 전체 추가
