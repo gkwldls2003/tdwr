@@ -40,7 +40,7 @@ export default function CommCode(props: CommCode) {
       let obj = {};
       if(props.onChange) {
         obj = {
-          value: value,
+          value: props.value,
           onChange: props.onChange
         }
       } else {
