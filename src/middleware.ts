@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { Prgm } from "../store/types/prgm"
-export default async function middleware(request: NextRequest, response: NextResponse) {
-
-  
+export default async function middleware(request: NextRequest) {
 
   const href = request.nextUrl.href;
   const remoteIp = request.headers.get('x-forwarded-for');
