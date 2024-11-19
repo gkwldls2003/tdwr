@@ -5,10 +5,10 @@ export default async function middleware(request: NextRequest, response: NextRes
 
   
 
-  const referer = request.nextUrl.href;
+  const href = request.nextUrl.href;
   const remoteIp = request.headers.get('x-forwarded-for');
   const pathName = request.nextUrl.pathname;
-  
+
   let author_id;
   let flag: Boolean = false;
 
@@ -25,11 +25,11 @@ export default async function middleware(request: NextRequest, response: NextRes
 
 
   //============접속 ip, url start==============
-  if (referer) {
+  if (href) {
     await fetch(`${request.nextUrl.origin}/api/sys/reqUrl`, {
       method: 'POST',
       body: JSON.stringify({
-        remoteUrl: referer,
+        remoteUrl: href,
         remoteIp: remoteIp
       })
     }).catch(console.error);
