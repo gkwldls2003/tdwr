@@ -29,7 +29,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
-      <LayoutContent children={children} />
+      <LayoutContent>{children}</LayoutContent>
     </Provider>
   );
 }

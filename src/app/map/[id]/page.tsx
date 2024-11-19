@@ -17,8 +17,9 @@ type Props = {
   };
 
 export default function DetailPage({ params }: Props) {
+  const ncpClientId = `${process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}`
   const dispatch = useDispatch();
-  const [marker,setMarker]=useState<Markers[]>([]);
+  const [marker,setMarker]=useState<Markers | null>(null);
     const { id } = params;
     const fetchMarker = async () => {
         try {
@@ -52,22 +53,22 @@ export default function DetailPage({ params }: Props) {
     <div className="">
       <h1 className="text-2xl font-bold"></h1>
       <div className="w-full h-96 mb-4">
-  <NavermapsProvider ncpClientId={process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}>
-    <DetailMap marker={marker} />
+  <NavermapsProvider ncpClientId={ncpClientId}>
+    {marker && <DetailMap marker={marker} />}
   </NavermapsProvider>
 </div>
       
       <div className="bg-white shadow-md">
         <div className="mb-4">
         
-          <span className="font-bold">가격:{marker.price}</span> 
+          <span className="font-bold">가격:{marker?.price}</span> 
         </div>
         <div className="">
-          <span className="font-bold">하는일:{marker.name}</span>
+          <span className="font-bold">하는일:{marker?.name}</span>
           <p className="mt-2 text-gray-600"></p>
         </div>
         <div className="mb-4">
-          <span className="font-bold">설명:{marker.description}</span>
+          <span className="font-bold">설명:{marker?.description}</span>
           <p className="mt-2 text-gray-600"></p>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps, Marker } from 'react-naver-maps';
+import { Markers } from '../../../../store/types/marker';
 
-export default function DetailMap({ marker }) {
+export default function DetailMap( { marker } : { marker: Markers } ) {
   const navermaps = useNavermaps();
   const [mapCenter, setMapCenter] = useState({
     latitude: marker?.latitude || 37.3595704,
