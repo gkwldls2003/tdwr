@@ -67,6 +67,7 @@ export default function LoginPage() {
             name="login_id"
             placeholder="아이디를 입력해주세요."
             className="mt-1 block w-full rounded border p-2"
+            autoComplete="username"
           />
         </div>
 
@@ -77,6 +78,7 @@ export default function LoginPage() {
             name="passwd"
             placeholder="비밀번호를 입력해주세요."
             className="mt-1 block w-full rounded border p-2"
+            autoComplete="current-password"
           />
         </div>
 
