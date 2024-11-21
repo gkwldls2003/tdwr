@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from "react";
 import { BoardFree } from "../../../../store/types/boardFree";
 import { useRouter } from "next/navigation";
