@@ -31,6 +31,13 @@ export default function FreeSearch({ searchParams }:
     router.push(`/board/free?p=1&search_gb=${searchGb}&search=${search}`)
   }
 
+  //엔터 검색
+  function handleKeyDown (e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <div className="bg-slate-200 p-3">
       <CommCodeClient
@@ -41,7 +48,13 @@ export default function FreeSearch({ searchParams }:
         value={searchGb}
         onChange={(e) => { setSearchGb(e.target.value) }}
       />
-      <input type="text" name="search" value={search} onChange={(e) => { setSearch(e.target.value) }} />
+      <input 
+          type="text"
+          name="search"
+          value={search}
+          onKeyDown={handleKeyDown}
+          onChange={(e) => { setSearch(e.target.value) }}
+          />
       <button onClick={handleSearch}>검색</button>
     </div>
   )

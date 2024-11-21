@@ -56,7 +56,6 @@ export default async function middleware(request: NextRequest) {
     const prgmList = await prgmRes.json();
 
     prgmList.filter((prgm: Prgm) => {
-      console.log(pathName)
       if (prgm.prgm_cd === "01") {
         if (pathName === prgm.prgm_url) {
           flag = true;
