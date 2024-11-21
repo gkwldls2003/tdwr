@@ -5,7 +5,7 @@ export default async function middleware(request: NextRequest) {
 
   const href = request.nextUrl.href;
   const remoteIp = request.headers.get('x-forwarded-for');
-  const pathName = request.nextUrl.pathname;
+  const pathName = request.nextUrl.pathname + request.nextUrl.search;
 
   let author_id;
   let flag: Boolean = false;
@@ -56,6 +56,7 @@ export default async function middleware(request: NextRequest) {
     const prgmList = await prgmRes.json();
 
     prgmList.filter((prgm: Prgm) => {
+      console.log(pathName)
       if (prgm.prgm_cd === "01") {
         if (pathName === prgm.prgm_url) {
           flag = true;
