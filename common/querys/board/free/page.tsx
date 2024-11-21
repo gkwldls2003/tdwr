@@ -20,6 +20,7 @@ export const selectBoardFreeQuery = async (params: any) => {
     ${params.search_gb === 'all' ? `and (title like concat('%', '${params.search}', '%') or cn like concat('%', '${params.search}', '%'))` : ``}
     ${params.search_gb === 'title' ? `and title like concat('%', '${params.search}', '%')` : ``}
     ${params.search_gb === 'cn' ? `and cn like concat('%', '${params.search}', '%')` : ``}
+    order by free_id desc
     ${params.s && params.p? `limit ? offset ? ` : `limit 10 offset 0`}
     `;
 
