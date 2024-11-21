@@ -69,7 +69,9 @@ export default function Header() {
         {/* 왼쪽: 로고 및 메뉴 */}
         <div className="flex items-center space-x-6">
           {/* 로고 */}
-          <div className="font-bold text-blue-500 text-xl">오늘의 일</div>
+          <div className="font-bold text-blue-500 text-xl">
+            <Link href={`/`}>오늘의 일</Link>
+          </div>
           {/* 메인 네비게이션 */}
           <nav className="flex items-center space-x-6">
             <a href="#" className="text-gray-700 hover:text-gray-900">지도</a>
