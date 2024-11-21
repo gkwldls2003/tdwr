@@ -35,6 +35,8 @@ export default async function CommCodeServer(props: CommCode) {
         <select
           defaultValue={props.defaultCode}
           className={props.className}
+          name={props.name}
+          id={props.id}
         >
           {props.showSelect && <option key='select' value=''>선택</option>}
           {props.showAll && <option key='all' value=''>전체</option>}

@@ -20,7 +20,7 @@ interface CommCode {
   onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;// onClick 함수
 }
 
-export default function CommCode(props: CommCode) {
+export default function CommCodeClient(props: CommCode) {
   const { data } = useQuery({
     queryKey: ['code', props.code_id],
     queryFn: () => selectCommCodeQuery([props.code_id]),
@@ -55,6 +55,8 @@ export default function CommCode(props: CommCode) {
         <select
           {...obj}
           className={props.className}
+          name={props.name}
+          id={props.id}
         >
           {props.showSelect && <option key='select' value=''>선택</option>}
           {props.showAll && <option key='all' value=''>전체</option>}

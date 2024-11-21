@@ -1,3 +1,5 @@
+'use client'
+
 import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
@@ -76,6 +78,7 @@ export default function Header() {
 
         {/* 오른쪽: 사용자 메뉴 */}
         <div className="flex items-center space-x-4">
+          <Link href={`/board/free`}>자유게시판</Link>
           <div>{user}</div>
           <button className="px-3 py-1.5 text-sm border rounded-md text-blue-500 hover:bg-blue-50">
             노무사무실 가입/광고문의
