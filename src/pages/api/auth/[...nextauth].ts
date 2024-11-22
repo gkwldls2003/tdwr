@@ -1,6 +1,6 @@
-import { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { insertLoginHistQuery, selectUserInfoQuery } from "../../../../../common/querys/auth/page";
+import { insertLoginHistQuery, selectUserInfoQuery } from "../../../../common/querys/auth/page";
 import bcrypt from 'bcrypt';
 
 
@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
 
         if (user && await bcrypt.compare(credentials.passwd, user.passwd)) {
 
-          params = [user.user_id, req.headers?.['x-forwarded-for'], '01']
+          params = [user.user_id, req.headers && req.headers['x-forwarded-for'], '01']
 
           //로그인 내역
           await insertLoginHistQuery(params);
@@ -61,3 +61,5 @@ export const authOptions: NextAuthOptions = {
     signOut: '/signout',
   },
 };
+
+export default NextAuth(authOptions);
