@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BoardFree } from "../../../../../store/types/boardFree";
 import { insertBoardFreeQuery } from "../../../../../common/querys/board/free/page";
+import FileUpload from "@/app/components/fileUpload/fileUpload";
 
 export default function Create() {
 
@@ -65,6 +66,7 @@ export default function Create() {
           </tr>
         </tbody>
       </Table>
+      <FileUpload/>
       <div>
       <Link href={typeof window !== 'undefined' ? (sessionStorage.getItem('referrer') || '/board/free') : '/board/free'}>목록</Link>
         <a href="#" onClick={handleCreate}>저장</a>

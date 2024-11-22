@@ -19,7 +19,7 @@ export default function Header() {
       await signOut({ redirect: false })
 
       if(userInfo) {
-        const ipRes = await fetch(`/api/sys/reqUrl`);
+        const ipRes = await fetch(`/api/auth/sys/reqUrl`);
         const data = await ipRes.json();
 
         //로그아웃 이력 저장
