@@ -47,7 +47,7 @@ export default async function Free( { searchParams } :
             tot={Number(list.data.length > 0 ? list.data[0].tot : 0)}
             pageNum={searchParams.p}
             search={search}
-             />
+            />
     </>
   )
 }
