@@ -13,11 +13,8 @@ export default function FileUpload() {
 
     try {
       setUploading(true);
-      console.log(file)
       const formData = new FormData();
       formData.append('file', file);
-
-      console.log(formData)
 
       const response = await fetch('/api/upload', {
         method: 'POST',
@@ -25,14 +22,20 @@ export default function FileUpload() {
       });
 
       const data = await response.json();
-      
+
+      if(!data.success) {
+        alert(data.message);
+        return;
+      }
+
       if (!response.ok) throw new Error(data.error);
+
       
       setUploadedFileUrl(data.fileUrl);
       alert('파일 업로드 성공!');
     } catch (error) {
       console.error('Upload error:', error);
-      alert('업로드 중 오류가 발생했습니다.');
+      alert(error);
     } finally {
       setUploading(false);
     }

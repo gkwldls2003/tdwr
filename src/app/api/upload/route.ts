@@ -43,23 +43,32 @@ async function ensureUploadDirectory(uploadDir: string) {
 }
 
 // 파일 검증 함수
-function validateFile(file: File) {
+function validateFile(file: File): { isValid: boolean; message?: string } {
   // 파일 존재 여부 확인
   if (!file) {
-    throw new Error("파일이 없습니다.");
+    return {
+      isValid: false,
+      message: "파일이 없습니다."
+    };
   }
 
   // 파일 크기 검사
   if (file.size > MAX_FILE_SIZE) {
-    throw new Error(`파일 크기는 ${MAX_FILE_SIZE / (1024 * 1024)}MB를 초과할 수 없습니다.`);
+    return {
+      isValid: false,
+      message: `파일 크기는 ${MAX_FILE_SIZE / (1024 * 1024)}MB를 초과할 수 없습니다.`
+    };
   }
 
   // 파일 형식 검사
   if (!ALLOWED_FILE_TYPES.hasOwnProperty(file.type)) {
-    throw new Error("지원하지 않는 파일 형식입니다.");
+    return {
+      isValid: false,
+      message: "지원하지 않는 파일 형식입니다."
+    };
   }
 
-  return true;
+  return { isValid: true };
 }
 
 export async function POST(request: NextRequest) {
@@ -68,7 +77,15 @@ export async function POST(request: NextRequest) {
     const file = formData.get('file') as File;
 
     // 파일 검증
-    validateFile(file);
+    const validation = validateFile(file);
+    if (!validation.isValid) {
+      return NextResponse.json({
+        success: false,
+        message: validation.message
+      }, {
+        status: 400
+      });
+    }
 
     // 안전한 파일명 생성
     const safeFileName = generateSafeFileName(file.name, file.type);
@@ -107,17 +124,9 @@ export async function POST(request: NextRequest) {
     console.error('Upload error:', error);
     return NextResponse.json({ 
       success: false,
-      error: error instanceof Error ? error.message : "파일 업로드 중 오류가 발생했습니다."
+      message: "파일 업로드 중 오류가 발생했습니다."
     }, { 
       status: 400 
     });
   }
-}
-
-export async function GET() {
-  // 지원하는 파일 형식 목록 반환
-  return NextResponse.json({
-    maxFileSize: MAX_FILE_SIZE,
-    allowedTypes: Object.keys(ALLOWED_FILE_TYPES)
-  });
 }
