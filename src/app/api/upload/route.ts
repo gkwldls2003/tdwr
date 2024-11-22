@@ -5,23 +5,10 @@ import crypto from 'crypto';
 
 // 설정
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-const UPLOAD_DIR = path.join(process.cwd(), 'public/uploads');
+const UPLOAD_DIR = path.join(`${process.env.UPLOAD_DIR}`); //파일 업로드 경로
 
 // 허용된 파일 형식
-const ALLOWED_FILE_TYPES = {
-  // 이미지
-  'image/jpeg': '.jpg',
-  'image/png': '.png',
-  'image/gif': '.gif',
-  'image/webp': '.webp',
-  // 문서
-  'application/pdf': '.pdf',
-  'application/msword': '.doc',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx',
-  // 기타
-  'text/plain': '.txt',
-  'application/zip': '.zip'
-};
+const ALLOWED_FILE_TYPES = ['jpg','jpeg','png','gif','bmp','pdf','doc','docx','xls','xlsx','ppt','pptx','hwp','hwpx','txt','zip'];
 
 // 안전한 파일명 생성 함수
 function generateSafeFileName(originalName: string, fileType: string): string {
@@ -61,7 +48,8 @@ function validateFile(file: File): { isValid: boolean; message?: string } {
   }
 
   // 파일 형식 검사
-  if (!ALLOWED_FILE_TYPES.hasOwnProperty(file.type)) {
+  const fileExt = file.name.split('.')[1]
+  if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
     return {
       isValid: false,
       message: "지원하지 않는 파일 형식입니다."
