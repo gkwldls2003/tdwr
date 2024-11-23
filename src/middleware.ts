@@ -14,7 +14,7 @@ export default async function middleware(request: NextRequest) {
   const PrgmAccessUrl = [
     '/',
     '/not-found',
-    '/api/auth/sys/reqUrl',
+    '/api/auth/reqUrl',
     '/api/upload'
   ];
 
@@ -25,7 +25,7 @@ export default async function middleware(request: NextRequest) {
 
   //============접속 ip, url start==============
   if (href) {
-    await fetch(`${request.nextUrl.origin}/api/auth/sys/reqUrl`, {
+    await fetch(`${request.nextUrl.origin}/api/auth/reqUrl`, {
       method: 'POST',
       body: JSON.stringify({
         remoteUrl: href,
@@ -47,7 +47,7 @@ export default async function middleware(request: NextRequest) {
   author_id = token?.info.author_id ? token.info.author_id : 'ROLE_ANONYMOUS'
 
   //==============권한별 허용 url start==============
-  const prgmRes = await fetch(`${request.nextUrl.origin}/api/auth/sys/prgmAuth`, {
+  const prgmRes = await fetch(`${request.nextUrl.origin}/api/auth/prgmAuth`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
