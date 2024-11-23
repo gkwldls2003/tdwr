@@ -8,7 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const { author_id } = req.body;
-    console.log(author_id)
     const prgmList = await selectUserAuthPrgmQuery([author_id]);
     return res.status(200).json(prgmList.data);
   } catch (error) {
