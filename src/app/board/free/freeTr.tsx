@@ -39,6 +39,7 @@ export default function FreeBoardTr({ list }: { list: BoardFree[] }) {
           className="cursor-pointer border-b bg-white-100"
           onClick={() => obj.free_id && handleDetail(obj.free_id)}
         >
+          <td className="p-3 px-5 text-center">{obj.free_id}</td>
           <td className="p-3 px-5 text-left">{obj.title}</td>
           <td className="p-3 px-5 text-center">{obj.user_nm}</td>
           <td className="p-3 px-5 text-center">{obj.crte_dttm}</td>

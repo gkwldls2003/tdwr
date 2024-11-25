@@ -35,9 +35,9 @@ export default async function Free( { searchParams } :
         <h2 className="text-3xl font-bold text-center my-4">자유게시판</h2>
         <FreeListButton/>
         <Table>
-          <Colgroup colgroup={['*%','10%','15%','10%']}/>
+          <Colgroup colgroup={['10%','*%','10%','15%','10%']}/>
           <thead>
-            <Th th={['제목','작성자','등록일','조회수']}/>
+            <Th th={['번호','제목','작성자','등록일','조회수']}/>
           </thead>
           <tbody>
             <FreeBoardTr list={list.data}/>
