@@ -8,7 +8,7 @@ interface Props {
   pageSize?: number; //한 페이징 당 보일 리스트 수 default 10
   pageNum?: number; //현재 페이지
   tot: number; // 리스트 총 갯수
-  search?: any; //검색
+  search?: string; //검색
 }
 
 export default function Paging( props  : Props) {
