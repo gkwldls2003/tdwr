@@ -15,13 +15,26 @@ export default async function middleware(request: NextRequest) {
     '/',
     '/not-found',
     '/api/auth/reqUrl',
-    '/api/upload'
+    '/api/file/upload',
+  ];
+
+  //공통 접근 허용 url 정규식
+  const PrgmAccessUrlRegExp = [
+    '/api/file/download/*'
   ];
 
   if (PrgmAccessUrl.includes(pathName)) {
     flag = true;
   }
 
+  for(let i = 0; PrgmAccessUrlRegExp.length > i; i ++ ){
+    const regExp = new RegExp(PrgmAccessUrlRegExp[i].toString());
+    const match = pathName.match(regExp);
+    if (match?.length) {
+      flag = true;
+    }
+  }
+  
 
   //============접속 ip, url start==============
   if (href) {
@@ -65,8 +78,8 @@ export default async function middleware(request: NextRequest) {
           flag = true;
         }
       } else if (prgm.prgm_cd === "02") {
-        const regExp = new RegExp(prgm.prgm_url.toString())
-        const match = pathName.match(regExp)
+        const regExp = new RegExp(prgm.prgm_url.toString());
+        const match = pathName.match(regExp);
         if (match?.length) {
           flag = true;
         }

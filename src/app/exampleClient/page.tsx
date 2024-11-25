@@ -1,5 +1,7 @@
 import { selectAllData, selectOneData, insertData, multiInsertData } from "../../../common/querys/exampleQuery/page"
 import CommCodeServer from "../components/commCode/commCodeServer";
+import FileDownLoad from "../components/fileDownload/fileDownload";
+import FileUploadExample from "./fileUploadExample";
 export default async function Test2() {
 
   interface WorkInfo {
@@ -34,6 +36,8 @@ export default async function Test2() {
         <h2>Vo</h2>
         {selectOneResult?.id}
       </div>
+      <FileUploadExample/>
+      <FileDownLoad id={1} table={"tb_example"} colunm_nm={"example"}/>
     </>
   )
 }

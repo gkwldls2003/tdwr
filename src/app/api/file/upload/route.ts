@@ -4,18 +4,17 @@ import path from 'path';
 import crypto from 'crypto';
 
 // 설정
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-const UPLOAD_DIR = path.join(`${process.env.UPLOAD_DIR}`); //파일 업로드 경로
+const MAX_FILE_SIZE = 2 * 1024 * 1024; //파일 최대 크기 2메가
+const UPLOAD_DIR = `${process.env.UPLOAD_DIR}`;
 
 // 허용된 파일 형식
 const ALLOWED_FILE_TYPES = ['jpg','jpeg','png','gif','bmp','pdf','doc','docx','xls','xlsx','ppt','pptx','hwp','hwpx','txt','zip'];
 
 // 안전한 파일명 생성 함수
-function generateSafeFileName(originalName: string, fileType: string): string {
-  const fileExtension = ALLOWED_FILE_TYPES[fileType as keyof typeof ALLOWED_FILE_TYPES];
+function generateSafeFileName(): string {
   const randomName = crypto.randomBytes(16).toString('hex');
   const timestamp = new Date().getTime();
-  return `${randomName}-${timestamp}${fileExtension}`;
+  return `${randomName}-${timestamp}`;
 }
 
 // 업로드 디렉토리 생성 함수
@@ -48,7 +47,7 @@ function validateFile(file: File): { isValid: boolean; message?: string } {
   }
 
   // 파일 형식 검사
-  const fileExt = file.name.split('.')[1]
+  const fileExt = file.name.split('.')[1];
   if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
     return {
       isValid: false,
@@ -76,7 +75,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 안전한 파일명 생성
-    const safeFileName = generateSafeFileName(file.name, file.type);
+    const stre_file_nm = generateSafeFileName();
 
     // 연/월 기준으로 업로드 디렉토리 구성
     const date = new Date();
@@ -91,23 +90,48 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
 
     // 최종 파일 경로
-    const filePath = path.join(uploadPath, safeFileName);
+    const filePath = path.join(uploadPath, stre_file_nm);
 
     // 파일 저장
     await writeFile(filePath, buffer);
 
-    // 클라이언트에서 접근 가능한 URL 생성 (public 폴더 기준)
-    const fileUrl = `/uploads/${yearMonth}/${safeFileName}`;
-
     return NextResponse.json({
       success: true,
-      fileUrl,
-      fileName: safeFileName,
-      originalName: file.name,
-      fileSize: file.size,
-      fileType: file.type
+      stre_file_nm: stre_file_nm,
+      orignl_file_nm: file.name,
+      file_stre_cours: uploadPath,
+      file_size: file.size,
+      ext: file.name.split('.')[1]
     });
 
+  } catch (error) {
+    console.error('Upload error:', error);
+    return NextResponse.json({ 
+      success: false,
+      message: "파일 업로드 중 오류가 발생했습니다."
+    }, { 
+      status: 400 
+    });
+  }
+}
+
+
+//파일 유효성 검사
+export async function GET(request: NextRequest) {
+  try {
+    const formData = await request.formData();
+    const file = formData.get('file') as File;
+
+    // 파일 검증
+    const validation = validateFile(file);
+    if (!validation.isValid) {
+      return NextResponse.json({
+        success: false,
+        message: validation.message
+      }, {
+        status: 400
+      });
+    }
   } catch (error) {
     console.error('Upload error:', error);
     return NextResponse.json({ 
