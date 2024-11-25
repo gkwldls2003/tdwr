@@ -62,7 +62,6 @@ export default function FreeDetailButton({ free_id, crte_user_id }: BoardFree) {
       </Link>
       {handleButton()}
 
-      {/* Delete Confirmation Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="relative p-4 w-full max-w-md">
@@ -102,7 +101,6 @@ export default function FreeDetailButton({ free_id, crte_user_id }: BoardFree) {
         </div>
       )}
 
-      {/* Success Message Modal */}
       {showSuccessMessage && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="relative p-4 w-full max-w-md">
