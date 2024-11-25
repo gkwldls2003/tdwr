@@ -1,6 +1,6 @@
 import { inserFileDataQuery } from "../../querys/cmm/page";
 
-export async function fileUpload(file:File | null, id:number, table:string, colunm_nm:string, sn?: number) {
+export async function fileUpload(file:File | null, id:number, table:string, colunm_nm:string, user_id: number, sn?: number) {
 
     if (!file) return;
 
@@ -33,7 +33,7 @@ export async function fileUpload(file:File | null, id:number, table:string, colu
         data.file_stre_cours,
         data.file_size,
         data.ext,
-        1
+        user_id
       ]
 
       const result = await inserFileDataQuery(params);
