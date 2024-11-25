@@ -34,9 +34,9 @@ export default async function Free( { searchParams } :
         <FreeListButton/>
         <FreeSearch searchParams={searchParams}/>
         <Table>
-          <Colgroup colgroup={['*%','10%','15%','10%']}/>
+          <Colgroup colgroup={['10%','*%','10%','15%','10%']}/>
           <thead>
-            <Th th={['제목','작성자','등록일','조회수']}/>
+            <Th th={['번호','제목','작성자','등록일','조회수']}/>
           </thead>
           <tbody>
             <FreeBoardTr list={list.data}/>

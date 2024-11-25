@@ -2,7 +2,7 @@
 export default function Th( { th }: { th: string[] } ) {
   return (
     <>
-    <tr className="bg-gray-100">
+    <tr className="border-b">
       {
         
         th.map((th: string, idx: number) => {
