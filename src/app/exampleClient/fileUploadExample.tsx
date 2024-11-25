@@ -1,13 +1,17 @@
 'use client'
 
 import { useState } from "react";
-import fileUpload from "../../../common/utils/cmm/cmm";
+import { fileUpload, isFileValidate } from "../../../common/utils/cmm/cmm";
 
 export default function FileUploadExample() {
   const [file, setFile] = useState<File | null>(null);
 
   function handleFileUpload(e:React.MouseEvent, file:File | null) {
     e.preventDefault();
+
+    //파일 유효성 검사
+    if(isFileValidate(file)) return;
+
     fileUpload(file, 1, 'tb_example', 'example');
 
   }

@@ -36,7 +36,7 @@ export default async function Free( { searchParams } :
         <FreeListButton/>
         <Table>
           <Colgroup colgroup={['*%','10%','15%','10%']}/>
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead>
             <Th th={['제목','작성자','등록일','조회수']}/>
           </thead>
           <tbody>

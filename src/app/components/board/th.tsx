@@ -2,19 +2,14 @@
 export default function Th( { th }: { th: string[] } ) {
   return (
     <>
-    <tr>
-    {th.map((thItem: string, idx: number) => {
-          const isLast = idx === th.length - 1;
-          return (
-            <th
-              key={idx}
-              scope="col"
-              className={`px-6 py-3 ${isLast ? 'text-center' : ''}`}
-            >
-              {thItem}
-            </th>
-          );
-        })}
+    <tr className="bg-gray-100">
+      {
+        
+        th.map((th: string, idx: number) => {
+          return <th key={idx} className="p-3 px-5">{th}</th>;
+        })
+       
+      }
     </tr>
     </>
   );
