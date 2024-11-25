@@ -13,26 +13,36 @@ export default async function Detail({ params } : { params: {id: number} }) {
 
   return (
     <>
-      <Header/>
-      <Table>
-        <Colgroup colgroup={['10%', '20%','10%','10%','10%','10%']}/>
-        <tbody>
-          <tr>
-            <th className="border border-slate-400">제목</th>
-            <td className="border border-slate-400">{vo.title}</td>
-            <th className="border border-slate-400">작성자</th>
-            <td className="border border-slate-400 text-center">{vo.user_nm}</td>
-            <th className="border border-slate-400">조회수</th>
-            <td className="border border-slate-400 text-center">{vo.view}</td>
-          </tr>
-          <tr>
-            <th className="border border-slate-400">내용</th>
-            <td colSpan={5} className="border border-slate-400 whitespace-pre-wrap">{vo.cn}</td>
-          </tr>
-        </tbody>
-      </Table>
-      <div>
-          <FreeDetailButton free_id={params.id} crte_user_id={vo.crte_user_id}/>
+       <Header />
+      <div className="w-full min-w-[800px] max-w-[1200px] my-0 mx-auto">
+        <h2 className="text-3xl font-bold text-center my-4">자유게시판</h2>
+        <div className="flex justify-end mt-4">
+          <FreeDetailButton free_id={params.id} crte_user_id={vo.crte_user_id} />
+        </div>
+        <Table>
+          <Colgroup colgroup={['15%', '35%', '15%', '15%', '10%', '10%']} />
+          <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <tr>
+              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-50">제목</th>
+              <td className="px-6 py-4">{vo.title}</td>
+              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-50">작성자</th>
+              <td className="px-6 py-4 text-center">{vo.user_nm}</td>
+              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-50">조회수</th>
+              <td className="px-6 py-4 text-center">{vo.view}</td>
+            </tr>
+            <tr>
+              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-50">작성일</th>
+              <td colSpan={5} className="px-6 py-4">{vo.crte_dttm}</td>
+            </tr>
+            <tr>
+              <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-50">내용</th>
+              <td colSpan={5} className="px-6 py-4 min-h-[200px] whitespace-pre-wrap">
+                {vo.cn}
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+        
       </div>
     </>
   )

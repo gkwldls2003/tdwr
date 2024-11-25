@@ -36,13 +36,15 @@ export default function FreeBoardTr({ list }: { list: BoardFree[] }) {
       {list.map((obj, idx) => (
         <tr
           key={idx}
-          className="cursor-pointer border-b bg-white-100"
-          onClick={() => obj.free_id && handleDetail(obj.free_id)}
+          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          
         >
-          <td className="p-3 px-5 text-left">{obj.title}</td>
-          <td className="p-3 px-5 text-center">{obj.user_nm}</td>
-          <td className="p-3 px-5 text-center">{obj.crte_dttm}</td>
-          <td className="p-3 px-5 text-center">{obj.view}</td>
+          <td
+          onClick={() => obj.free_id && handleDetail(obj.free_id)}
+          scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer">{obj.title}</td>
+          <td className="px-6 py-4">{obj.user_nm}</td>
+          <td className="px-6 py-4">{obj.crte_dttm}</td>
+          <td className="px-6 py-4 text-center">{obj.view}</td>
         </tr>
       ))}
     </>

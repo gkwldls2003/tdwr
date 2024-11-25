@@ -21,8 +21,11 @@ export default function FreeListButton() {
   }
 
   return(
-    <>
-      <button onClick={routToCreate} className="text-right">작성</button>
-    </>
+    <div className="flex justify-end mb-2">
+      <button onClick={routToCreate} 
+      className="middle none center rounded-lg bg-blue-500 py-3 px-6 font-sans text-sm font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+        작성하기
+      </button>
+    </div>
   )
 }
