@@ -167,6 +167,8 @@ export const deleteBoardFreeQuery = async (params:any[]) => {
      /* board-free-deleteBoardFreeQuery 자유게시판 삭제 */
     update tb_tdwr_board_free
     set use_yn = 'N'
+        ,updt_user_id = ?
+        ,updt_dttm = sysdate()
     where free_id = ?
     `;
     const result = await executeQuery('tdwr', query, params);

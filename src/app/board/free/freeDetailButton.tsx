@@ -39,7 +39,7 @@ export default function FreeDetailButton({ free_id, crte_user_id }: BoardFree) {
   }
 
   const handleDelete = async () => {
-    const result = await deleteBoardFreeQuery([free_id])
+    const result = await deleteBoardFreeQuery([userInfo?.user_id, free_id])
 
     if (result.rows > 0) {
       setIsDeleteModalOpen(false)
