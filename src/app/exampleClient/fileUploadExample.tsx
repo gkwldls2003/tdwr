@@ -12,7 +12,7 @@ export default function FileUploadExample() {
     //파일 유효성 검사
     if(isFileValidate(file)) return;
 
-    fileUpload(file, 1, 'tb_example', 'example');
+    fileUpload(file, 1, 'tb_example', 'example', 1);
 
   }
 
