@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { fileUpload, isFileValidate } from "../../../common/utils/cmm/cmm";
+import FileUpload from './../components/file/fileUpload';
 
 export default function FileUploadExample() {
   const [file, setFile] = useState<File | null>(null);
@@ -20,16 +21,7 @@ export default function FileUploadExample() {
     <div className="p-4">
       <form className="space-y-4">
         <div>
-          <input
-            type="file"
-            onChange={(e) => setFile(e.target.files?.[0] || null)}
-            className="block w-full text-sm text-gray-500
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-full file:border-0
-              file:text-sm file:font-semibold
-              file:bg-violet-50 file:text-violet-700
-              hover:file:bg-violet-100"
-          />
+          <FileUpload onChange={(e) => setFile(e.target.files?.[0] || null)}/>
         </div>
 
         <a

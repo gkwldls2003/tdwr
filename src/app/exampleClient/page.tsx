@@ -1,6 +1,6 @@
 import { selectAllData, selectOneData, insertData, multiInsertData } from "../../../common/querys/exampleQuery/page"
 import CommCodeServer from "../components/commCode/commCodeServer";
-import FileDownLoad from "../components/fileDownload/fileDownload";
+import FileDownLoad from "../components/file/fileDownload";
 import FileUploadExample from "./fileUploadExample";
 export default async function Test2() {
 
