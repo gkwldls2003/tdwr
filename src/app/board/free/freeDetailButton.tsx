@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { BoardFree } from "../../../../store/types/boardFree"
 import { useState } from 'react'
-import ConfirmationModal from "../../../../common/utils/cmm/modal/ConfirmationModal"
+import ConfirmationModal from "../../components/modal/ConfirmationModal"
 
 export default function FreeDetailButton({ free_id, crte_user_id }: BoardFree) {
   const router = useRouter()
