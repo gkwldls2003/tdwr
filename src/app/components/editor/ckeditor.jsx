@@ -62,11 +62,11 @@ export default function App({ data, setData, se }) {
     };
 
     useEffect(() => {
-        if (data && se ==='U') {
+        if (data && se ==='U') { //수정할 때
             setIsLayoutReady(true);
             setInitialData(data);
             return () => setIsLayoutReady(false);
-        } else if(se ==='C') {
+        } else if(se ==='C') { //작성할 때
             setIsLayoutReady(true);
             return () => setIsLayoutReady(false);
         }
