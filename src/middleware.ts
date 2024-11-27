@@ -16,11 +16,13 @@ export default async function middleware(request: NextRequest) {
     '/not-found',
     '/api/auth/reqUrl',
     '/api/file/upload',
+    '/api/file/ckEditorUpload'
   ];
 
   //공통 접근 허용 url 정규식
   const PrgmAccessUrlRegExp = [
-    '/api/file/download/*'
+    '/api/file/download/*',
+    '/api/file/ckEditorDownload/*',
   ];
 
   if (PrgmAccessUrl.includes(pathName)) {

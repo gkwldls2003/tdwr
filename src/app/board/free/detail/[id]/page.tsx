@@ -3,6 +3,7 @@ import { insertBoardFreeViewQuery, selectOneBoardFreeQuery } from "../../../../.
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import FreeDetailButton from "../../freeDetailButton";
+import parse from 'html-react-parser';
 
 export default async function Detail({ params } : { params: {id: number} }) {
 
@@ -13,7 +14,7 @@ export default async function Detail({ params } : { params: {id: number} }) {
 
   return (
     <>
-       <Header />
+      <Header />
       <div className="w-full min-w-[800px] max-w-[1200px] my-0 mx-auto">
         <h2 className="text-3xl font-bold text-center my-4">자유게시판</h2>
         <div className="flex justify-end mt-4">
@@ -37,7 +38,7 @@ export default async function Detail({ params } : { params: {id: number} }) {
             <tr>
               <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-gray-50">내용</th>
               <td colSpan={5} className="px-6 py-4 min-h-[200px] whitespace-pre-wrap">
-                {vo.cn}
+              {parse(vo.cn)}
               </td>
             </tr>
           </tbody>
