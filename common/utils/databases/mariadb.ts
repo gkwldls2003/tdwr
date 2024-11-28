@@ -124,7 +124,7 @@ export async function executeQuery(database: string, query: string, params: any[
         });
         return NextResponse.json([])
       } else {
-        return NextResponse.json(data[0])
+        return NextResponse.json(data.length === 1 ? data[0] : data)
       }
     }
     

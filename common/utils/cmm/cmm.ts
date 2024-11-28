@@ -1,5 +1,3 @@
-import { inserFileDataQuery } from "../../querys/cmm/page";
-
 export async function fileUpload(file:File | null, id:number, table:string, colunm_nm:string, user_id: number, sn?: number) {
 
     if (!file) return;
@@ -7,6 +5,10 @@ export async function fileUpload(file:File | null, id:number, table:string, colu
     try {
       const formData = new FormData();
       formData.append('file', file);
+      formData.append('id', id.toString());
+      formData.append('table', table);
+      formData.append('colunm_nm', colunm_nm);
+      formData.append('sn', sn ? sn.toString() : '1');
 
       const response = await fetch('/api/file/upload', {
         method: 'POST',
@@ -21,28 +23,6 @@ export async function fileUpload(file:File | null, id:number, table:string, colu
       }
 
       if (!response.ok) throw new Error(data.error);
-
-      const params = [
-        id,
-        table,
-        colunm_nm,
-        sn ? sn : 1,
-        'Y',
-        data.stre_file_nm,
-        data.orignl_file_nm,
-        data.file_stre_cours,
-        data.file_size,
-        data.ext,
-        user_id
-      ]
-
-      const result = await inserFileDataQuery(params);
-
-      if(result && result.rows > 0) {
-        alert('파일 업로드 성공!');
-      } else {
-        alert('실패!');
-      }
 
     } catch (error) {
       console.error('Upload error:', error);
