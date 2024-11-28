@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { useSession } from "next-auth/react";
 
 import {
     ClassicEditor,
@@ -52,9 +51,6 @@ import 'ckeditor5/ckeditor5.css';
 export default function App({ data, setData, se }) {
 
     const [initialData, setInitialData] = useState();
-    const { data: session } = useSession();
-    const userInfo = session?.user.info;
-
     const [isLayoutReady, setIsLayoutReady] = useState(false);
     const handleEditorChange = (event, editor) => {
         const data = editor.getData();
@@ -80,7 +76,6 @@ export default function App({ data, setData, se }) {
                     const body = new FormData();
                     loader.file.then((file) => {
                         body.append('file', file);
-                        body.append('user_id', userInfo?.user_id);
 
                         fetch('/api/file/ckEditorUpload', {
                             method: 'POST',

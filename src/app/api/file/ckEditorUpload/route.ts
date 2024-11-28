@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import crypto from 'crypto';
 import { inserCkEditorFileDataQuery } from '../../../../../common/querys/cmm/page';
+import { getToken } from 'next-auth/jwt';
 
 // 설정
 const UPLOAD_DIR = `${process.env.UPLOAD_DIR}`;
@@ -60,9 +61,14 @@ async function ensureUploadDirectory(uploadDir: string) {
 
 export async function POST(request: NextRequest) {
   try {
+
+    const token: any = await getToken({
+      req: request,
+      secret: process.env.JWT_SECRET,
+    })
+    
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    const user_id = formData.get('user_id');
 
     //파일 유효성 검사
     const validation = validateFile(file);
@@ -96,17 +102,22 @@ export async function POST(request: NextRequest) {
     // 파일 저장
     await writeFile(filePath, buffer);
 
-    const params = [stre_file_nm, file.name, uploadPath, file.size, file.name.split('.')[1], user_id];
-    await inserCkEditorFileDataQuery(params);
+    const params = [stre_file_nm, file.name, uploadPath, file.size, file.name.split('.')[1], token?.info?.user_id];
 
-    return NextResponse.json({
-      success: true,
-      stre_file_nm: stre_file_nm,
-      orignl_file_nm: file.name,
-      file_stre_cours: uploadPath,
-      file_size: file.size,
-      ext: file.name.split('.')[1]
-    });
+    //ckeditor mapng테이블 저장
+    const result = await inserCkEditorFileDataQuery(params);
+
+    if(result && result.rows > 0) {
+      return NextResponse.json({
+        success: true,
+        stre_file_nm: stre_file_nm
+      });
+    } else {
+      return NextResponse.json({
+        success: false,
+        message: '첨부파일 업로드에 실패하였습니다.'
+      });
+    }
 
   } catch (error) {
     console.error('Upload error:', error);
