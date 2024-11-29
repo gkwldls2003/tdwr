@@ -2,7 +2,7 @@ import { writeFile, mkdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import crypto from 'crypto';
-import { inserCkEditorFileDataQuery } from '../../../../../common/querys/cmm/page';
+import { insertCkEditorFileDataQuery } from '../../../../../common/querys/cmm/page';
 import { getToken } from 'next-auth/jwt';
 
 // 설정
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
     const params = [stre_file_nm, file.name, uploadPath, file.size, file.name.split('.')[1], token?.info?.user_id];
 
     //ckeditor mapng테이블 저장
-    const result = await inserCkEditorFileDataQuery(params);
+    const result = await insertCkEditorFileDataQuery(params);
 
     if(result && result.rows > 0) {
       return NextResponse.json({

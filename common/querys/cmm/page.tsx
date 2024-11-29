@@ -104,11 +104,11 @@ export const selectOneFileDataQuery = async (params:any[]) => {
   }
 }
 
-export const inserCkEditorFileDataQuery = async (params:any[]) => {
+export const insertCkEditorFileDataQuery = async (params:any[]) => {
   try {
     const query = 
     `
-    /* cmm-inserCkEditorFileDataQuery 공통 ckeditor 이미지 저장*/
+    /* cmm-insertCkEditorFileDataQuery 공통 ckeditor 이미지 저장*/
     insert into tb_cmm_ckeditor_file 
     ( 
       use_yn
