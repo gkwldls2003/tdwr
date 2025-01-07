@@ -12,12 +12,12 @@ export default function Comment({ board_id }: BoardComment) {
   const { data: session } = useSession();
   const userInfo = session?.user.info;
   const [cn, setCn] = useState('');
-  const [commentList, setCommentList] = useState([]);
+  const [commentList, setCommentList] = useState<BoardComment[]>([]);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const [editingId, setEditingId] = useState(0); //댓글 수정 id
-  const [editCn, setEditCn] = useState(''); //댓글 수정 내용
-  const [replyingId, setReplyingId] = useState(0); //답글 수정 id
-  const [replyCn, setReplyCn] = useState(''); //답글 내용
+  const [editingId, setEditingId] = useState<number>(0); //댓글 수정 id
+  const [editCn, setEditCn] = useState<string>(''); //댓글 수정 내용
+  const [replyingId, setReplyingId] = useState<number>(0); //답글 수정 id
+  const [replyCn, setReplyCn] = useState<string>(''); //답글 내용
 
   useEffect(() => {
     getCommentList();
