@@ -185,3 +185,166 @@ export const deleteBoardFreeQuery = async (params:any[]) => {
     return null; 
   }
 }
+
+export const selectCommentQuery = async (params: any) => {
+  try {
+    const query = 
+    `
+    /* board-free-selectCommentQuery 자유게시판 댓글조회 */
+    with recursive cte as (
+    /* Anchor */
+    select 
+            comment_id
+            ,upper_comment_id
+            ,board_id
+            ,0 AS depth
+            ,comment_id as path_start
+            ,sttus
+            ,if(sttus = 'N', '삭제된 댓글입니다.', cn) as cn
+            ,crte_user_id
+            ,f_cmm_user_nickname(crte_user_id) as nickname
+            ,date_format(crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
+        FROM tb_tdwr_board_comment
+        where use_yn = 'Y'
+        and upper_comment_id is null
+        and board_id = ${params.board_id}
+
+        union all
+
+      /* recursive */
+        select 
+            b.comment_id
+            ,b.upper_comment_id
+            ,b.board_id
+            ,cte.depth + 1
+            ,cte.path_start
+            ,b.sttus
+            ,if(b.sttus = 'N', '삭제된 댓글입니다.', b.cn) as cn
+            ,b.crte_user_id
+            ,f_cmm_user_nickname(b.crte_user_id) as nickname
+            ,date_format(b.crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
+        FROM tb_tdwr_board_comment b
+        inner join cte on b.upper_comment_id = cte.comment_id
+        where b.use_yn = 'Y'
+        and b.upper_comment_id is not null
+        and b.board_id = ${params.board_id}
+
+    ) select * from cte
+    order by path_start, depth, comment_id
+    `;
+    const result = await executeQueryAll('tdwr', query, []);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const insertBoardFreeCommentQuery = async (params:any[]) => {
+  try {
+    const query =
+    `
+    /* board-free-insertBoardFreeCommentQuery 자유게시판 댓글 등록*/
+    insert into tb_tdwr_board_comment 
+    ( board_id, cn, crte_user_id, crte_dttm)
+    values 
+    ( ?, ?, ?, sysdate() ) 
+    `;
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    result.status
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const updateBoardFreeCommentQuery = async (params:any[]) => {
+  try {
+    const query =
+    `
+     /* board-free-updateBoardFreeCommentQuery 자유게시판 댓글 수정 */
+    update tb_tdwr_board_comment
+    set cn = ?
+        ,updt_user_id = ?
+        ,updt_dttm = sysdate()
+    where comment_id = ?
+    `;
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    result.status
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const insertBoardFreeReplyCommentQuery = async (params:any[]) => {
+  try {
+    const query =
+    `
+     /* board-free-insertBoardFreeReplyCommentQuery 자유게시판 답글 등록 */
+    insert into tb_tdwr_board_comment 
+    ( upper_comment_id, board_id, cn, crte_user_id, crte_dttm)
+    values 
+    ( ?, ?, ?, ?, sysdate() ) 
+    `;
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    result.status
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const deleteBoardFreeCommentQuery = async (params:any[]) => {
+  try {
+    const query =
+     `
+     /* board-free-deleteBoardFreeCommentQuery 자유게시판 댓글 삭제 */
+    update tb_tdwr_board_comment
+    set sttus = 'N'
+        ,updt_user_id = ?
+        ,updt_dttm = sysdate()
+    where comment_id = ?
+    `;
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    result.status
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
