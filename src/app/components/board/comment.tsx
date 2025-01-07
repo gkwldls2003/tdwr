@@ -3,8 +3,13 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react'
 import { BoardComment } from '../../../../store/types/boardComment';
-import { insertBoardFreeCommentQuery, insertBoardFreeReplyCommentQuery, selectCommentQuery, updateBoardFreeCommentQuery } from '../../../../common/querys/board/free/page';
-import { deleteBoardFreeCommentQuery } from '../../../../common/querys/board/free/page';
+import {
+  insertBoardFreeCommentQuery
+  , insertBoardFreeReplyCommentQuery
+  , selectCommentQuery
+  , updateBoardFreeCommentQuery
+  , deleteBoardFreeCommentQuery
+} from '../../../../common/querys/board/free/page';
 import Image from 'next/image';
 import arrow_reply from '../../../../public/images/arrow_reply.png';
 
@@ -111,110 +116,110 @@ export default function Comment({ board_id }: BoardComment) {
             {/* sttus값이 N인경우 삭제된 텍스트 표시 */}
             {vo.sttus === 'N' ? <p className="text-gray-600 text-sm mt-1 whitespace-pre-wrap">삭제된 댓글입니다.</p> : (
               <div className="flex items-start space-x-2">
-              {/* 답글인 경우에만 화살표 이미지 표시 */}
-              {vo.upper_comment_id && (
-                <div className="mt-2">
-                  <Image src={arrow_reply} alt='답글 이미지' />
-                </div>
-              )}
-              <div className="flex-1">
-                <div className="font-semibold text-sm text-gray-700">
-                  {vo.nickname}
-                  <span className="ml-2 text-xs text-gray-500">{vo.crte_dttm}</span>
-                </div>
-                {/* 댓글 수정 폼 */}
-                {editingId === vo.comment_id ? (
+                {/* 답글인 경우에만 화살표 이미지 표시 */}
+                {vo.upper_comment_id && (
                   <div className="mt-2">
-                    <textarea
-                      className="w-full p-2 border border-gray-300 rounded-lg"
-                      value={editCn}
-                      onChange={(e) => setEditCn(e.target.value)}
-                      rows={3}
-                    />
-                    <div className="mt-2 space-x-2">
-                      <button
-                        onClick={() => handleUpdateComment(vo.comment_id!)}
-                        className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
-                      >
-                        수정완료
-                      </button>
-                      <button
-                        onClick={() => {
-                          setEditingId(0);
-                          setEditCn('');
-                        }}
-                        className="text-xs bg-gray-500 text-white px-2 py-1 rounded"
-                      >
-                        취소
-                      </button>
-                    </div>
+                    <Image src={arrow_reply} alt='답글 이미지' />
                   </div>
-                ) : (
-                  <>
-                    <p className="text-gray-600 text-sm mt-1 whitespace-pre-wrap">{vo.cn}</p>
-                    <div className="space-x-2">
-                      {/* 댓글만 답글 버튼 보이도록 */}
-                      {!vo.upper_comment_id && (<button
-                        onClick={() => setReplyingId(vo.comment_id!)}
-                        className="text-xs"
-                      >
-                        답글
-                      </button>)}
+                )}
+                <div className="flex-1">
+                  <div className="font-semibold text-sm text-gray-700">
+                    {vo.nickname}
+                    <span className="ml-2 text-xs text-gray-500">{vo.crte_dttm}</span>
+                  </div>
+                  {/* 댓글 수정 폼 */}
+                  {editingId === vo.comment_id ? (
+                    <div className="mt-2">
+                      <textarea
+                        className="w-full p-2 border border-gray-300 rounded-lg"
+                        value={editCn}
+                        onChange={(e) => setEditCn(e.target.value)}
+                        rows={3}
+                      />
+                      <div className="mt-2 space-x-2">
+                        <button
+                          onClick={() => handleUpdateComment(vo.comment_id!)}
+                          className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                        >
+                          수정완료
+                        </button>
+                        <button
+                          onClick={() => {
+                            setEditingId(0);
+                            setEditCn('');
+                          }}
+                          className="text-xs bg-gray-500 text-white px-2 py-1 rounded"
+                        >
+                          취소
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-gray-600 text-sm mt-1 whitespace-pre-wrap">{vo.cn}</p>
+                      <div className="space-x-2">
+                        {/* 댓글만 답글 버튼 보이도록 */}
+                        {!vo.upper_comment_id && (<button
+                          onClick={() => setReplyingId(vo.comment_id!)}
+                          className="text-xs"
+                        >
+                          답글
+                        </button>)}
 
-                      {/* 수정, 삭제 버튼 */}
-                      {vo.crte_user_id === userInfo?.user_id || userInfo?.author_id === 'ROLE_ADMIN' ? (
-                        <>
-                          <button
-                            onClick={() => {
-                              setEditingId(vo.comment_id!);
-                              setEditCn(vo.cn!);
-                            }}
-                            className="text-xs"
-                          >
-                            수정
-                          </button>
-                          <button
-                            onClick={() => handleDeleteComment(vo.comment_id!)}
-                            className="text-xs"
-                          >
-                            삭제
-                          </button>
-                        </>
-                      ) : null}
+                        {/* 수정, 삭제 버튼 */}
+                        {vo.crte_user_id === userInfo?.user_id || userInfo?.author_id === 'ROLE_ADMIN' ? (
+                          <>
+                            <button
+                              onClick={() => {
+                                setEditingId(vo.comment_id!);
+                                setEditCn(vo.cn!);
+                              }}
+                              className="text-xs"
+                            >
+                              수정
+                            </button>
+                            <button
+                              onClick={() => handleDeleteComment(vo.comment_id!)}
+                              className="text-xs"
+                            >
+                              삭제
+                            </button>
+                          </>
+                        ) : null}
+                      </div>
+                    </>
+                  )}
+                  {/* 답글 입력 폼 */}
+                  {replyingId === vo.comment_id && (
+                    <div className="mt-3 ml-4">
+                      <textarea
+                        className="w-full p-2 border border-gray-300 rounded-lg"
+                        placeholder="답글을 입력하세요."
+                        value={replyCn}
+                        onChange={(e) => setReplyCn(e.target.value)}
+                        rows={2}
+                      />
+                      <div className="mt-2 space-x-2">
+                        <button
+                          onClick={() => handleReplyComment(vo.comment_id!, vo.board_id!)}
+                          className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
+                        >
+                          답글등록
+                        </button>
+                        <button
+                          onClick={() => {
+                            setReplyingId(0);
+                            setReplyCn('');
+                          }}
+                          className="text-xs bg-gray-500 text-white px-2 py-1 rounded"
+                        >
+                          취소
+                        </button>
+                      </div>
                     </div>
-                  </>
-                )}
-                {/* 답글 입력 폼 */}
-                {replyingId === vo.comment_id && (
-                  <div className="mt-3 ml-4">
-                    <textarea
-                      className="w-full p-2 border border-gray-300 rounded-lg"
-                      placeholder="답글을 입력하세요."
-                      value={replyCn}
-                      onChange={(e) => setReplyCn(e.target.value)}
-                      rows={2}
-                    />
-                    <div className="mt-2 space-x-2">
-                      <button
-                        onClick={() => handleReplyComment(vo.comment_id!, vo.board_id!)}
-                        className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
-                      >
-                        답글등록
-                      </button>
-                      <button
-                        onClick={() => {
-                          setReplyingId(0);
-                          setReplyCn('');
-                        }}
-                        className="text-xs bg-gray-500 text-white px-2 py-1 rounded"
-                      >
-                        취소
-                      </button>
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
             )}
           </li>
         ))}
