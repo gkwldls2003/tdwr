@@ -76,7 +76,7 @@ export default function Comment({ board_id }: BoardComment) {
     }
 
     if (confirm('답글을 등록하시겠습니까??')) {
-      const result = await insertBoardFreeReplyCommentQuery([comment_id, board_id, replyCn, userInfo?.user_id, comment_id]);
+      const result = await insertBoardFreeReplyCommentQuery([comment_id, board_id, replyCn, userInfo?.user_id]);
 
       if (result.rows > 0) {
         setReplyCn('');
