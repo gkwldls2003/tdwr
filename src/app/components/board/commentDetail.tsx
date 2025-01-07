@@ -14,10 +14,10 @@ export default function CommentDetail({ board_id }: BoardComment) {
   const [cn, setCn] = useState('');
   const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const [editingId, setEditingId] = useState(0);
-  const [editCn, setEditCn] = useState('');
-  const [replyingId, setReplyingId] = useState(0);
-  const [replyCn, setReplyCn] = useState('');
+  const [editingId, setEditingId] = useState(0); //댓글 수정 id
+  const [editCn, setEditCn] = useState(''); //댓글 수정 내용
+  const [replyingId, setReplyingId] = useState(0); //답글 수정 id
+  const [replyCn, setReplyCn] = useState(''); //답글 내용
 
   useEffect(() => {
     getCommentList();
