@@ -193,7 +193,7 @@ export const selectCommentQuery = async (params: any) => {
     /* board-free-selectCommentQuery 자유게시판 댓글조회 */
     with recursive cte as (
     /* Anchor */
-    select 
+        select 
             comment_id
             ,upper_comment_id
             ,board_id
