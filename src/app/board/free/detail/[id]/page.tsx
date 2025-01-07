@@ -4,7 +4,7 @@ import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import FreeDetailButton from "../../freeDetailButton";
 import parse from 'html-react-parser';
-import CommentDetail from "@/app/components/board/commentDetail";
+import Comment from "@/app/components/board/comment";
 
 export default async function Detail({ params } : { params: {id: number} }) {
 
@@ -44,7 +44,7 @@ export default async function Detail({ params } : { params: {id: number} }) {
             </tr>
           </tbody>
         </Table>
-        <CommentDetail board_id={params.id}/>
+        <Comment board_id={params.id}/>
       </div>
     </>
   )

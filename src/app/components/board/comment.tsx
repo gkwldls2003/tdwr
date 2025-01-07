@@ -4,11 +4,11 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react'
 import { BoardComment } from '../../../../store/types/boardComment';
 import { insertBoardFreeCommentQuery, insertBoardFreeReplyCommentQuery, selectCommentQuery, updateBoardFreeCommentQuery } from '../../../../common/querys/board/free/page';
-import { deleteBoardFreeCommentQuery } from './../../../../common/querys/board/free/page';
+import { deleteBoardFreeCommentQuery } from '../../../../common/querys/board/free/page';
 import Image from 'next/image';
 import arrow_reply from '../../../../public/images/arrow_reply.png';
 
-export default function CommentDetail({ board_id }: BoardComment) {
+export default function Comment({ board_id }: BoardComment) {
   const { data: session } = useSession();
   const userInfo = session?.user.info;
   const [cn, setCn] = useState('');
