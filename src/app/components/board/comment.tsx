@@ -108,7 +108,9 @@ export default function Comment({ board_id }: BoardComment) {
       <ul className="space-y-4">
         {commentList.map((vo: BoardComment, i: number) => (
           <li key={i} className="p-4 border-b border-gray-200 rounded-lg bg-gray-50 shadow-sm hover:bg-gray-100">
-            <div className="flex items-start space-x-2">
+            {/* sttus값이 N인경우 삭제된 텍스트 표시 */}
+            {vo.sttus === 'N' ? <p className="text-gray-600 text-sm mt-1 whitespace-pre-wrap">삭제된 댓글입니다.</p> : (
+              <div className="flex items-start space-x-2">
               {/* 답글인 경우에만 화살표 이미지 표시 */}
               {vo.upper_comment_id && (
                 <div className="mt-2">
@@ -213,6 +215,7 @@ export default function Comment({ board_id }: BoardComment) {
                 )}
               </div>
             </div>
+            )}
           </li>
         ))}
       </ul>

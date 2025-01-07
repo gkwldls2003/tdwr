@@ -200,7 +200,7 @@ export const selectCommentQuery = async (params: any) => {
             ,0 AS depth
             ,comment_id as path_start
             ,sttus
-            ,if(sttus = 'N', '삭제된 댓글입니다.', cn) as cn
+            ,cn
             ,crte_user_id
             ,f_cmm_user_nickname(crte_user_id) as nickname
             ,date_format(crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
@@ -219,7 +219,7 @@ export const selectCommentQuery = async (params: any) => {
             ,cte.depth + 1
             ,cte.path_start
             ,b.sttus
-            ,if(b.sttus = 'N', '삭제된 댓글입니다.', b.cn) as cn
+            ,b.cn
             ,b.crte_user_id
             ,f_cmm_user_nickname(b.crte_user_id) as nickname
             ,date_format(b.crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
