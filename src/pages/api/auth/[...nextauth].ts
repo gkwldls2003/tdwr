@@ -53,7 +53,18 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 60 * 60, // 세샨시간 1시간
+    maxAge: 60 * 60, // 세션시간 1시간
+  },
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+      options: {
+        httpOnly: true,  // 쿠키를 자바스크립트에서 접근할 수 없도록 설정
+        secure: process.env.NODE_ENV === "production", // HTTPS 환경에서만 사용
+        sameSite: "lax",  // CSRF 공격 방지
+        path: '/',
+      },
+    },
   },
   secret: process.env.JWT_SECRET,
   pages: {
