@@ -5,13 +5,18 @@ import Table from "@/app/components/board/table";
 import FreeDetailButton from "../../freeDetailButton";
 import parse from 'html-react-parser';
 import Comment from "@/app/components/board/comment";
+import { redirect } from 'next/navigation'
 
 export default async function Detail({ params } : { params: {id: number} }) {
 
+  const vo = await selectOneBoardFreeQuery([params.id]);
+  //게시판 내용이 없으면
+  if(vo.length === 0) {
+    redirect('/not-found');
+  }
+
   //조회수 증가
   await insertBoardFreeViewQuery([params.id]);
-
-  const vo = await selectOneBoardFreeQuery([params.id]);
 
   return (
     <>
