@@ -111,15 +111,17 @@ export default function MarkerCluster(): any {
       const marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(spot.latitude, spot.longitude),
         draggable: false,
-        markerInfo: {
-          id: spot.id
-          , latitude: spot.latitude
-          , longitude: spot.longitude
-          , name: spot.name
-          , price: spot.price
-          , description: spot.description
-        }
+      
       });
+
+      marker.set('markerInfo',{
+        id: spot.id,
+        latitude: spot.latitude,
+        longitude: spot.longitude,
+        name: spot.name,
+        price: spot.price,
+        description: spot.description,
+      })
 
       // 클릭 이벤트 추가
       naver.maps.Event.addListener(marker, 'click', () => {
