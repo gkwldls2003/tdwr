@@ -9,7 +9,7 @@ export const selectMapInfoQuery = async () => {
     *
     FROM tb_tdwr_work_info
     `;
-    const result = await executeQueryAll('tdwr', query, []);
+    const result = await executeQueryAll('tdwr', query);
     
     if (!result) {
       throw new Error('No data returned');

@@ -232,7 +232,7 @@ export const selectCommentQuery = async (params: any) => {
     ) select * from cte
     order by path_start, depth, comment_id
     `;
-    const result = await executeQueryAll('tdwr', query, []);
+    const result = await executeQueryAll('tdwr', query);
     
     if (!result) {
       throw new Error('No data returned');

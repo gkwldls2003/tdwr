@@ -67,8 +67,12 @@ const getConnection = async (database: string) => {
   }
 }
 
-export async function executeQueryAll(database: string, query: string, params: any[]) {
+export async function executeQueryAll(database: string, query: string, params?: any[]) {
   let conn;
+  if(!params) {
+    params = [];
+  }
+
   try {
     conn = await getConnection(database);
 
