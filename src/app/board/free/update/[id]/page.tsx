@@ -66,7 +66,8 @@ export default function Detail({ params }: { params: { id: number } }) {
   return (
     <>
       <Header />
-      <div className="mt-16">
+      <div className="w-full min-w-[800px] max-w-[1200px] my-0 mx-auto">
+        <h2 className="text-3xl font-bold text-center my-4">자유게시판</h2>
         <Table>
           <Colgroup colgroup={["10%", "20%", "10%", "10%", "10%", "10%"]} />
           <tbody className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -80,7 +81,7 @@ export default function Detail({ params }: { params: { id: number } }) {
                   id="title"
                   name="title"
                   value={data?.title}
-                  className="w-full h-full px-3 py-2 border-none focus:ring-0 focus:outline-none"
+                  className="w-full p-3 border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => setData(prevData => ({
                     ...prevData,
                     title: e.target.value,
