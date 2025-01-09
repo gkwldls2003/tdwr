@@ -3,73 +3,80 @@
 import { useEffect, useState } from "react";
 import { Markers } from "../../../../store/types/marker";
 import { selectMarkerInfoQuery } from "../../../../common/querys/map/page";
-import Map from "../page";
-import MyMap from "../myMap";
 import { NavermapsProvider } from "react-naver-maps";
 import DetailMap from "./detailMap";
 import { useDispatch } from "react-redux";
 import { setShowLeftSider } from "../../../../store/layoutSlice";
 
 type Props = {
-    params: {
-      id: string;
-    };
+  params: {
+    id: string;
   };
+};
 
 export default function DetailPage({ params }: Props) {
   const ncpClientId = `${process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}`
   const dispatch = useDispatch();
-  const [marker,setMarker]=useState<Markers | null>(null);
-    const { id } = params;
-    const fetchMarker = async () => {
-        try {
-          const selectMarkerInfo = await selectMarkerInfoQuery(id);
-          if (selectMarkerInfo) {
-            setMarker(selectMarkerInfo);
-          } else {
-            console.error('No data returned from API');
-          }
-        } catch (error) {
-          console.error('Error fetching marker data:', error);
-        }
-      };
+  const [marker, setMarker] = useState<Markers | null>(null);
+  const { id } = params;
 
-      useEffect(() => {
-        // DetailPage가 마운트될 때 LeftSider 숨기기
-        dispatch(setShowLeftSider(false));
-    
-        // 컴포넌트가 언마운트될 때 LeftSider 다시 보이기
-        return () => {
-          dispatch(setShowLeftSider(true));
-        };
-      }, [dispatch]);
+  const fetchMarker = async () => {
+    try {
+      const selectMarkerInfo = await selectMarkerInfoQuery(id);
+      if (selectMarkerInfo) {
+        setMarker(selectMarkerInfo);
+      } else {
+        console.error('No data returned from API');
+      }
+    } catch (error) {
+      console.error('Error fetching marker data:', error);
+    }
+  };
 
+  useEffect(() => {
+    dispatch(setShowLeftSider(false));
+    return () => {
+      dispatch(setShowLeftSider(true));
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchMarker();
-  }, []);  // 빈 배열로 fetchMarker를 한 번만 실행
+  }, []);
 
   return (
-    <div className="">
-      <h1 className="text-2xl font-bold"></h1>
-      <div className="w-full h-96 mb-4">
-  <NavermapsProvider ncpClientId={ncpClientId}>
-    {marker && <DetailMap marker={marker} />}
-  </NavermapsProvider>
-</div>
-      
-      <div className="bg-white shadow-md">
-        <div className="mb-4">
-        
-          <span className="font-bold">가격:{marker?.price}</span> 
-        </div>
-        <div className="">
-          <span className="font-bold">하는일:{marker?.name}</span>
-          <p className="mt-2 text-gray-600"></p>
-        </div>
-        <div className="mb-4">
-          <span className="font-bold">설명:{marker?.description}</span>
-          <p className="mt-2 text-gray-600"></p>
+    <div className="flex flex-col min-h-[calc(100vh-theme(space.16))]">
+      <div className="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-y-auto">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+          <div className="w-full h-96 relative">
+            <NavermapsProvider ncpClientId={ncpClientId}>
+              {marker && <DetailMap marker={marker} />}
+            </NavermapsProvider>
+          </div>
+
+          <div className="p-6 space-y-6">
+            <div className="border-b border-gray-200 pb-6">
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                {marker?.name}
+              </h1>
+              <div className="flex items-center justify-between">
+                <span className="text-2xl font-semibold text-blue-600">
+                  {marker && `₩${marker.price.toLocaleString()}`}
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">설명</h2>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <p className="text-gray-700 leading-relaxed">
+                    {marker?.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

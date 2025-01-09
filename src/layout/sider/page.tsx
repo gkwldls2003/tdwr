@@ -37,7 +37,7 @@ export default function LeftSider() {
             <div className="divide-y">
               {visibleMarkers.map((item) => (
                 <div key={item.id} className="p-4 hover:bg-gray-50 cursor-pointer">
-                  <Link href={`/map/${item.id}`}>
+                  <Link href={`/map/${item.id}`} target='_blank'>
                   <div className="space-y-2">
                     <div className="font-bold">일당 : {item.price}</div>
                     <div className="text-sm text-gray-600">
