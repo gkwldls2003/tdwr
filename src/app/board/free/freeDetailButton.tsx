@@ -4,7 +4,7 @@ import Link from "next/link"
 import { deleteBoardFreeQuery } from "../../../../common/querys/board/free/page"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-import { BoardFree } from "../../../../store/types/boardFree"
+import { BoardFree } from "../../../../store/types/board"
 import { useState } from 'react'
 import ConfirmationModal from "../../components/modal/ConfirmationModal"
 

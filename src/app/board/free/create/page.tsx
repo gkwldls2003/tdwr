@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BoardFree } from "../../../../../store/types/boardFree";
+import { BoardFree } from "../../../../../store/types/board";
 import dynamic from "next/dynamic";
 import { insertBoardFreeQuery } from "../../../../../common/querys/board/free/page";
 

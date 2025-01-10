@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react'
-import { BoardComment } from '../../../../store/types/boardComment';
+import { BoardComment } from '../../../../store/types/board';
 import {
   insertBoardFreeCommentQuery
   , insertBoardFreeReplyCommentQuery

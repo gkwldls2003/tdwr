@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { BoardFree } from "../../../../store/types/boardFree";
+import { BoardFree } from "../../../../store/types/board";
 import { useRouter } from "next/navigation";
 
 export default function FreeBoardTr({ list }: { list: BoardFree[] }) {
