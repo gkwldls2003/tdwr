@@ -9,7 +9,7 @@ import {
   , selectCommentQuery
   , updateBoardFreeCommentQuery
   , deleteBoardFreeCommentQuery
-} from '../../../../common/querys/board/free/page';
+} from '../../../../common/querys/board/page';
 import Image from 'next/image';
 import arrow_reply from '../../../../public/images/arrow_reply.png';
 import RecommandComment from './recommandComment';

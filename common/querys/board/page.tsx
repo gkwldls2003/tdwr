@@ -1,11 +1,11 @@
 'use server'
-import { executeQuery, executeQueryAll } from "../../../utils/databases/mariadb";
+import { executeQuery, executeQueryAll } from "../../utils/databases/mariadb";
 
 export const selectBoardFreeQuery = async (params: any) => {
   try {
     const query = 
     `
-    /* board-free-selectBoardFreeQuery 자유게시판 조회 */
+    /* board-selectBoardFreeQuery 자유게시판 조회 */
     select 
         board_id
         ,title
@@ -55,7 +55,7 @@ export const selectOneBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-free-selectOneBoardFreeQuery 자유게시판 상세 */
+     /* board-selectOneBoardFreeQuery 자유게시판 상세 */
     select 
         board_id
         ,title
@@ -87,7 +87,7 @@ export const insertBoardFreeViewQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-free-insertBoardFreeViewQuery 자유게시판 상세 조회수 증가 */
+     /* board-insertBoardFreeViewQuery 자유게시판 상세 조회수 증가 */
     update tb_tdwr_board
     set view = view + 1
     where board_id = ?
@@ -112,7 +112,7 @@ export const insertBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-free-insertBoardFreeQuery 자유게시판 작성 */
+     /* board-insertBoardFreeQuery 자유게시판 작성 */
     insert into tb_tdwr_board 
     ( se, title, cn, crte_user_id, crte_dttm)
     values 
@@ -137,7 +137,7 @@ export const updateBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-free-updateBoardFreeQuery 자유게시판 수정 */
+     /* board-updateBoardFreeQuery 자유게시판 수정 */
     update tb_tdwr_board
     set title = ?
         ,cn = ?
@@ -165,7 +165,7 @@ export const deleteBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-free-deleteBoardFreeQuery 자유게시판 삭제 */
+     /* board-deleteBoardFreeQuery 자유게시판 삭제 */
     update tb_tdwr_board
     set use_yn = 'N'
         ,updt_user_id = ?
@@ -191,7 +191,7 @@ export const selectCommentQuery = async (params: any) => {
   try {
     const query = 
     `
-    /* board-free-selectCommentQuery 자유게시판 댓글조회 */
+    /* board-selectCommentQuery 자유게시판 댓글조회 */
     with recursive cte as (
     /* Anchor */
         select 
@@ -258,7 +258,7 @@ export const insertBoardFreeCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-    /* board-free-insertBoardFreeCommentQuery 자유게시판 댓글 등록*/
+    /* board-insertBoardFreeCommentQuery 자유게시판 댓글 등록*/
     insert into tb_tdwr_board_comment 
     ( board_id, cn, crte_user_id, crte_dttm)
     values 
@@ -283,7 +283,7 @@ export const updateBoardFreeCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-free-updateBoardFreeCommentQuery 자유게시판 댓글 수정 */
+     /* board-updateBoardFreeCommentQuery 자유게시판 댓글 수정 */
     update tb_tdwr_board_comment
     set cn = ?
         ,updt_user_id = ?
@@ -309,7 +309,7 @@ export const insertBoardFreeReplyCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-free-insertBoardFreeReplyCommentQuery 자유게시판 답글 등록 */
+     /* board-insertBoardFreeReplyCommentQuery 자유게시판 답글 등록 */
     insert into tb_tdwr_board_comment 
     ( upper_comment_id, board_id, cn, crte_user_id, crte_dttm)
     values 
@@ -334,12 +334,94 @@ export const deleteBoardFreeCommentQuery = async (params:any[]) => {
   try {
     const query =
      `
-     /* board-free-deleteBoardFreeCommentQuery 자유게시판 댓글 삭제 */
+     /* board-deleteBoardFreeCommentQuery 자유게시판 댓글 삭제 */
     update tb_tdwr_board_comment
     set sttus = 'N'
         ,updt_user_id = ?
         ,updt_dttm = sysdate()
     where comment_id = ?
+    `;
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const selectBoardRecommandCountQuery = async (params: any) => {
+  try {
+    //se = board_free 자유게시판, board_free_comment 자유게시판 댓글
+    const query = 
+    `
+    /* board-selectBoardRecommandCountQuery 게시판 추천 비추천 조회 */
+    select 
+      count(*) as cnt
+    from tb_tdwr_board_recommand
+    where mapng_key = ?
+    and se = ?
+    and type = ?
+    `;
+
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const selectBoardRecommandCountUserQuery = async (params: any) => {
+  try {
+    const query = 
+    `
+    /* board-selectBoardRecommandCountUserQuery 게시판 추천 비추천 사용자 조회 */
+    select 
+      count(*) as cnt
+    from tb_tdwr_board_recommand
+    where mapng_key = ?
+    and se = ?
+    and crte_user_id = ?
+    `;
+
+    const result = await executeQuery('tdwr', query, params);
+    
+    if (!result) {
+      throw new Error('No data returned');
+    }
+    
+    const data = await result.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; 
+  }
+}
+
+export const insertBoardRecommandQuery = async (params:any[]) => {
+  try {
+    const query =
+    `
+     /* board-insertBoardRecommandQuery 게시판 추천 비추천 등록 */
+    insert into tb_tdwr_board_recommand 
+    ( mapng_key, se, type, crte_user_id, crte_dttm)
+    values 
+    ( ?, ?, ?, ?, sysdate() ) 
     `;
     const result = await executeQuery('tdwr', query, params);
     

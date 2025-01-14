@@ -1,6 +1,6 @@
 
 import { useSession } from 'next-auth/react';
-import { insertBoardRecommandQuery, selectBoardRecommandCountUserQuery } from '../../../../common/querys/board/comm/page';
+import { insertBoardRecommandQuery, selectBoardRecommandCountUserQuery } from '../../../../common/querys/board/page';
 import { ThumbsUp, ThumbsDown } from 'lucide-react'
 import { useAppDispatch } from '../../../../store/hooks';
 import { useSelector } from 'react-redux';

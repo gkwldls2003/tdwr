@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react';
-import { insertBoardRecommandQuery, selectBoardRecommandCountQuery, selectBoardRecommandCountUserQuery } from '../../../../common/querys/board/comm/page';
+import { insertBoardRecommandQuery, selectBoardRecommandCountQuery, selectBoardRecommandCountUserQuery } from '../../../../common/querys/board/page';
 import { ThumbsUp, ThumbsDown } from 'lucide-react'
 
 interface Recommand {

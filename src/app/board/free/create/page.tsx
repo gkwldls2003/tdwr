@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { insertBoardFreeQuery } from "../../../../../common/querys/board/free/page";
+import { insertBoardFreeQuery } from "../../../../../common/querys/board/page";
 
 const CkEditor = dynamic(() => import('@/app/components/editor/ckeditor.jsx'), {
   ssr: false,

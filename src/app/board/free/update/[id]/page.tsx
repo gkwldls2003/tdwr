@@ -4,7 +4,7 @@ import Header from "@/layout/header/page";
 import {
   selectOneBoardFreeQuery,
   updateBoardFreeQuery,
-} from "../../../../../../common/querys/board/free/page";
+} from "../../../../../../common/querys/board/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import { useState, useEffect } from "react";
