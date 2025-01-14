@@ -6,6 +6,7 @@ import FreeDetailButton from "../../freeDetailButton";
 import parse from 'html-react-parser';
 import Comment from "@/app/components/board/comment";
 import { redirect } from 'next/navigation'
+import Recommand from "@/app/components/board/recommand";
 
 export default async function Detail({ params } : { params: {id: number} }) {
 
@@ -49,6 +50,9 @@ export default async function Detail({ params } : { params: {id: number} }) {
             </tr>
           </tbody>
         </Table>
+        {/* 추천 비추천 버튼 */}
+        <Recommand board_id={params.id}/>
+        {/* 댓글 */}
         <Comment board_id={params.id}/>
       </div>
     </>

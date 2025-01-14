@@ -80,6 +80,11 @@ export default function Comment({ board_id }: BoardComment) {
       return;
     }
 
+    if (replyCn === '') {
+      alert('답글을 입력해주세요.');
+      return;
+    }
+
     if (confirm('답글을 등록하시겠습니까??')) {
       const result = await insertBoardFreeReplyCommentQuery([comment_id, board_id, replyCn, userInfo?.user_id]);
 

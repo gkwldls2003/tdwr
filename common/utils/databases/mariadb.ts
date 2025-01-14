@@ -29,6 +29,27 @@ const registerService = (name: string, initFn: any) => {
   return initFn();
 };
 
+// BigInt를 일반 숫자로 변환하는 함수
+const convertBigIntToNumber = (obj: any): any => {
+  if (typeof obj === 'bigint') {
+    return Number(obj);
+  }
+  
+  if (Array.isArray(obj)) {
+    return obj.map(convertBigIntToNumber);
+  }
+  
+  if (typeof obj === 'object' && obj !== null) {
+    const newObj: any = {};
+    for (const key in obj) {
+      newObj[key] = convertBigIntToNumber(obj[key]);
+    }
+    return newObj;
+  }
+  
+  return obj;
+};
+
 const pools: any = {
   tdwr:
     registerService('mariadb', () => mariadb.createPool({
@@ -86,7 +107,10 @@ export async function executeQueryAll(database: string, query: string, params?: 
       message: '============= PARAMS INFO =============   '
     });
 
-    const data = await conn.query(query, params);
+    let data = await conn.query(query, params);
+
+    //결과값이 bigint를 number로 convert
+    data = convertBigIntToNumber(data);
 
     return NextResponse.json({ data })
   } catch (err: any) {
@@ -115,7 +139,10 @@ export async function executeQuery(database: string, query: string, params: any[
       message: '============= PARAMS INFO =============   '
     });
 
-    const data = await conn.query(query, params);
+    let data = await conn.query(query, params);
+
+    //결과값이 bigint를 number로 convert
+    data = convertBigIntToNumber(data);
 
     if (data && data.affectedRows !== undefined) {
       // INSERT UPDATE, DELETE가 성공적으로 수행된 경우
@@ -166,7 +193,10 @@ export async function executeMultiQuery(database: string, queries: string[], par
           message: '============= PARAMS INFO =============   '
         });
 
-        const data = await conn.query(queries[idx], params[idx]);
+        let data = await conn.query(queries[idx], params[idx]);
+
+        //결과값이 bigint를 number로 convert
+        data = convertBigIntToNumber(data);
 
         datRowSum += data.affectedRows;
         insertId = Number(data.insertId);
@@ -186,7 +216,10 @@ export async function executeMultiQuery(database: string, queries: string[], par
           message: '============= PARAMS INFO =============   '
         });
 
-        const data = await conn.query(queries[idx], params[idx]);
+        let data = await conn.query(queries[idx], params[idx]);
+
+        //결과값이 bigint를 number로 convert
+        data = convertBigIntToNumber(data);
 
         datRowSum += data.affectedRows;
       }
