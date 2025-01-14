@@ -20,7 +20,7 @@ export const selectBoardRecommandCountQuery = async (params: any) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -48,7 +48,7 @@ export const selectBoardRecommandCountUserQuery = async (params: any) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -73,7 +73,7 @@ export const insertBoardRecommandQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;

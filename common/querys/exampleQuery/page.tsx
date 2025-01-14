@@ -40,7 +40,7 @@ export const selectOneData = async () => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -82,7 +82,7 @@ export const insertData = async () => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     if (data.rows > 0) {

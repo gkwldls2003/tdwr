@@ -30,7 +30,7 @@ export const inserFileDataQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     if (data.rows > 0) {
@@ -65,7 +65,7 @@ export const selectOneFileMapngDataQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -94,7 +94,7 @@ export const selectOneFileDataQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -129,7 +129,7 @@ export const insertCkEditorFileDataQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     if (data.rows > 0) {
@@ -162,7 +162,7 @@ export const selectOneCkEditorDataQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;

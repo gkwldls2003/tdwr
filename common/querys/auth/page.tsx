@@ -22,7 +22,7 @@ export const selectUserInfoQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -99,7 +99,7 @@ export const selectUserAuthPrgmQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -131,7 +131,7 @@ export const selectCommCodeQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;

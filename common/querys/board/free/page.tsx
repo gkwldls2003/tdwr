@@ -72,7 +72,7 @@ export const selectOneBoardFreeQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -97,7 +97,7 @@ export const insertBoardFreeViewQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -122,7 +122,7 @@ export const insertBoardFreeQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -150,7 +150,7 @@ export const updateBoardFreeQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -176,7 +176,7 @@ export const deleteBoardFreeQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -262,7 +262,7 @@ export const insertBoardFreeCommentQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -288,7 +288,7 @@ export const updateBoardFreeCommentQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -313,7 +313,7 @@ export const insertBoardFreeReplyCommentQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
@@ -339,7 +339,7 @@ export const deleteBoardFreeCommentQuery = async (params:any[]) => {
     if (!result) {
       throw new Error('No data returned');
     }
-    result.status
+    
     const data = await result.json();
 
     return data;
