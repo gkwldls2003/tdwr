@@ -14,7 +14,7 @@ export const selectBoardFreeQuery = async (params: any) => {
         ,crte_user_id
         ,f_cmm_user_nm(crte_user_id) as user_nm
         ,date_format(crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
-        ,cast(count(*) over() as decimal(11,0)) as tot
+        ,count(*) over() as tot
     FROM tb_tdwr_board_free
     where use_yn = 'Y'
     ${params.search_gb === 'all' ? `and (title like concat('%', '${params.search}', '%') or cn like concat('%', '${params.search}', '%'))` : ``}

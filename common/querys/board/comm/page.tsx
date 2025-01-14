@@ -36,7 +36,7 @@ export const selectBoardRecommandCountUserQuery = async (params: any) => {
     `
     /* board-comm-selectBoardRecommandCountUserQuery 게시판 추천 비추천 사용자 조회 */
     select 
-      cast(count(*) as decimal(11,0)) as cnt
+      count(*) as cnt
     from tb_tdwr_board_recommand
     where board_id = ?
     and se = ?
