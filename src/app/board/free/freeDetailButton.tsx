@@ -8,7 +8,7 @@ import { BoardFree } from "../../../../store/types/board"
 import { useState } from 'react'
 import ConfirmationModal from "../../components/modal/ConfirmationModal"
 
-export default function FreeDetailButton({ free_id, crte_user_id }: BoardFree) {
+export default function FreeDetailButton({ board_id, crte_user_id }: BoardFree) {
   const router = useRouter()
   const { data: session, status } = useSession()
   const userInfo = session?.user.info
@@ -23,7 +23,7 @@ export default function FreeDetailButton({ free_id, crte_user_id }: BoardFree) {
         <>
           <Link 
             className="middle none center rounded-lg bg-blue-500 py-2 px-4 font-sans text-sm font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" 
-            href={`/board/free/update/${free_id}`}
+            href={`/board/free/update/${board_id}`}
           >
             수정
           </Link>
@@ -39,7 +39,7 @@ export default function FreeDetailButton({ free_id, crte_user_id }: BoardFree) {
   }
 
   const handleDelete = async () => {
-    const result = await deleteBoardFreeQuery([userInfo?.user_id, free_id])
+    const result = await deleteBoardFreeQuery([userInfo?.user_id, board_id])
 
     if (result.rows > 0) {
       setIsDeleteModalOpen(false)

@@ -7,7 +7,6 @@ import FreeListButton from './freeListButton';
 import Paging from "@/app/components/pagination/paging"
 import FreeSearch from "./freeSearch"
 import FreeBoardTr from "./freeTr"
-import Footer from "@/layout/footer/page"
 
 export default async function Free( { searchParams } :
   {
@@ -16,6 +15,7 @@ export default async function Free( { searchParams } :
       s?: number;
       search_gb?: string;
       search?: string;
+      se: string;
     }
   }
 ) {
@@ -25,6 +25,9 @@ export default async function Free( { searchParams } :
   if(searchParams.search_gb && searchParams.search) {
     search = `&search_gb=${searchParams.search_gb}&search=${searchParams.search}`; 
   }
+
+  //게시판 구분
+  searchParams.se = 'free';
     
   const list = await selectBoardFreeQuery(await searchParams);
 

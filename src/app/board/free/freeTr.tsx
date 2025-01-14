@@ -14,9 +14,9 @@ export default function FreeBoardTr({ list }: { list: BoardFree[] }) {
     }
   }, [list]);
 
-  function handleDetail(free_id: number) {
+  function handleDetail(board_id: number) {
     sessionStorage.setItem('referrer', window.location.href);
-    router.push(`/board/free/detail/${free_id}`);
+    router.push(`/board/free/detail/${board_id}`);
   }
 
   if (isLoading) {
@@ -37,9 +37,9 @@ export default function FreeBoardTr({ list }: { list: BoardFree[] }) {
         <tr
           key={idx}
           className="cursor-pointer border-b bg-white-100"
-          onClick={() => obj.free_id && handleDetail(obj.free_id)}
+          onClick={() => obj.board_id && handleDetail(obj.board_id)}
         >
-          <td className="p-3 px-5 text-center">{obj.free_id}</td>
+          <td className="p-3 px-5 text-center">{obj.board_id}</td>
           <td className="p-3 px-5 text-left">{obj.title}</td>
           <td className="p-3 px-5 text-center">{obj.user_nm}</td>
           <td className="p-3 px-5 text-center">{obj.crte_dttm}</td>

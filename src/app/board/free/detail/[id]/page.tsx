@@ -4,9 +4,9 @@ import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import FreeDetailButton from "../../freeDetailButton";
 import parse from 'html-react-parser';
-import Comment from "@/app/components/board/comment";
 import { redirect } from 'next/navigation'
 import Recommand from "@/app/components/board/recommand";
+import CommentWrapper from "@/app/components/board/CommentWrapper";
 
 export default async function Detail({ params } : { params: {id: number} }) {
 
@@ -25,7 +25,7 @@ export default async function Detail({ params } : { params: {id: number} }) {
       <div className="w-full min-w-[800px] max-w-[1200px] my-0 mx-auto">
         <h2 className="text-3xl font-bold text-center my-4">자유게시판</h2>
         <div className="flex justify-end mt-4">
-          <FreeDetailButton free_id={params.id} crte_user_id={vo.crte_user_id} />
+          <FreeDetailButton board_id={params.id} crte_user_id={vo.crte_user_id} />
         </div>
         <Table>
           <Colgroup colgroup={['15%', '35%', '15%', '15%', '10%', '10%']} />
@@ -51,9 +51,9 @@ export default async function Detail({ params } : { params: {id: number} }) {
           </tbody>
         </Table>
         {/* 추천 비추천 버튼 */}
-        <Recommand board_id={params.id}/>
+        <Recommand mapng_key={params.id} se={'free'}/>
         {/* 댓글 */}
-        <Comment board_id={params.id}/>
+        <CommentWrapper board_id={params.id} se={'free_comment'}/>
       </div>
     </>
   )

@@ -10,7 +10,7 @@ export const selectBoardRecommandCountQuery = async (params: any) => {
     select 
       count(*) as cnt
     from tb_tdwr_board_recommand
-    where board_id = ?
+    where mapng_key = ?
     and se = ?
     and type = ?
     `;
@@ -38,7 +38,7 @@ export const selectBoardRecommandCountUserQuery = async (params: any) => {
     select 
       count(*) as cnt
     from tb_tdwr_board_recommand
-    where board_id = ?
+    where mapng_key = ?
     and se = ?
     and crte_user_id = ?
     `;
@@ -64,7 +64,7 @@ export const insertBoardRecommandQuery = async (params:any[]) => {
     `
      /* board-comm-insertBoardRecommandQuery 게시판 추천 비추천 등록 */
     insert into tb_tdwr_board_recommand 
-    ( board_id, se, type, crte_user_id, crte_dttm)
+    ( mapng_key, se, type, crte_user_id, crte_dttm)
     values 
     ( ?, ?, ?, ?, sysdate() ) 
     `;

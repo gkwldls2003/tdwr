@@ -12,13 +12,17 @@ import {
 } from '../../../../common/querys/board/free/page';
 import Image from 'next/image';
 import arrow_reply from '../../../../public/images/arrow_reply.png';
+import RecommandComment from './recommandComment';
+import { selectIsLoading, setLoading } from '../../../../store/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 
-export default function Comment({ board_id }: BoardComment) {
+export default function Comment({ board_id, se }: BoardComment) {
+  const isloading = useAppSelector(selectIsLoading);
+  const dispatch = useAppDispatch();
   const { data: session } = useSession();
   const userInfo = session?.user.info;
   const [cn, setCn] = useState('');
   const [commentList, setCommentList] = useState<BoardComment[]>([]);
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [editingId, setEditingId] = useState<number>(0); //댓글 수정 id
   const [editCn, setEditCn] = useState<string>(''); //댓글 수정 내용
   const [replyingId, setReplyingId] = useState<number>(0); //답글 수정 id
@@ -26,7 +30,7 @@ export default function Comment({ board_id }: BoardComment) {
 
   useEffect(() => {
     getCommentList();
-  }, [isLoading])
+  }, [isloading])
 
   async function handleCreateComment() {
     if (!userInfo) {
@@ -42,12 +46,12 @@ export default function Comment({ board_id }: BoardComment) {
 
     if (result.rows > 0) {
       setCn('');
-      setIsLoading(!isLoading);
+      dispatch(setLoading(!isloading));
     }
   }
 
   async function getCommentList() {
-    const result = await selectCommentQuery({ board_id: board_id });
+    const result = await selectCommentQuery({ board_id: board_id, se: se });
     setCommentList(result.data);
   }
 
@@ -57,7 +61,7 @@ export default function Comment({ board_id }: BoardComment) {
 
       if (result.rows > 0) {
         setCn('');
-        setIsLoading(!isLoading);
+        dispatch(setLoading(!isloading));
       }
     }
   }
@@ -69,7 +73,7 @@ export default function Comment({ board_id }: BoardComment) {
       if (result.rows > 0) {
         setCn('');
         setEditingId(0);
-        setIsLoading(!isLoading);
+        dispatch(setLoading(!isloading));
       }
     }
   }
@@ -91,7 +95,7 @@ export default function Comment({ board_id }: BoardComment) {
       if (result.rows > 0) {
         setReplyCn('');
         setReplyingId(0);
-        setIsLoading(!isLoading);
+        dispatch(setLoading(!isloading));
       }
     }
   }
@@ -129,8 +133,16 @@ export default function Comment({ board_id }: BoardComment) {
                 )}
                 <div className="flex-1">
                   <div className="font-semibold text-sm text-gray-700">
-                    {vo.nickname}
-                    <span className="ml-2 text-xs text-gray-500">{vo.crte_dttm}</span>
+                    <div className="flex items-center gap-2 ml-2">
+                      {vo.nickname}
+                      <span className="ml-2 text-xs text-gray-500">{vo.crte_dttm}</span>
+                      <RecommandComment
+                        mapng_key={vo.comment_id!}
+                        se={se}
+                        good_count={vo.good_count!}
+                        bad_count={vo.bad_count!}
+                      />
+                    </div>
                   </div>
                   {/* 댓글 수정 폼 */}
                   {editingId === vo.comment_id ? (

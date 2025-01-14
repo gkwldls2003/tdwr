@@ -7,7 +7,7 @@ export const selectBoardFreeQuery = async (params: any) => {
     `
     /* board-free-selectBoardFreeQuery 자유게시판 조회 */
     select 
-        free_id
+        board_id
         ,title
         ,cn
         ,view
@@ -15,12 +15,13 @@ export const selectBoardFreeQuery = async (params: any) => {
         ,f_cmm_user_nm(crte_user_id) as user_nm
         ,date_format(crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
         ,count(*) over() as tot
-    FROM tb_tdwr_board_free
+    FROM tb_tdwr_board
     where use_yn = 'Y'
+    and se = '${params.se}'
     ${params.search_gb === 'all' ? `and (title like concat('%', '${params.search}', '%') or cn like concat('%', '${params.search}', '%'))` : ``}
     ${params.search_gb === 'title' ? `and title like concat('%', '${params.search}', '%')` : ``}
     ${params.search_gb === 'cn' ? `and cn like concat('%', '${params.search}', '%')` : ``}
-    order by free_id desc
+    order by board_id desc
     ${params.s && params.p? `limit ? offset ? ` : `limit 10 offset 0`}
     `;
 
@@ -53,19 +54,19 @@ export const selectBoardFreeQuery = async (params: any) => {
 export const selectOneBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
-     `
+    `
      /* board-free-selectOneBoardFreeQuery 자유게시판 상세 */
     select 
-        free_id
+        board_id
         ,title
         ,cn
         ,view
         ,crte_user_id
         ,f_cmm_user_nm(crte_user_id) as user_nm
         ,date_format(crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
-    FROM tb_tdwr_board_free
+    FROM tb_tdwr_board
     where use_yn = 'Y'
-    and free_id = ?
+    and board_id = ?
     `;
     const result = await executeQuery('tdwr', query, params);
     
@@ -85,11 +86,11 @@ export const selectOneBoardFreeQuery = async (params:any[]) => {
 export const insertBoardFreeViewQuery = async (params:any[]) => {
   try {
     const query =
-     `
+    `
      /* board-free-insertBoardFreeViewQuery 자유게시판 상세 조회수 증가 */
-    update tb_tdwr_board_free
+    update tb_tdwr_board
     set view = view + 1
-    where free_id = ?
+    where board_id = ?
     and use_yn = 'Y'
     `;
     const result = await executeQuery('tdwr', query, params);
@@ -110,12 +111,12 @@ export const insertBoardFreeViewQuery = async (params:any[]) => {
 export const insertBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
-     `
+    `
      /* board-free-insertBoardFreeQuery 자유게시판 작성 */
-    insert into tb_tdwr_board_free 
-    ( title, cn, crte_user_id, crte_dttm)
+    insert into tb_tdwr_board 
+    ( se, title, cn, crte_user_id, crte_dttm)
     values 
-    ( ?, ?, ?, sysdate() ) 
+    ( ?, ?, ?, ?, sysdate() ) 
     `;
     const result = await executeQuery('tdwr', query, params);
     
@@ -135,14 +136,14 @@ export const insertBoardFreeQuery = async (params:any[]) => {
 export const updateBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
-     `
+    `
      /* board-free-updateBoardFreeQuery 자유게시판 수정 */
-    update tb_tdwr_board_free
+    update tb_tdwr_board
     set title = ?
         ,cn = ?
         ,updt_user_id = ?
         ,updt_dttm = sysdate()
-    where free_id = ?
+    where board_id = ?
     and use_yn = 'Y'
     `;
     const result = await executeQuery('tdwr', query, params);
@@ -163,13 +164,13 @@ export const updateBoardFreeQuery = async (params:any[]) => {
 export const deleteBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
-     `
+    `
      /* board-free-deleteBoardFreeQuery 자유게시판 삭제 */
-    update tb_tdwr_board_free
+    update tb_tdwr_board
     set use_yn = 'N'
         ,updt_user_id = ?
         ,updt_dttm = sysdate()
-    where free_id = ?
+    where board_id = ?
     `;
     const result = await executeQuery('tdwr', query, params);
     
@@ -229,7 +230,13 @@ export const selectCommentQuery = async (params: any) => {
         and b.upper_comment_id is not null
         and b.board_id = ${params.board_id}
 
-    ) select * from cte
+    ) select cte.*
+    , count(rcd_good.recommand_id) as good_count
+    , count(rcd_bad.recommand_id) as bad_count
+    from cte
+    left join tb_tdwr_board_recommand rcd_good on cte.comment_id = rcd_good.mapng_key and rcd_good.se = '${params.se}' and rcd_good.type = 'good'
+    left join tb_tdwr_board_recommand rcd_bad on cte.comment_id = rcd_bad.mapng_key and rcd_bad.se = '${params.se}' and rcd_bad.type = 'bad'
+    group by cte.comment_id
     order by path_start, depth, comment_id
     `;
     const result = await executeQueryAll('tdwr', query);

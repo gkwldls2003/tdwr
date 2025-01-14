@@ -1,5 +1,5 @@
 export interface BoardFree {
-  free_id?: number;
+  board_id?: number;
   title?: string;
   cn?: any
   view?: number
@@ -11,6 +11,7 @@ export interface BoardFree {
 
 export interface BoardComment {
   comment_id?: number;
+  se: string;
   upper_comment_id?: number;
   board_id?: number;
   sttus?: string;
@@ -19,4 +20,7 @@ export interface BoardComment {
   crte_user_id?: number;
   nickname?: string;
   crte_dttm?: string;
+  good_count?: number;
+  bad_count?: number;
+  isLoading?: Boolean;
   }
