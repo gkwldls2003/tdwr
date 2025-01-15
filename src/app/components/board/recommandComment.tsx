@@ -18,7 +18,7 @@ export default function RecommandComment(
 ) {
 
   const dispatch = useAppDispatch();
-  const loading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectIsLoading);
   const { data: session } = useSession();
   const userInfo = session?.user.info;
 
@@ -42,7 +42,7 @@ export default function RecommandComment(
       const result = await insertBoardRecommandQuery([mapng_key, se, type, userInfo?.user_id]);
 
       if (result.rows > 0) {
-        dispatch(setLoading(!loading));
+        dispatch(setLoading(!isLoading));
       }
     }
 
