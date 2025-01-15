@@ -5,7 +5,7 @@ export const selectBoardFreeQuery = async (params: any) => {
   try {
     const query = 
     `
-    /* board-selectBoardFreeQuery 자유게시판 조회 */
+    /* board-selectBoardFreeQuery 게시판 조회 */
     select 
         board_id
         ,title
@@ -55,7 +55,7 @@ export const selectOneBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-selectOneBoardFreeQuery 자유게시판 상세 */
+     /* board-selectOneBoardFreeQuery 게시판 상세 */
     select 
         board_id
         ,title
@@ -87,7 +87,7 @@ export const insertBoardFreeViewQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-insertBoardFreeViewQuery 자유게시판 상세 조회수 증가 */
+     /* board-insertBoardFreeViewQuery 게시판 상세 조회수 증가 */
     update tb_tdwr_board
     set view = view + 1
     where board_id = ?
@@ -112,7 +112,7 @@ export const insertBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-insertBoardFreeQuery 자유게시판 작성 */
+     /* board-insertBoardFreeQuery 게시판 작성 */
     insert into tb_tdwr_board 
     ( se, title, cn, crte_user_id, crte_dttm)
     values 
@@ -137,7 +137,7 @@ export const updateBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-updateBoardFreeQuery 자유게시판 수정 */
+     /* board-updateBoardFreeQuery 게시판 수정 */
     update tb_tdwr_board
     set title = ?
         ,cn = ?
@@ -165,7 +165,7 @@ export const deleteBoardFreeQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-deleteBoardFreeQuery 자유게시판 삭제 */
+     /* board-deleteBoardFreeQuery 게시판 삭제 */
     update tb_tdwr_board
     set use_yn = 'N'
         ,updt_user_id = ?
@@ -191,7 +191,7 @@ export const selectCommentQuery = async (params: any) => {
   try {
     const query = 
     `
-    /* board-selectCommentQuery 자유게시판 댓글조회 */
+    /* board-selectCommentQuery 게시판 댓글조회 */
     with recursive cte as (
     /* Anchor */
         select 
@@ -258,7 +258,7 @@ export const insertBoardFreeCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-    /* board-insertBoardFreeCommentQuery 자유게시판 댓글 등록*/
+    /* board-insertBoardFreeCommentQuery 게시판 댓글 등록*/
     insert into tb_tdwr_board_comment 
     ( board_id, cn, crte_user_id, crte_dttm)
     values 
@@ -283,7 +283,7 @@ export const updateBoardFreeCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-updateBoardFreeCommentQuery 자유게시판 댓글 수정 */
+     /* board-updateBoardFreeCommentQuery 게시판 댓글 수정 */
     update tb_tdwr_board_comment
     set cn = ?
         ,updt_user_id = ?
@@ -309,7 +309,7 @@ export const insertBoardFreeReplyCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-insertBoardFreeReplyCommentQuery 자유게시판 답글 등록 */
+     /* board-insertBoardFreeReplyCommentQuery 게시판 답글 등록 */
     insert into tb_tdwr_board_comment 
     ( upper_comment_id, board_id, cn, crte_user_id, crte_dttm)
     values 
@@ -334,7 +334,7 @@ export const deleteBoardFreeCommentQuery = async (params:any[]) => {
   try {
     const query =
      `
-     /* board-deleteBoardFreeCommentQuery 자유게시판 댓글 삭제 */
+     /* board-deleteBoardFreeCommentQuery 게시판 댓글 삭제 */
     update tb_tdwr_board_comment
     set sttus = 'N'
         ,updt_user_id = ?
