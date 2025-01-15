@@ -56,9 +56,11 @@ export default function Header() {
         >
           로그인
       </Link>
-      <button className="px-3 py-1.5 text-sm border rounded-md bg-blue-500 text-white hover:bg-blue-600">
+      <Link href={`/join`}
+      className="px-3 py-1.5 text-sm border rounded-md bg-blue-500 text-white hover:bg-blue-600"
+      >
         회원가입
-      </button>
+      </Link>
     </>
   }
 
