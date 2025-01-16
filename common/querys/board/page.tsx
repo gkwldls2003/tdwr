@@ -7,21 +7,23 @@ export const selectBoardFreeQuery = async (params: any) => {
     `
     /* board-selectBoardFreeQuery 게시판 조회 */
     select 
-        board_id
-        ,title
-        ,cn
-        ,view
-        ,crte_user_id
-        ,f_cmm_user_nm(crte_user_id) as user_nm
-        ,date_format(crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
+        a.board_id
+        ,a.title
+        ,a.cn
+        ,a.view
+        ,a.crte_user_id
+        ,f_cmm_user_nm(a.crte_user_id) as user_nm
+        ,date_format(a.crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
+        ,(select count(*) from tb_tdwr_board_comment where board_id = a.board_id) as comment_cnt
+        ,(select count(*) from tb_tdwr_board_recommand  where mapng_key = a.board_id and se = 'free' and type = 'good') as rcd_good_cnt
         ,count(*) over() as tot
-    FROM tb_tdwr_board
-    where use_yn = 'Y'
-    and se = '${params.se}'
-    ${params.search_gb === 'all' ? `and (title like concat('%', '${params.search}', '%') or cn like concat('%', '${params.search}', '%'))` : ``}
-    ${params.search_gb === 'title' ? `and title like concat('%', '${params.search}', '%')` : ``}
-    ${params.search_gb === 'cn' ? `and cn like concat('%', '${params.search}', '%')` : ``}
-    order by board_id desc
+    from tb_tdwr_board a
+    where a.use_yn = 'Y'
+    and a.se = '${params.se}'
+    ${params.search_gb === 'all' ? `and (a.title like concat('%', '${params.search}', '%') or a.cn like concat('%', '${params.search}', '%'))` : ``}
+    ${params.search_gb === 'title' ? `and a.title like concat('%', '${params.search}', '%')` : ``}
+    ${params.search_gb === 'cn' ? `and a.cn like concat('%', '${params.search}', '%')` : ``}
+    order by a.board_id desc
     ${params.s && params.p? `limit ? offset ? ` : `limit 10 offset 0`}
     `;
 

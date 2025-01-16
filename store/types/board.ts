@@ -6,6 +6,8 @@ export interface BoardFree {
   user_nm?: string
   crte_user_id?: number
   crte_dttm?: string
+  comment_cnt?: number;
+  rcd_good_cnt?: number;
   tot?: number
   }
 
