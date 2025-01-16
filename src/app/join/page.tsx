@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 export default function JoinSelectPage() {
   const router = useRouter();
@@ -54,7 +53,7 @@ export default function JoinSelectPage() {
               <SinglePersonSVG />
             </div>
             <button
-              onClick={() => router.push('/join/individual')}
+              onClick={() => router.push('/join/member')}
               className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors"
             >
               통합 개인 회원가입
@@ -72,7 +71,7 @@ export default function JoinSelectPage() {
               <MultiplePeopleSVG />
             </div>
             <button
-              onClick={() => router.push('/join/business')}
+              onClick={() => router.push('/join/corp')}
               className="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-colors"
             >
               통합 기업 회원가입
