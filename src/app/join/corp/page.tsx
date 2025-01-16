@@ -180,7 +180,7 @@ export default function BusinessJoinPage() {
               <input type="text" className="flex-1 border rounded-lg p-2" placeholder="-없이 숫자만" />
               <button className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">확인</button>
             </div>
-            <ul className="text-sm text-gray-500 mt-2 space-y-1">
+            <ul className="text-sm text-left text-gray-500 mt-2 space-y-1">
               <li>• 사업자등록번호로 도용 방지를 위해 가입인증을 시행하고 있습니다.</li>
               <li>• 인증이 되지 않을 경우 고객센터(1588-9351)로 문의해 주세요.</li>
               <li>• 개인 및 사업자등록번호/법사무소 면접확인번호 고객센터로 사업자등 록증을 보내주시야 합니다.</li>
