@@ -29,7 +29,7 @@ export default async function Free( { searchParams } :
   //게시판 구분
   searchParams.se = 'free';
     
-  const list = await selectBoardFreeQuery(await searchParams);
+  const list = await selectBoardFreeQuery(searchParams);
 
   return (
     <>
