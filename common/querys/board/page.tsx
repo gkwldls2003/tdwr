@@ -15,7 +15,7 @@ export const selectBoardFreeQuery = async (params: any) => {
         ,f_cmm_user_nm(a.crte_user_id) as user_nm
         ,date_format(a.crte_dttm, '%Y-%m-%d %H:%i:%s') as crte_dttm
         ,(select count(*) from tb_tdwr_board_comment where board_id = a.board_id) as comment_cnt
-        ,(select count(*) from tb_tdwr_board_recommand  where mapng_key = a.board_id and se = 'free' and type = 'good') as rcd_good_cnt
+        ,(select count(*) from tb_tdwr_board_recommand  where mapng_key = a.board_id and se = '${params.se}' and type = 'good') as rcd_good_cnt
         ,count(*) over() as tot
     from tb_tdwr_board a
     where a.use_yn = 'Y'
