@@ -1,7 +1,6 @@
 import Colgroup from "@/app/components/board/colgroup"
 import Table from "@/app/components/board/table"
 import Th from "@/app/components/board/th"
-import Header from "@/layout/header/page"
 import { selectBoardFreeQuery } from "../../../../common/querys/board/page"
 import FreeListButton from './freeListButton';
 import Paging from "@/app/components/pagination/paging"
@@ -33,7 +32,6 @@ export default async function Free( { searchParams } :
 
   return (
     <>
-      <Header/>
       <div className="w-full min-w-[800px] max-w-[1200px] my-0 mx-auto">
         <h2 className="text-3xl font-bold text-center my-4">자유게시판</h2>
         <FreeListButton/>
