@@ -9,7 +9,7 @@ export default function LeftSider() {
   return (
     <>
         {/* 왼쪽 사이드바 */}
-        <div className="w-[400px] flex flex-col border-r">
+        <div className="flex flex-col border-r">
           {/* 상단 필터 영역 */}
           <div className="p-4 border-b bg-white">
             <div className="flex space-x-2 mb-4">

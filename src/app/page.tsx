@@ -1,10 +1,15 @@
-import Layout from "./map/layout";
+'use client'
+
+import { Provider } from "react-redux";
 import Map from "./map/page";
+import { store } from "../../store/store";
 
 export default function Home() {
   return (
-      <Layout>
+    <>
+      <Provider store={store}>
         <Map />
-      </Layout>
+      </Provider>
+    </>
   );
 }

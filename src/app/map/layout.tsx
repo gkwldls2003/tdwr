@@ -8,7 +8,7 @@ import LayoutContent from '../layoutContent';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
-      <LayoutContent>{children}</LayoutContent>
+      {children}
     </Provider>
   );
 }
