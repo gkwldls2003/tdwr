@@ -21,7 +21,6 @@ export default async function Detail({ params } : { params: {id: number} }) {
 
   return (
     <>
-      <Header />
       <div className="w-full min-w-[800px] max-w-[1200px] my-0 mx-auto">
         <h2 className="text-3xl font-bold text-center my-4">자유게시판</h2>
         <div className="flex justify-end mt-4">
