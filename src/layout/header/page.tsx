@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { insertLogoutHistQuery } from '../../../common/querys/auth/page';
 import Stack from '@mui/material/Stack';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 
 export default function Header() {
 
@@ -58,33 +58,37 @@ export default function Header() {
     );
   } else {
     user = (
-      <Stack direction="row" spacing={0} alignItems="center">
+      <Box 
+        fontSize={'small'}
+        padding={'2px 5px 2px 5px'}
+        borderColor={'currentcolor'}
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 1,
+          bgcolor: 'white',
+          color: '#1976d2'
+        }}
+      >
         <Link href="/login" passHref>
-          <Button
-            variant="outlined"
-            size="small"
-            sx={{
-              borderRadius: 1,
-              '&:hover': { backgroundColor: '#f1f1f1' },
-            }}
-          >
             로그인
-          </Button>
         </Link>
+        <Divider 
+          orientation="vertical"
+          variant="middle"
+          flexItem
+          sx={{
+            marginLeft: 1,
+            marginRight: 1,
+            height: '10px'
+          }}
+          />
         <Link href="/join" passHref>
-          <Button
-            variant="outlined"
-            size="small"
-            sx={{
-              borderRadius: 1,
-              color: '#1976d2',
-              '&:hover': { backgroundColor: '#f1f1f1' },
-            }}
-          >
             회원가입
-          </Button>
         </Link>
-      </Stack>
+      </Box>
     );
   }
 
