@@ -27,7 +27,7 @@ export default function Header() {
   
         await insertLogoutHistQuery(params);
       }
-     
+    
       router.push('/')
       router.refresh()
     } catch (error) {
@@ -35,7 +35,7 @@ export default function Header() {
     }
   }
 
- 
+
   if (status === 'loading') {
     user = '로딩 중입니다...';
   } else if (session) {
