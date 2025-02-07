@@ -60,6 +60,7 @@ export default function Recommand(
     getGoodList();
     getBadList();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading])
 
 

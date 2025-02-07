@@ -29,11 +29,12 @@ export default function Detail({ params }: { params: { id: number } }) {
   let render;
 
   useEffect(() => {
-    getFreeBoard();
+    fetchBoard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
 
-  async function getFreeBoard() {
+  async function fetchBoard() {
     const data = await selectOneBoardQuery([params.id]);
     setIsLoading(false);
     if (status === "loading") {

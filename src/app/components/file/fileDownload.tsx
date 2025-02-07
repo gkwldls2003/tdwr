@@ -55,11 +55,12 @@ export default function FileDownLoad( props : Props) {
   const parmas = [props.id, props.table, props.colunm_nm, sn]
   const [ result, setResult ] = useState<FileMapng>();
 
-  const getFileData = async () => {
+  const fetchFileData = async () => {
     setResult(await selectOneFileMapngDataQuery(parmas));
   }
   useEffect(() => {
-    getFileData();
+    fetchFileData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const downLoadButton = () => {

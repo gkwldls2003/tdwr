@@ -42,6 +42,7 @@ export default function DetailPage({ params }: Props) {
 
   useEffect(() => {
     fetchMarker();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

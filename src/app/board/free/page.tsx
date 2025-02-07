@@ -72,6 +72,7 @@ export default function Free({ searchParams }:
 
   useEffect(() => {
     fetchBoards();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   return (

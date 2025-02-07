@@ -77,6 +77,7 @@ export default function Detail({ params } : { params: {id: number} }) {
   
   useEffect(()=> {
     fetchBoard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

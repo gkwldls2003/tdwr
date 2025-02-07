@@ -66,6 +66,7 @@ export default function App({ data, setData, se }) {
             setIsLayoutReady(true);
             return () => setIsLayoutReady(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     //이미지 업로드

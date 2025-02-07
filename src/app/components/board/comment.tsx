@@ -30,6 +30,7 @@ export default function Comment({ board_id, se }: BoardComment) {
 
   useEffect(() => {
     getCommentList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isloading])
 
   async function handleCreateComment() {

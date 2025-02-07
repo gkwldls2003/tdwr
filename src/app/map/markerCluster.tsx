@@ -35,6 +35,7 @@ export default function MarkerCluster(): any {
 
   useEffect(() => {
     fetchMarkers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //줌 인 아웃 시 zoomLvl 가져옴
@@ -71,6 +72,7 @@ export default function MarkerCluster(): any {
         naver.maps.Event.removeListener(zoomChangedListener);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, markers, map]);
 
   const htmlMarkers = [
