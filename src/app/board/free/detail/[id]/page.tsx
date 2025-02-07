@@ -10,6 +10,7 @@ import Recommand from "@/app/components/board/recommand";
 import CommentWrapper from "@/app/components/board/CommentWrapper";
 import { useEffect, useState } from "react";
 import { Board } from "@/store/types/board";
+import PulseLoaderSpinner from "@/app/components/spinner/PulseLoader";
 
 export default function Detail({ params } : { params: {id: number} }) {
 
@@ -71,7 +72,7 @@ export default function Detail({ params } : { params: {id: number} }) {
       </div>
     )
   } else if(isLoading) {
-    render = '로딩중';
+    render = <PulseLoaderSpinner />;
   } 
   
   useEffect(()=> {

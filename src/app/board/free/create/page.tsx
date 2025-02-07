@@ -1,6 +1,5 @@
 'use client'
 
-import Header from "@/layout/header/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import Link from "next/link";
@@ -9,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { insertBoardFreeQuery } from "../../../../common/querys/board/page";
+import PulseLoaderSpinner from "@/app/components/spinner/PulseLoader";
 
 const CkEditor = dynamic(() => import('@/app/components/editor/ckeditor.jsx'), {
   ssr: false,
@@ -17,8 +17,9 @@ const CkEditor = dynamic(() => import('@/app/components/editor/ckeditor.jsx'), {
 export default function Create() {
 
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const userInfo = session?.user.info;
+  let render;
 
   const [title, setTitle] = useState('');
   const [cn, setCn] = useState('');
@@ -36,9 +37,10 @@ export default function Create() {
     }
   };
 
-  return (
-    <>
-      <Header />
+  if (status === 'loading') {
+    render = <PulseLoaderSpinner/>
+  } else if (session) {
+    render = (
       <div className="container mx-auto px-4 py-8">
         <h2 className="text-3xl font-semibold text-center mb-6">자유게시판</h2>
         <Table>
@@ -81,6 +83,12 @@ export default function Create() {
           </a>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <>
+      {render}
     </>
   );
 }

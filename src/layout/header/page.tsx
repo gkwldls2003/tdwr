@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { insertLogoutHistQuery } from '../../common/querys/auth/page';
 import Stack from '@mui/material/Stack';
 import { Box, Button, Divider, Typography } from '@mui/material';
+import PulseLoaderSpinner from '@/app/components/spinner/PulseLoader';
 
 export default function Header() {
 
@@ -38,7 +39,7 @@ export default function Header() {
   };
 
   if (status === 'loading') {
-    user = '로딩 중입니다...';
+    user = <PulseLoaderSpinner size={10}/>
   } else if (session) {
     user = (
       <>
