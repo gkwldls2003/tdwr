@@ -1,10 +1,10 @@
 'use client'
 
 import Link from "next/link"
-import { deleteBoardFreeQuery } from "../../../../common/querys/board/page"
+import { deleteBoardFreeQuery } from "../../../common/querys/board/page"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-import { BoardFree } from "../../../../store/types/board"
+import { BoardFree } from "../../../store/types/board"
 import { useState } from 'react'
 import ConfirmationModal from "../../components/modal/ConfirmationModal"
 

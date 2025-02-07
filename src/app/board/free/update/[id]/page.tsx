@@ -3,11 +3,11 @@
 import {
   selectOneBoardFreeQuery,
   updateBoardFreeQuery,
-} from "../../../../../../common/querys/board/page";
+} from "../../../../../common/querys/board/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import { useState, useEffect } from "react";
-import { BoardFree } from "../../../../../../store/types/board";
+import { BoardFree } from "../../../../../store/types/board";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

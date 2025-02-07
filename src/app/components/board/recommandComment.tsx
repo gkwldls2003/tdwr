@@ -1,10 +1,10 @@
 
 import { useSession } from 'next-auth/react';
-import { insertBoardRecommandQuery, selectBoardRecommandCountUserQuery } from '../../../../common/querys/board/page';
+import { insertBoardRecommandQuery, selectBoardRecommandCountUserQuery } from '../../../common/querys/board/page';
 import { ThumbsUp, ThumbsDown } from 'lucide-react'
-import { useAppDispatch } from '../../../../store/hooks';
+import { useAppDispatch } from '../../../store/hooks';
 import { useSelector } from 'react-redux';
-import { selectIsLoading, setLoading } from '../../../../store/boardSlice';
+import { selectIsLoading, setLoading } from '../../../store/boardSlice';
 
 interface RecommandComment {
   mapng_key: number; //게시판 or 댓글 번호

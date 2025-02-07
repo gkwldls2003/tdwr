@@ -1,7 +1,7 @@
 import Colgroup from "@/app/components/board/colgroup"
 import Table from "@/app/components/board/table"
 import Th from "@/app/components/board/th"
-import { selectBoardFreeQuery } from "../../../../common/querys/board/page"
+import { selectBoardFreeQuery } from "../../../common/querys/board/page"
 import FreeListButton from './freeListButton';
 import Paging from "@/app/components/pagination/paging"
 import FreeSearch from "./freeSearch"

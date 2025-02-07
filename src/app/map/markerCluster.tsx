@@ -1,10 +1,10 @@
 import { useNavermaps, useMap } from 'react-naver-maps'
 import { useState, useEffect } from 'react';
-import { makeMarkerClustering } from '../../../common/utils/navermap/marker-cluster'
-import { selectMapInfoQuery } from '../../../common/querys/map/page';
-import { useAppDispatch } from '../../../store/hooks';
-import { setAllMarkers, setError, setLoading, setVisibleMarkers } from '../../../store/markerSlice';
-import { Markers } from '../../../store/types/marker';
+import { makeMarkerClustering } from '../../common/utils/navermap/marker-cluster'
+import { selectMapInfoQuery } from '../../common/querys/map/page';
+import { useAppDispatch } from '../../store/hooks';
+import { setAllMarkers, setError, setLoading, setVisibleMarkers } from '../../store/markerSlice';
+import { Markers } from '../../store/types/marker';
 
 
 export default function MarkerCluster(): any {

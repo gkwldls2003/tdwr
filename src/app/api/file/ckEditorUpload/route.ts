@@ -2,7 +2,7 @@ import { writeFile, mkdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import crypto from 'crypto';
-import { insertCkEditorFileDataQuery } from '../../../../../common/querys/cmm/page';
+import { insertCkEditorFileDataQuery } from '../../../../common/querys/cmm/page';
 import { getToken } from 'next-auth/jwt';
 
 // 설정

@@ -2,19 +2,19 @@
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react'
-import { BoardComment } from '../../../../store/types/board';
+import { BoardComment } from '../../../store/types/board';
 import {
   insertBoardFreeCommentQuery
   , insertBoardFreeReplyCommentQuery
   , selectCommentQuery
   , updateBoardFreeCommentQuery
   , deleteBoardFreeCommentQuery
-} from '../../../../common/querys/board/page';
+} from '../../../common/querys/board/page';
 import Image from 'next/image';
 import arrow_reply from '../../../../public/images/arrow_reply.png';
 import RecommandComment from './recommandComment';
-import { selectIsLoading, setLoading } from '../../../../store/boardSlice';
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { selectIsLoading, setLoading } from '../../../store/boardSlice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
 export default function Comment({ board_id, se }: BoardComment) {
   const isloading = useAppSelector(selectIsLoading);

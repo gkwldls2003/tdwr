@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFile, stat } from 'fs/promises';
 import path from 'path';
-import { selectOneCkEditorDataQuery } from '../../../../../../common/querys/cmm/page';
+import { selectOneCkEditorDataQuery } from '../../../../../common/querys/cmm/page';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {

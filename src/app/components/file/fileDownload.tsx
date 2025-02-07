@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { selectOneFileMapngDataQuery } from "../../../../common/querys/cmm/page";
+import { selectOneFileMapngDataQuery } from "../../../common/querys/cmm/page";
 
 interface Props {
   id: number | string;

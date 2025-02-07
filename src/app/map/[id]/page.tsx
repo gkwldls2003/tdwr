@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { Markers } from "../../../../store/types/marker";
-import { selectMarkerInfoQuery } from "../../../../common/querys/map/page";
+import { Markers } from "../../../store/types/marker";
+import { selectMarkerInfoQuery } from "../../../common/querys/map/page";
 import { NavermapsProvider } from "react-naver-maps";
 import DetailMap from "./detailMap";
 import { useDispatch } from "react-redux";
-import { setShowLeftSider } from "../../../../store/layoutSlice";
+import { setShowLeftSider } from "../../../store/layoutSlice";
 
 type Props = {
   params: {

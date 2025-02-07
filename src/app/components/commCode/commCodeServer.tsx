@@ -1,4 +1,4 @@
-import { selectCommCodeQuery } from '../../../../common/querys/auth/page';
+import { selectCommCodeQuery } from '../../../common/querys/auth/page';
 import { Fragment } from 'react';
 import { cache } from 'react'
 

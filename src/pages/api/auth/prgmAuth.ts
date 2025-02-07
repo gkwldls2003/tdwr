@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { selectUserAuthPrgmQuery } from '../../../../common/querys/auth/page';
+import { selectUserAuthPrgmQuery } from '../../../common/querys/auth/page';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {

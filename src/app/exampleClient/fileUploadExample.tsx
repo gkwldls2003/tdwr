@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react";
-import { fileUpload, isFileValidate } from "../../../common/utils/cmm/cmm";
+import { fileUpload, isFileValidate } from "../../common/utils/cmm/cmm";
 import FileUpload from './../components/file/fileUpload';
 
 export default function FileUploadExample() {

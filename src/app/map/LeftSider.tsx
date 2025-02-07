@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAppSelector } from '../../../store/hooks';
-import { selectVisibleMarkers } from '../../../store/markerSlice';
+import { useAppSelector } from '../../store/hooks';
+import { selectVisibleMarkers } from '../../store/markerSlice';
 import Link from 'next/link';
 
 export default function LeftSider() {

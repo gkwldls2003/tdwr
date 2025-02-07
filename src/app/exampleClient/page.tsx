@@ -1,4 +1,4 @@
-import { selectAllData, selectOneData, insertData, multiInsertData } from "../../../common/querys/exampleQuery/page"
+import { selectAllData, selectOneData, insertData, multiInsertData } from "../../common/querys/exampleQuery/page"
 import CommCodeServer from "../components/commCode/commCodeServer";
 import FileDownLoad from "../components/file/fileDownload";
 import FileUploadExample from "./fileUploadExample";

@@ -4,7 +4,7 @@ import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { insertLogoutHistQuery } from '../../../common/querys/auth/page';
+import { insertLogoutHistQuery } from '../../common/querys/auth/page';
 import Stack from '@mui/material/Stack';
 import { Box, Button, Divider, Typography } from '@mui/material';
 

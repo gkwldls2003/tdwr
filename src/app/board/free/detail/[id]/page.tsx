@@ -1,4 +1,4 @@
-import { insertBoardFreeViewQuery, selectOneBoardFreeQuery } from "../../../../../../common/querys/board/page";
+import { insertBoardFreeViewQuery, selectOneBoardFreeQuery } from "../../../../../common/querys/board/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import FreeDetailButton from "../../freeDetailButton";
