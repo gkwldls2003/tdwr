@@ -39,7 +39,7 @@ export default function Detail({ params }: { params: { id: number } }) {
     if (status === "loading") {
       return null;
     } else if (
-      data.crte_user_id === userInfo?.user_id ||
+      data?.crte_user_id === userInfo?.user_id ||
       userInfo?.author_id === "ROLE_ADMIN"
     ) {
       setData(data);
