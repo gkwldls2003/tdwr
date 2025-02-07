@@ -1,6 +1,6 @@
 'use client'
 
-import { insertBoardFreeViewQuery, selectOneBoardFreeQuery } from "../../../../../common/querys/board/page";
+import { insertBoardViewQuery, selectOneBoardQuery } from "../../../../../common/querys/board/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import FreeDetailButton from "../../freeDetailButton";
@@ -9,16 +9,16 @@ import { useRouter } from 'next/navigation'
 import Recommand from "@/app/components/board/recommand";
 import CommentWrapper from "@/app/components/board/CommentWrapper";
 import { useEffect, useState } from "react";
-import { BoardFree } from "@/store/types/board";
+import { Board } from "@/store/types/board";
 
 export default function Detail({ params } : { params: {id: number} }) {
 
-  const [board, setBoard] = useState<BoardFree | undefined>();
+  const [board, setBoard] = useState<Board | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   let render;
   const fetchBoard = async () => {
-    const vo = await selectOneBoardFreeQuery([params.id]);
+    const vo = await selectOneBoardQuery([params.id]);
 
     if(vo.length === 0) {
       //게시판 내용이 없으면
@@ -27,7 +27,7 @@ export default function Detail({ params } : { params: {id: number} }) {
     }
     
     //조회수 증가
-    await insertBoardFreeViewQuery([params.id]);
+    await insertBoardViewQuery([params.id]);
 
     setBoard(vo);
     setIsLoading(false);

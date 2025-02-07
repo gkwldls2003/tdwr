@@ -4,11 +4,11 @@ import Link from "next/link"
 import { deleteBoardFreeQuery } from "../../../common/querys/board/page"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-import { BoardFree } from "../../../store/types/board"
+import { Board } from "../../../store/types/board"
 import { useState } from 'react'
 import ConfirmationModal from "../../components/modal/ConfirmationModal"
 
-export default function FreeDetailButton({ board_id, crte_user_id }: BoardFree) {
+export default function FreeDetailButton({ board_id, crte_user_id }: Board) {
   const router = useRouter()
   const { data: session, status } = useSession()
   const userInfo = session?.user.info

@@ -1,11 +1,11 @@
 'use server'
 import { executeQuery, executeQueryAll } from "../../utils/databases/mariadb";
 
-export const selectBoardFreeQuery = async (params: any) => {
+export const selectBoardQuery = async (params: any) => {
   try {
     const query = 
     `
-    /* board-selectBoardFreeQuery 게시판 조회 */
+    /* board-selectBoardQuery 게시판 조회 */
     select 
         a.board_id
         ,a.title
@@ -53,11 +53,11 @@ export const selectBoardFreeQuery = async (params: any) => {
   }
 }
 
-export const selectOneBoardFreeQuery = async (params:any[]) => {
+export const selectOneBoardQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-selectOneBoardFreeQuery 게시판 상세 */
+     /* board-selectOneBoardQuery 게시판 상세 */
     select 
         board_id
         ,title
@@ -85,11 +85,11 @@ export const selectOneBoardFreeQuery = async (params:any[]) => {
   }
 }
 
-export const insertBoardFreeViewQuery = async (params:any[]) => {
+export const insertBoardViewQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-insertBoardFreeViewQuery 게시판 상세 조회수 증가 */
+     /* board-insertBoardViewQuery 게시판 상세 조회수 증가 */
     update tb_tdwr_board
     set view = view + 1
     where board_id = ?

@@ -3,13 +3,13 @@
 import Colgroup from "@/app/components/board/colgroup"
 import Table from "@/app/components/board/table"
 import Th from "@/app/components/board/th"
-import { selectBoardFreeQuery } from "../../../common/querys/board/page"
+import { selectBoardQuery } from "../../../common/querys/board/page"
 import FreeListButton from './freeListButton';
 import Paging from "@/app/components/pagination/paging"
 import FreeSearch from "./freeSearch"
 import FreeBoardTr from "./freeTr"
 import { useEffect, useState } from "react"
-import { BoardFree } from "@/store/types/board"
+import { Board } from "@/store/types/board"
 
 export default function Free( { searchParams } :
   {
@@ -23,7 +23,7 @@ export default function Free( { searchParams } :
   }
 ) {
 
-  const [ list, setList ] = useState<BoardFree[]>([]);
+  const [ list, setList ] = useState<Board[]>([]);
 
   //검색
   let search = '';
@@ -35,7 +35,7 @@ export default function Free( { searchParams } :
   searchParams.se = 'free';
 
   const fetchBoards = async () => {
-    const result = await selectBoardFreeQuery(searchParams);
+    const result = await selectBoardQuery(searchParams);
     setList(result.data);
   }
 

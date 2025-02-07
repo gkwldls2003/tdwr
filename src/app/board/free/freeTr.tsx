@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { BoardFree } from "../../../store/types/board";
+import { Board } from "../../../store/types/board";
 import { useRouter } from "next/navigation";
 
-export default function FreeBoardTr({ list }: { list: BoardFree[] }) {
+export default function FreeBoardTr({ list }: { list: Board[] }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);  // 처음에 로딩 상태를 true로 설정
 

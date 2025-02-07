@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  selectOneBoardFreeQuery,
+  selectOneBoardQuery,
   updateBoardFreeQuery,
 } from "../../../../../common/querys/board/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
 import { useState, useEffect } from "react";
-import { BoardFree } from "../../../../../store/types/board";
+import { Board } from "../../../../../store/types/board";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export default function Detail({ params }: { params: { id: number } }) {
   const { data: session, status } = useSession();
   const userInfo = session?.user.info;
 
-  const [data, setData] = useState<BoardFree>();
+  const [data, setData] = useState<Board>();
   const [cn, setCn] = useState<string>('');
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Detail({ params }: { params: { id: number } }) {
 
 
   async function getFreeBoard() {
-    const data = await selectOneBoardFreeQuery([params.id]);
+    const data = await selectOneBoardQuery([params.id]);
     if (status === "loading") {
       return null;
     } else if (

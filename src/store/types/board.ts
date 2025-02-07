@@ -1,4 +1,4 @@
-export interface BoardFree {
+export interface Board {
   board_id?: number;
   title?: string;
   cn?: any
