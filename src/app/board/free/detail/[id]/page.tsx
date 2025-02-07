@@ -1,4 +1,3 @@
-import Header from "@/layout/header/page";
 import { insertBoardFreeViewQuery, selectOneBoardFreeQuery } from "../../../../../../common/querys/board/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";

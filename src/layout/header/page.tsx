@@ -93,30 +93,44 @@ export default function Header() {
   }
 
   return (
-    <div className='bg-white'>
-      {/* 헤더 */}
-      <header className="h-14 border-b flex items-center justify-between px-4 shrink-0">
-        {/* 왼쪽: 로고 및 메뉴 */}
-        <div className="flex items-center space-x-6">
-          {/* 로고 */}
-          <div className="font-bold text-blue-500 text-xl">
-            <Link href={`/`}>오늘의 일</Link>
-          </div>
-          {/* 메인 네비게이션 */}
-          <nav className="flex items-center space-x-6">
-            <a href={`/`} className="text-gray-700 hover:text-gray-900">지도</a>
-          </nav>
-        </div>
+    <>
+      <Box sx={{ backgroundColor: 'white' }}>
+        {/* 헤더 */}
+        <Box sx={{
+          height: '56px',
+          borderBottom: '1px solid #e0e0e0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 16px',
+        }}>
+          {/* 왼쪽: 로고 및 메뉴 */}
+          <Stack direction="row" spacing={3} alignItems="center">
+            {/* 로고 */}
+            <Box sx={{ color: 'rgb(59 130 246)', fontWeight: 'bold', fontSize: '1.25rem' }}>
+              <Link href={`/`} style={{ textDecoration: 'none', color: 'inherit' }}>오늘의 일</Link>
+            </Box>
+          </Stack>
 
-        {/* 오른쪽: 사용자 메뉴 */}
-        <div className="flex items-center space-x-4">
-          <Link href={`/board/free`}>자유게시판</Link>
-          <div>{user}</div>
-          <button className="px-3 py-1.5 text-sm border rounded-md text-blue-500 hover:bg-blue-50">
-            노무사무실 가입/광고문의
-          </button>
-        </div>
-      </header>
-    </div>
+          {/* 오른쪽: 사용자 메뉴 */}
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Link href={`/board/free`} style={{ textDecoration: 'none' }}>
+              <Typography variant="body2" sx={{ '&:hover': { color: '#1f2937' } }}>
+                자유게시판
+              </Typography>
+            </Link>
+
+            {/* 사용자 상태 */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              {user}
+            </Box>
+
+            <Button variant="outlined" size="small" sx={{ color: 'rgb(59 130 246)', '&:hover': { backgroundColor: '#f1f1f1' } }}>
+              노무사무실 가입/광고문의
+            </Button>
+          </Stack>
+        </Box>
+      </Box>
+    </>
   );
 }

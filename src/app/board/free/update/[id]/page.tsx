@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/layout/header/page";
 import {
   selectOneBoardFreeQuery,
   updateBoardFreeQuery,
