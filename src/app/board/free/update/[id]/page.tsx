@@ -2,7 +2,7 @@
 
 import {
   selectOneBoardQuery,
-  updateBoardFreeQuery,
+  updateBoardQuery,
 } from "../../../../../common/querys/board/page";
 import Colgroup from "@/app/components/board/colgroup";
 import Table from "@/app/components/board/table";
@@ -57,7 +57,7 @@ export default function Detail({ params }: { params: { id: number } }) {
     e.preventDefault();
     if (confirm("수정 하시겠습니까?")) {
       const paramArr = [data?.title, cn, userInfo?.user_id, params.id];
-      const result = await updateBoardFreeQuery(paramArr);
+      const result = await updateBoardQuery(paramArr);
 
       if (result.rows > 0) {
         alert("수정 되었습니다.");

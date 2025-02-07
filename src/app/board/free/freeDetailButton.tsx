@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { deleteBoardFreeQuery } from "../../../common/querys/board/page"
+import { deleteBoardQuery } from "../../../common/querys/board/page"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { Board } from "../../../store/types/board"
@@ -39,7 +39,7 @@ export default function FreeDetailButton({ board_id, crte_user_id }: Board) {
   }
 
   const handleDelete = async () => {
-    const result = await deleteBoardFreeQuery([userInfo?.user_id, board_id])
+    const result = await deleteBoardQuery([userInfo?.user_id, board_id])
 
     if (result.rows > 0) {
       setIsDeleteModalOpen(false)

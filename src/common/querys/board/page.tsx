@@ -110,11 +110,11 @@ export const insertBoardViewQuery = async (params:any[]) => {
   }
 }
 
-export const insertBoardFreeQuery = async (params:any[]) => {
+export const insertBoardQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-insertBoardFreeQuery 게시판 작성 */
+     /* board-insertBoardQuery 게시판 작성 */
     insert into tb_tdwr_board 
     ( se, title, cn, crte_user_id, crte_dttm)
     values 
@@ -135,11 +135,11 @@ export const insertBoardFreeQuery = async (params:any[]) => {
   }
 }
 
-export const updateBoardFreeQuery = async (params:any[]) => {
+export const updateBoardQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-updateBoardFreeQuery 게시판 수정 */
+     /* board-updateBoardQuery 게시판 수정 */
     update tb_tdwr_board
     set title = ?
         ,cn = ?
@@ -163,11 +163,11 @@ export const updateBoardFreeQuery = async (params:any[]) => {
   }
 }
 
-export const deleteBoardFreeQuery = async (params:any[]) => {
+export const deleteBoardQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-deleteBoardFreeQuery 게시판 삭제 */
+     /* board-deleteBoardQuery 게시판 삭제 */
     update tb_tdwr_board
     set use_yn = 'N'
         ,updt_user_id = ?
@@ -256,11 +256,11 @@ export const selectCommentQuery = async (params: any) => {
   }
 }
 
-export const insertBoardFreeCommentQuery = async (params:any[]) => {
+export const insertBoardCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-    /* board-insertBoardFreeCommentQuery 게시판 댓글 등록*/
+    /* board-insertBoardCommentQuery 게시판 댓글 등록*/
     insert into tb_tdwr_board_comment 
     ( board_id, cn, crte_user_id, crte_dttm)
     values 
@@ -281,11 +281,11 @@ export const insertBoardFreeCommentQuery = async (params:any[]) => {
   }
 }
 
-export const updateBoardFreeCommentQuery = async (params:any[]) => {
+export const updateBoardCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-updateBoardFreeCommentQuery 게시판 댓글 수정 */
+     /* board-updateBoardCommentQuery 게시판 댓글 수정 */
     update tb_tdwr_board_comment
     set cn = ?
         ,updt_user_id = ?
@@ -307,11 +307,11 @@ export const updateBoardFreeCommentQuery = async (params:any[]) => {
   }
 }
 
-export const insertBoardFreeReplyCommentQuery = async (params:any[]) => {
+export const insertBoardReplyCommentQuery = async (params:any[]) => {
   try {
     const query =
     `
-     /* board-insertBoardFreeReplyCommentQuery 게시판 답글 등록 */
+     /* board-insertBoardReplyCommentQuery 게시판 답글 등록 */
     insert into tb_tdwr_board_comment 
     ( upper_comment_id, board_id, cn, crte_user_id, crte_dttm)
     values 
@@ -332,11 +332,11 @@ export const insertBoardFreeReplyCommentQuery = async (params:any[]) => {
   }
 }
 
-export const deleteBoardFreeCommentQuery = async (params:any[]) => {
+export const deleteBoardCommentQuery = async (params:any[]) => {
   try {
     const query =
      `
-     /* board-deleteBoardFreeCommentQuery 게시판 댓글 삭제 */
+     /* board-deleteBoardCommentQuery 게시판 댓글 삭제 */
     update tb_tdwr_board_comment
     set sttus = 'N'
         ,updt_user_id = ?

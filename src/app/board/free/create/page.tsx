@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { insertBoardFreeQuery } from "../../../../common/querys/board/page";
+import { insertBoardQuery } from "../../../../common/querys/board/page";
 import PulseLoaderSpinner from "@/app/components/spinner/PulseLoader";
 
 const CkEditor = dynamic(() => import('@/app/components/editor/ckeditor.jsx'), {
@@ -27,7 +27,7 @@ export default function Create() {
   const handleCreate = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (confirm("저장 하시겠습니까?")) {
       e.preventDefault();
-      const result = await insertBoardFreeQuery(['free', title, cn, userInfo?.user_id]);
+      const result = await insertBoardQuery(['free', title, cn, userInfo?.user_id]);
 
       if (result.rows > 0) {
         alert("저장 되었습니다.");

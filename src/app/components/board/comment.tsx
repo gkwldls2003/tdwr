@@ -4,11 +4,11 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react'
 import { BoardComment } from '../../../store/types/board';
 import {
-  insertBoardFreeCommentQuery
-  , insertBoardFreeReplyCommentQuery
+  insertBoardCommentQuery
+  , insertBoardReplyCommentQuery
   , selectCommentQuery
-  , updateBoardFreeCommentQuery
-  , deleteBoardFreeCommentQuery
+  , updateBoardCommentQuery
+  , deleteBoardCommentQuery
 } from '../../../common/querys/board/page';
 import Image from 'next/image';
 import arrow_reply from '../../../../public/images/arrow_reply.png';
@@ -43,7 +43,7 @@ export default function Comment({ board_id, se }: BoardComment) {
       alert('댓글을 입력해주세요.');
       return;
     }
-    const result = await insertBoardFreeCommentQuery([board_id, cn, userInfo?.user_id]);
+    const result = await insertBoardCommentQuery([board_id, cn, userInfo?.user_id]);
 
     if (result.rows > 0) {
       setCn('');
@@ -58,7 +58,7 @@ export default function Comment({ board_id, se }: BoardComment) {
 
   async function handleDeleteComment(comment_id: number) {
     if (confirm('해당 댓글을 삭제하시겠습니까?')) {
-      const result = await deleteBoardFreeCommentQuery([userInfo?.user_id, comment_id]);
+      const result = await deleteBoardCommentQuery([userInfo?.user_id, comment_id]);
 
       if (result.rows > 0) {
         setCn('');
@@ -69,7 +69,7 @@ export default function Comment({ board_id, se }: BoardComment) {
 
   async function handleUpdateComment(comment_id: number) {
     if (confirm('해당 댓글을 수정하시겠습니까?')) {
-      const result = await updateBoardFreeCommentQuery([editCn, userInfo?.user_id, comment_id]);
+      const result = await updateBoardCommentQuery([editCn, userInfo?.user_id, comment_id]);
 
       if (result.rows > 0) {
         setCn('');
@@ -91,7 +91,7 @@ export default function Comment({ board_id, se }: BoardComment) {
     }
 
     if (confirm('답글을 등록하시겠습니까??')) {
-      const result = await insertBoardFreeReplyCommentQuery([comment_id, board_id, replyCn, userInfo?.user_id]);
+      const result = await insertBoardReplyCommentQuery([comment_id, board_id, replyCn, userInfo?.user_id]);
 
       if (result.rows > 0) {
         setReplyCn('');
