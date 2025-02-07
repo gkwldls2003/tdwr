@@ -1,3 +1,5 @@
+'use client'
+
 import Colgroup from "@/app/components/board/colgroup"
 import Table from "@/app/components/board/table"
 import Th from "@/app/components/board/th"
@@ -6,8 +8,10 @@ import FreeListButton from './freeListButton';
 import Paging from "@/app/components/pagination/paging"
 import FreeSearch from "./freeSearch"
 import FreeBoardTr from "./freeTr"
+import { useEffect, useState } from "react"
+import { BoardFree } from "@/store/types/board"
 
-export default async function Free( { searchParams } :
+export default function Free( { searchParams } :
   {
     searchParams: {
       p?: number;
@@ -19,6 +23,8 @@ export default async function Free( { searchParams } :
   }
 ) {
 
+  const [ list, setList ] = useState<BoardFree[]>([]);
+
   //검색
   let search = '';
   if(searchParams.search_gb && searchParams.search) {
@@ -27,9 +33,16 @@ export default async function Free( { searchParams } :
 
   //게시판 구분
   searchParams.se = 'free';
-    
-  const list = await selectBoardFreeQuery(searchParams);
 
+  const fetchBoards = async () => {
+    const result = await selectBoardFreeQuery(searchParams);
+    setList(result.data);
+  }
+
+  useEffect(() => {
+    fetchBoards();
+  }, [searchParams])
+    
   return (
     <>
       <div className="w-full min-w-[800px] max-w-[1200px] my-0 mx-auto">
@@ -41,13 +54,13 @@ export default async function Free( { searchParams } :
             <Th th={['번호','제목','작성자','등록일','조회수','추천수']}/>
           </thead>
           <tbody>
-            <FreeBoardTr list={list.data}/>
+            <FreeBoardTr list={list}/>
           </tbody>
         </Table>
         <FreeSearch searchParams={searchParams}/>
         <Paging 
             router={`/board/free`} 
-            tot={Number(list.data.length > 0 ? list.data[0].tot : 0)}
+            tot={Number(list.length > 0 ? list[0].tot : 0)}
             pageNum={searchParams.p}
             search={search}
             />
