@@ -14,7 +14,7 @@ export default function Map() {
 
     return (
     <>
-      <Stack direction={'row'} height={'700px'}>
+      <Stack direction={'row'} height={'1000px'}>
         <Box
           sx={{
             width: '500px',

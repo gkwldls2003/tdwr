@@ -7,6 +7,7 @@ import { NavermapsProvider } from "react-naver-maps";
 import DetailMap from "./detailMap";
 import { useDispatch } from "react-redux";
 import { setShowLeftSider } from "../../../store/layoutSlice";
+import { Box, Container, Paper, Stack, styled, Typography } from "@mui/material";
 
 type Props = {
   params: {
@@ -45,41 +46,99 @@ export default function DetailPage({ params }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const ContentWrapper = styled(Box)(({ theme }) => ({
+    minHeight: `calc(100vh - ${theme.spacing(16)})`,
+  }));
+  
   return (
-    <div className="flex flex-col min-h-[calc(100vh-theme(space.16))]">
-      <div className="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-y-auto">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
-          <div className="w-full h-96 relative">
+    <ContentWrapper>
+      <Container
+        maxWidth="lg" 
+        sx={{ 
+          py: 8,
+          height: '100%',
+          overflowY: 'auto'
+        }}
+      >
+        <Paper 
+          elevation={3} 
+          sx={{ 
+            borderRadius: 1,
+            overflow: 'hidden',
+            mb: 8 
+          }}
+        >
+            <Box
+            sx={{
+              width: '100%',
+              height: '384px',
+              position: 'relative',
+            }}
+            >
             <NavermapsProvider ncpClientId={ncpClientId}>
               {marker && <DetailMap marker={marker} />}
             </NavermapsProvider>
-          </div>
+            </Box>
 
-          <div className="p-6 space-y-6">
-            <div className="border-b border-gray-200 pb-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <Stack spacing={6} sx={{ p: 6 }}>
+            <Box sx={{ 
+              borderBottom: 1, 
+              borderColor: 'grey.200',
+              pb: 6 
+            }}>
+              <Typography
+                variant="h3" 
+                component="h1" 
+                sx={{ 
+                  fontWeight: 'bold',
+                  color: 'text.primary',
+                  mb: 4 
+                }}
+              >
                 {marker?.name}
-              </h1>
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-semibold text-blue-600">
+              </Typography>
+              
+              <Box sx={{ 
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <Typography 
+                  variant="h4" 
+                  sx={{ 
+                    fontWeight: 600,
+                    color: 'primary.main'
+                  }}
+                >
                   {marker && `₩${marker.price.toLocaleString()}`}
-                </span>
-              </div>
-            </div>
+                </Typography>
+              </Box>
+            </Box>
 
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">설명</h2>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <p className="text-gray-700 leading-relaxed">
+            <Stack spacing={6}>
+              <Box>
+                <Paper 
+                  variant="outlined" 
+                  sx={{ 
+                    bgcolor: 'grey.50',
+                    p: 4 
+                  }}
+                >
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      color: 'text.secondary',
+                      lineHeight: 1.7 
+                    }}
+                  >
                     {marker?.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                  </Typography>
+                </Paper>
+              </Box>
+            </Stack>
+          </Stack>
+        </Paper>
+      </Container>
+    </ContentWrapper>
   );
 }

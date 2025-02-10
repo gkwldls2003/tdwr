@@ -5,6 +5,8 @@ import AuthSession from "./components/provider/authSession";
 import QueryProviders from "./components/provider/queryClientProvider";
 import Header from "@/layout/header/page";
 import Footer from "@/layout/footer/page";
+import { Box } from "lucide-react";
+import { Stack } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +26,21 @@ export default function RootLayout({
         <html lang="en">
           <body className={inter.className}>
             <Header />
+            <Stack
+            sx={{
+              width:'100%'
+            }}
+            >
+            <Stack
+            sx={{
+              width:'1200px',
+              margin:'0 auto'
+            }}
+            >
             {children}
-            <Footer/>
+            </Stack>
+            </Stack>
+            {/* <Footer/> */}
           </body>
         </html>
       </AuthSession>

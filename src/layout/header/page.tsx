@@ -70,7 +70,8 @@ export default function Header() {
           borderColor: 'divider',
           borderRadius: 1,
           bgcolor: 'white',
-          color: '#1976d2'
+          color: '#1976d2',
+          
         }}
       >
         <Link href="/login" passHref>
@@ -95,7 +96,7 @@ export default function Header() {
 
   return (
     <>
-      <Box sx={{ backgroundColor: 'white' }}>
+      <Box sx={{ backgroundColor: 'white' , width:'100%'}}>
         {/* 헤더 */}
         <Box sx={{
           height: '56px',
@@ -104,6 +105,8 @@ export default function Header() {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '0 16px',
+          width:'1200px',
+          margin:'0 auto'
         }}>
           {/* 왼쪽: 로고 및 메뉴 */}
           <Stack direction="row" spacing={3} alignItems="center">
